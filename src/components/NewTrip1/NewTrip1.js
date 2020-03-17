@@ -5,14 +5,44 @@ import { connect } from 'react-redux';
 class NewTrip1 extends Component {
 
     state = {
-        dates: {
-            start: '',
-            end: ''
+        startDate: '',
+        endDate: '',
+        difficulty: '',
+        area: '',
+        newMember:{
+            firstName: '',
+            lastName: '',
+            age: 0,
+            exercise: 0
         },
-        members: [],
+        members: []
 
     }
-   
+    //capture the changes made in the inputs
+    inputChange = (event, type) =>{
+        this.setState({
+            [type]: event.target.value
+        })        
+    }
+    //capture changes made in new member form
+    memberInputsChange = (event, type) =>{
+        this.setState({
+            newMember:{
+                ...this.state.newMember,
+                [type]: event.target.value
+            }
+        })    
+    }
+    //adds the new member to the area in the state
+    addMember = () =>{
+        this.setState({
+            members: [...this.state.members, this.state.newMember]
+        })
+    }
+    cancelNewTrip=()=>{
+        //go back to the home page
+        this.props.history.push('/home');
+    }
     nextPage=()=>{
         //go to the next page of the new trip form
         this.props.history.push('/newtrip2');
@@ -24,24 +54,24 @@ class NewTrip1 extends Component {
                 <p>step 1/2</p>
                 <form>
                     <label>trip start date:</label>
-                    <input type= 'date'/>
+                    <input onChange={(event)=>this.inputChange(event, 'startDate')} type= 'date'/>
                     <label>trip end date:</label>
-                    <input type = 'date'/>
+                    <input onChange={(event)=>this.inputChange(event, 'endDate')} type = 'date'/>
                     <label>Trip Difficulty Level:</label>
-                    <select>
+                    <select onChange={(event)=>this.inputChange(event, 'difficulty')}>
                         <option>Beginner</option>
                         <option>Intermediate</option>
                         <option>Advanced</option>
                     </select>
                     <label>Approximate Outdoor Experience:</label>
-                    <select>
+                    <select onChange={(event)=>this.inputChange(event, 'experience')}>
                         <option>Our group is not very experienced in the outdoors</option>
                         <option>Our group has some experience in the outdoors</option>
                         <option>Our group is very experienced in the outdoors</option>
                     </select>
                     <br/>
                     <label>Which side of the BWCA would you like to go to?</label>
-                    <select>
+                    <select onChange={(event)=>this.inputChange(event, 'area')}>
                         <option>East</option>
                         <option>West</option>
                     </select>
@@ -54,12 +84,13 @@ class NewTrip1 extends Component {
                         )
                     })}
                 </ul>
-                <input placeholder='first name'/>
-                <input placeholder='last name'/>
-                <input type='number' placeholder='age'/>
-                <input type='number' style={{width:'220px'}} placeholder='average hours of excersize per week'/>
-                <button>Add</button>
+                <input onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
+                <input onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
+                <input onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
+                <input onChange={(event)=>this.memberInputsChange(event, 'exercise')} type='number' style={{width:'220px'}} placeholder='average hours of exercise per week'/>
+                <button onClick={this.addMember}>Add</button>
                 <br/>
+                <button onClick={this.cancelNewTrip}>Cancel</button>
                 <button onClick={this.nextPage}>Next</button>
             </div>
         );
