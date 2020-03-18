@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import LoginPage from '../LoginPage/LoginPage';
 
 
 class NewTrip1 extends Component {
 
     state = {
+        title: '',
+        userId: this.props.reduxState.user.id,
         startDate: '',
         endDate: '',
-        difficulty: '',
-        area: '',
+        difficulty: 1,
+        experience: 1,
+        area: 'either',
         newMember:{
             firstName: '',
             lastName: '',
@@ -23,6 +27,8 @@ class NewTrip1 extends Component {
         this.setState({
             [type]: event.target.value
         })        
+        console.log(event.target.value);
+        
     }
     //capture changes made in new member form
     memberInputsChange = (event, type) =>{
@@ -44,6 +50,8 @@ class NewTrip1 extends Component {
         this.props.history.push('/home');
     }
     nextPage=()=>{
+        //send the state to redux so it can be posted to the db
+        this.props.dispatch({type:'PAGE_1_DATA', payload: this.state});
         //go to the next page of the new trip form
         this.props.history.push('/newtrip2');
     }
@@ -53,27 +61,31 @@ class NewTrip1 extends Component {
                 <h3>New Trip</h3>
                 <p>step 1/2</p>
                 <form>
+                    <label>Trip title:</label>
+                    <input onChange={(event)=>this.inputChange(event, 'title')} placeholder='title'/>
+                    <br/>
                     <label>trip start date:</label>
                     <input onChange={(event)=>this.inputChange(event, 'startDate')} type= 'date'/>
                     <label>trip end date:</label>
                     <input onChange={(event)=>this.inputChange(event, 'endDate')} type = 'date'/>
                     <label>Trip Difficulty Level:</label>
                     <select onChange={(event)=>this.inputChange(event, 'difficulty')}>
-                        <option>Beginner</option>
-                        <option>Intermediate</option>
-                        <option>Advanced</option>
+                        <option value={1}>Beginner</option>
+                        <option value={2}>Intermediate</option>
+                        <option value={3}>Advanced</option>
                     </select>
                     <label>Approximate Outdoor Experience:</label>
                     <select onChange={(event)=>this.inputChange(event, 'experience')}>
-                        <option>Our group is not very experienced in the outdoors</option>
-                        <option>Our group has some experience in the outdoors</option>
-                        <option>Our group is very experienced in the outdoors</option>
+                        <option value={1}>Our group is not very experienced in the outdoors</option>
+                        <option value={2}>Our group has some experience in the outdoors</option>
+                        <option value={3}>Our group is very experienced in the outdoors</option>
                     </select>
                     <br/>
                     <label>Which side of the BWCA would you like to go to?</label>
                     <select onChange={(event)=>this.inputChange(event, 'area')}>
-                        <option>East</option>
-                        <option>West</option>
+                        <option value='either'>Either</option>
+                        <option value='east'>East</option>
+                        <option value='west'>West</option>
                     </select>
                 </form>
                 <h3>Members</h3>
@@ -98,7 +110,7 @@ class NewTrip1 extends Component {
 }
 
 const mapReduxStateToProps = (reduxState) => ({
-    reduxState
+    reduxState,
 });
 
 export default connect(mapReduxStateToProps)(NewTrip1);
