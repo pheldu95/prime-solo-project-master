@@ -26,13 +26,12 @@ function* putPageOne(action){
     console.log('payload in puttPageOne', action.payload);
    //make an object to send
     let pageOneData= action.payload
-    console.log('tripsData', tripsData);
     
     //send the data from the first page in a put request
     try {
         yield axios({
             method: 'PUT',
-            url: '/api/trip',
+            url: `/api/trip/${pageOneData.trip_id}`,
             data: pageOneData
         })
         // yield put({
