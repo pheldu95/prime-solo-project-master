@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import TripListItem from '../TripListItem/TripListItem';
 
 
-// const newTrip = (props) =>{
-//   console.log(props);
-  
-//   this.props.history.push('/newtrip1');
-  
-// }
 
 // this could also be written with destructuring parameters as:
 // const UserPage = ({ user }) => (
@@ -17,8 +12,18 @@ class UserPage extends Component{
   state ={
     trips : ['Trip 1', 'Trip 2', 'Trip3']
   }
+  
+  componentDidMount = () =>{
+    this.getAllTrips();
+  }
+
+  //get the user's trips
+  getAllTrips = () =>{
+    this.props.dispatch({type: 'GET_ALL_TRIPS'});
+  }
   newTrip = () =>{
     console.log('new trip');
+    this.props.dispatch({type: 'CREATE_TRIP', payload: this.props.user.id})
     this.props.history.push('/newtrip1');
   }
   render(){
@@ -32,13 +37,12 @@ class UserPage extends Component{
           <h1>Trips</h1>
           <ul>
           {/* here we will map the trips array coming from the database */}
-            {this.state.trips.map((trip) =>{
+            {this.props.state.allTrips.map((trip) =>{
               return(
-                <li>{trip}</li>
+                <TripListItem trip={trip}/>
               )
             })}
           </ul>
-          
           <button onClick={this.newTrip}>Create New Trip</button>
         </div>
         
@@ -49,11 +53,11 @@ class UserPage extends Component{
   }
 }
 
-// Instead of taking everything from state, we just want the user info.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({user}) => ({ user });
+
 const mapStateToProps = state => ({
   user: state.user,
+  state
+
 });
 
 // this allows us to use <App /> in index.js

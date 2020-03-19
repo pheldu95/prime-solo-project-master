@@ -8,9 +8,9 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    console.log('req.body in members router', req.body);
-    let members = req.body
-    for(let i = 0)
+    // console.log('req.body in members router', req.body);
+    // let members = req.body
+    // for(let i = 0)
     // let queryText = `INSERT INTO "trips" ("title", "user_id", "start_date", "end_date", "difficulty", "experience", "area")
     //                     VALUES ($1, $2, $3, $4, $5, $6, $7);  
     //                     `;

@@ -19,8 +19,22 @@ class NewTrip1 extends Component {
             age: 0,
             exercise: 0
         },
-        members: []
+        members: [],
+        //i think this will be the last trip that was made. IE the new one
+        trip_id: 0
 
+    }
+    componentDidMount = () =>{
+        //get the latest trip added id. that matches with your user id
+        this.props.dispatch({type: 'GET_ALL_TRIPS'});
+        let trip_id= this.props.reduxState.allTrips[this.props.reduxState.allTrips.length - 1].id
+        console.log('trip id', trip_id);  
+        //now we can send this trip id with the rest of the data, 
+        //so the query on the server side can specify which trip to update the info of  
+        this.setState({
+            trip_id: trip_id
+        })
+        
     }
     //capture the changes made in the inputs
     inputChange = (event, type) =>{
@@ -28,6 +42,7 @@ class NewTrip1 extends Component {
             [type]: event.target.value
         })        
         console.log(event.target.value);
+        console.log(this.state);
         
     }
     //capture changes made in new member form
@@ -60,6 +75,7 @@ class NewTrip1 extends Component {
             <div>
                 <h3>New Trip</h3>
                 <p>step 1/2</p>
+                {/* <p>{this.state.trip_id}</p> */}
                 <form>
                     <label>Trip title:</label>
                     <input onChange={(event)=>this.inputChange(event, 'title')} placeholder='title'/>
