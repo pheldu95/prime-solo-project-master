@@ -34,9 +34,9 @@ function* putPageOne(action){
             url: `/api/trip/${pageOneData.trip_id}`,
             data: pageOneData
         })
-        // yield put({
-        //     type: 'GET_GIFS_FROM_FAVORITES'
-        // })
+        yield put({
+            type: 'GET_ALL_TRIPS'
+        })
     } catch (error) {
         console.log(error);
     }
@@ -61,8 +61,21 @@ function* postMembers(action){
     
 }
 function* deleteTrip(action){
-    console.log('delete this trip', action.payload);
-    
+    let trip_id = action.payload; 
+    //send the trip id in req.params
+    try {
+        yield axios({
+            method: 'DELETE',
+            url: `/api/trip/${trip_id}`,
+        })
+        yield put({
+            type: 'GET_ALL_TRIPS'
+        })
+    }
+    catch (error) {
+        console.log(error);
+        alert('Unable to delete item');
+    };   
 }
 function* newTripSaga() {
   yield takeLatest('CREATE_TRIP', createTrip);

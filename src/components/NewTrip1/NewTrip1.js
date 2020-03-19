@@ -20,16 +20,9 @@ class NewTrip1 extends Component {
             exercise: 0
         },
         members: []
-
-//the trip id is held in tripReducer so we dont need it in the local state
-
+    //the trip id is held in tripReducer so we dont need it in the local state
     }
     
-    
-    printRedux = () =>{
-        console.log(this.state.trip_id);
-        
-    }
     //capture the changes made in the inputs
     inputChange = (event, type) =>{
         this.setState({
@@ -55,8 +48,8 @@ class NewTrip1 extends Component {
         })
     }
     cancelNewTrip=()=>{
-        //send dispatch to delete trip entry from table
-        this.props.dispatch({type: 'DELETE_NEW_TRIP', payload: this.state.trip_id});
+        //send dispatch to newTripSaga to delete trip entry from table
+        this.props.dispatch({type: 'DELETE_NEW_TRIP', payload: this.props.reduxState.trip});
         //go back to the home page
         this.props.history.push('/home');
     }
@@ -119,7 +112,6 @@ class NewTrip1 extends Component {
                 <br/>
                 <button onClick={this.cancelNewTrip}>Cancel</button>
                 <button onClick={this.nextPage}>Next</button>
-                <button onClick={this.printRedux}>help</button>
             </div>
         );
     }
