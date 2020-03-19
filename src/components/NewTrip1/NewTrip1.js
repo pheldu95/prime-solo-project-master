@@ -19,21 +19,15 @@ class NewTrip1 extends Component {
             age: 0,
             exercise: 0
         },
-        members: [],
-        //i think this will be the last trip that was made. IE the new one
-        trip_id: 0
+        members: []
+
+//the trip id is held in tripReducer so we dont need it in the local state
 
     }
-    componentDidMount = () =>{
-        //get the latest trip added id. that matches with your user id
-        this.props.dispatch({type: 'GET_ALL_TRIPS'});
-        let trip_id= this.props.reduxState.allTrips[this.props.reduxState.allTrips.length - 1].id
-        console.log('trip id', trip_id);  
-        //now we can send this trip id with the rest of the data, 
-        //so the query on the server side can specify which trip to update the info of  
-        this.setState({
-            trip_id: trip_id
-        })
+    
+    
+    printRedux = () =>{
+        console.log(this.state.trip_id);
         
     }
     //capture the changes made in the inputs
@@ -61,14 +55,19 @@ class NewTrip1 extends Component {
         })
     }
     cancelNewTrip=()=>{
+        //send dispatch to delete trip entry from table
+        this.props.dispatch({type: 'DELETE_NEW_TRIP', payload: this.state.trip_id});
         //go back to the home page
         this.props.history.push('/home');
     }
     nextPage=()=>{
         //send the state to redux so it can be posted to the db
-        this.props.dispatch({type:'PAGE_1_DATA', payload: this.state});
+        let pageOneData = this.state
+        //give the object the trip_id
+        pageOneData.trip_id = this.props.reduxState.trip
+        this.props.dispatch({type:'PAGE_1_DATA', payload: pageOneData});
         //go to the next page of the new trip form
-        this.props.history.push('/newtrip2');
+        // this.props.history.push('/newtrip2');
     }
     render() {
         return (
@@ -120,6 +119,7 @@ class NewTrip1 extends Component {
                 <br/>
                 <button onClick={this.cancelNewTrip}>Cancel</button>
                 <button onClick={this.nextPage}>Next</button>
+                <button onClick={this.printRedux}>help</button>
             </div>
         );
     }

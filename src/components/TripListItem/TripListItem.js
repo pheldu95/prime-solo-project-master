@@ -8,7 +8,7 @@ class TripListItem extends Component {
       //props coming from UserPage
     let trip = this.props.trip;
     return (
-        <li>{trip.title}</li>
+        <li>{trip.title}, {trip.id}</li>
     );
   }
 }

@@ -9,9 +9,7 @@ import TripListItem from '../TripListItem/TripListItem';
 // const UserPage = ({ user }) => (
 // and then instead of `props.user.username` you could use `user.username`
 class UserPage extends Component{
-  state ={
-    trips : ['Trip 1', 'Trip 2', 'Trip3']
-  }
+  
   
   componentDidMount = () =>{
     this.getAllTrips();
@@ -21,9 +19,12 @@ class UserPage extends Component{
   getAllTrips = () =>{
     this.props.dispatch({type: 'GET_ALL_TRIPS'});
   }
+
+  //need to have the new trip already created when the user gets to new trip page 1.
+  //that way, the trip id will already be available so the member table can use it for the reference column
   newTrip = () =>{
     console.log('new trip');
-    this.props.dispatch({type: 'CREATE_TRIP', payload: this.props.user.id})
+    this.props.dispatch({type: 'CREATE_TRIP', payload: this.props.user.id});
     this.props.history.push('/newtrip1');
   }
   render(){
