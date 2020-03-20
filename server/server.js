@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.router');
 const tripRouter = require('./routes/trip.router');
 const membersRouter = require('./routes/members.router');
 const allTripsRouter = require('./routes/allTrips.router');
+const entryPointsRouter = require('./routes/entryPoints.router');
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,6 +30,7 @@ app.use('/api/user', userRouter);
 app.use('/api/allTrips', allTripsRouter);
 app.use('/api/trip', tripRouter);
 app.use('/api/members', membersRouter)
+app.use('/api/entryPoints', entryPointsRouter)
 // Serve static files
 app.use(express.static('build'));
 

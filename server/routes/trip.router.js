@@ -35,10 +35,8 @@ router.put('/:trip_id', (req, res) => {
     })
 });
 router.delete('/:trip_id', (req, res) => {
-
-    let trip_id = req.params.trip_id;
-    console.log('aksdbhasdbjksajkbsad', trip_id);
-    
+    //gets the trip id from the url of the delete request in newTripSaga
+    let trip_id = req.params.trip_id;    
     let queryText = `DELETE FROM trips WHERE id=$1`
     pool.query(queryText, [trip_id]).then((results) => {
     res.sendStatus(200);

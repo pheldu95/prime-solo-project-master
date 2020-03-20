@@ -60,7 +60,7 @@ class NewTrip1 extends Component {
         pageOneData.trip_id = this.props.reduxState.trip
         this.props.dispatch({type:'PAGE_1_DATA', payload: pageOneData});
         //go to the next page of the new trip form
-        // this.props.history.push('/newtrip2');
+        this.props.history.push('/newtrip2');
     }
     render() {
         return (
