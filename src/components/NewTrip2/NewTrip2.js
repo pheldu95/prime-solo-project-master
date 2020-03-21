@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import EntryPoint from '../EntryPoint/EntryPoint'
-
+import Nav from '../Nav/Nav';
 
 class NewTrip2 extends Component {
     state = {
         //entry point #
-        ep: {},
+        ep: this.props.reduxState.entryPoints[0],
         epReady: false,
         //entry points that will be suggested to the user based on difficulty level
         suggestedEps: []
-    }
-    componentDidMount = () =>{
-       
     }
 
     //this function will wait for props to update
@@ -56,10 +53,15 @@ class NewTrip2 extends Component {
         
                 
     }
+
+    //takes a link and then opens the link in a new window in the users browser
     moreInfo = (link) =>{
         window.open(`${link}`);
     }
     
+    submit = () =>{
+        this.props.history.push('/tripHome');
+    }
 
     render() {
         let info;
@@ -74,6 +76,7 @@ class NewTrip2 extends Component {
 
         return (
             <div>
+                <Nav/>
                 <label>Entry Point</label>
                 <select onChange={(event)=>this.handleChange(event)}>
                     {/* wait until this.props.reduxState.entryPoints exists, then do the mapping */}
@@ -95,7 +98,9 @@ class NewTrip2 extends Component {
                             <li>{ep.number} {ep.name} <button onClick={()=>this.moreInfo(ep.link)}>more information</button></li>
                         )
                     })}
-                </ul>              
+                </ul>
+                <button>back</button>
+                <button onClick = {this.submit}>submit</button>             
             </div>
         );
     }

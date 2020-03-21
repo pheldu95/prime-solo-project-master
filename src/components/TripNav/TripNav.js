@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
+import './TripNav.css';
 
-const TripNav = (props) => (
+const Nav = (props) => (
   <div className="nav">
-    <Link to="/home">
-      <h2 className="nav-title">Prime Solo Project</h2>
+    <Link to="/tripHome">
+      <h2 className="nav-title">{props.state.trip.title}</h2>
     </Link>
     <div className="nav-right">
       <Link className="nav-link" to="/home">
@@ -40,6 +40,7 @@ const TripNav = (props) => (
 // const mapStateToProps = ({ user }) => ({ user });
 const mapStateToProps = state => ({
   user: state.user,
+  state
 });
 
-export default connect(mapStateToProps)(TripNav);
+export default connect(mapStateToProps)(Nav);

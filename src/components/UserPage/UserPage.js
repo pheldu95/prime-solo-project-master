@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import TripListItem from '../TripListItem/TripListItem';
-
+import Nav from '../Nav/Nav';
 
 
 // this could also be written with destructuring parameters as:
@@ -38,6 +38,7 @@ class UserPage extends Component{
     
     return(
       <div>
+        <Nav/>
         <h1 id="welcome">
           Welcome, { this.props.user.username }!
         </h1>

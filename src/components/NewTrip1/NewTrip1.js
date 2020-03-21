@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoginPage from '../LoginPage/LoginPage';
-
+import Nav from '../Nav/Nav';
 
 class NewTrip1 extends Component {
 
@@ -65,6 +65,7 @@ class NewTrip1 extends Component {
     render() {
         return (
             <div>
+                <Nav/>
                 <h3>New Trip</h3>
                 <p>step 1/2</p>
                 {/* <p>{this.state.trip_id}</p> */}

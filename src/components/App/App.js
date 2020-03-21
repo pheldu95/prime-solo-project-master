@@ -18,7 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import NewTrip1 from '../NewTrip1/NewTrip1';
 import NewTrip2 from '../NewTrip2/NewTrip2';
-
+import TripHome from '../TripHome/TripHome'
 
 import './App.css';
 
@@ -31,7 +31,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
+          {/* <Nav /> */}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -66,6 +66,10 @@ class App extends Component {
             <ProtectedRoute
               exact path = "/newtrip2"
               component={NewTrip2}
+            />
+            <ProtectedRoute 
+              exact path = "/tripHome"
+              component={TripHome}
             />
             <Route render={() => <h1>404</h1>} />
           </Switch>
