@@ -16,7 +16,7 @@ function* createTrip(action){
         
         //now we send this id to the trip reducer. which will just hold the id
         yield put({
-            type: 'SET_TRIP_ID',
+            type: 'SET_TRIP',
             payload: trip
         })
     } catch (error) {
@@ -37,10 +37,11 @@ function* putPageOne(action){
             url: `/api/trip/${pageOneData.trip_id}`,
             data: pageOneData
         })
+        let trip = response.data.rows[0];
         yield put({
-            type: 'GET_ALL_TRIPS'
+            type:'SET_TRIP',
+            payload: trip
         })
-        yield put({})
     } catch (error) {
         console.log(error);
     }

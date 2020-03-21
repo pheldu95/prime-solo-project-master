@@ -7,14 +7,31 @@ class NewTrip2 extends Component {
     state = {
         //entry point #
         ep: {},
-        epReady: false
+        epReady: false,
+        //entry points that will be suggested to the user based on difficulty level
+        suggestedEps: []
     }
     componentDidMount = () =>{
-        this.getEntryPoints();
+       
     }
-    getEntryPoints = () =>{
-        this.props.dispatch({type: 'GET_ENTRY_POINTS'})
+
+    //this function will wait for props to update
+    componentDidUpdate(prevProps){
+        console.log('here is prevProps', prevProps.reduxState.trip);
+        console.log('here is current trip', this.props.reduxState.trip);
+        //if our previous tripReducer is different than the current one, then we will run 
+        //setSuggestedEps
+        //this will make sure we have the difficulty level available before we run setSuggestedEps
+        if(prevProps.reduxState.trip !== this.props.reduxState.trip)
+        { 
+            this.setSuggestedEps();
+        }
     }
+    setSuggestedEps = () =>{
+        console.log('hello frodhsfaisdfjudfasafsadhfjkadsdfajnksfsd');
+        
+    }
+
     handleChange = (event) => {
         console.log(event.target.value);
         //parse the string that we got from ENtryPoint.js, turning it back into an object

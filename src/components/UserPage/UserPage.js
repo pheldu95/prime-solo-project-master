@@ -13,12 +13,19 @@ class UserPage extends Component{
   
   componentDidMount = () =>{
     this.getAllTrips();
+    //get all the entry points and put them in the entrypointsReducer. for later use
+    this.getEntryPoints();
   }
 
   //get the user's trips
   getAllTrips = () =>{
     this.props.dispatch({type: 'GET_ALL_TRIPS'});
   }
+
+  //dispatch to entryPointSaga to get all entry points for entryPointsReducer
+  getEntryPoints = () =>{
+        this.props.dispatch({type: 'GET_ENTRY_POINTS'})
+    }
 
   //need to have the new trip already created when the user gets to new trip page 1.
   //that way, the trip id will already be available so the member table can use it for the reference column
