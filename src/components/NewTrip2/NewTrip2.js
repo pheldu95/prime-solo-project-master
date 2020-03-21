@@ -28,8 +28,21 @@ class NewTrip2 extends Component {
         }
     }
     setSuggestedEps = () =>{
-        console.log('hello frodhsfaisdfjudfasafsadhfjkadsdfajnksfsd');
-        
+        //difficulty is the trip difficulty the user chose on the page before
+        //it will be matched with any ep that has the same difficulty
+       let difficulty = this.props.reduxState.trip.difficulty;
+       let epArray = this.props.reduxState.entryPoints;
+       let suggestedEps = [] //the matched eps will be pushed to this array. then it will be set to suggestedEps in the state
+       for(let i=0; i < epArray.length; i++){
+           if(difficulty === epArray[i].difficulty){
+               console.log(epArray[i]);
+               suggestedEps.push(epArray[i]);
+           } 
+       }
+       console.log(suggestedEps);
+       this.setState({
+            suggestedEps: suggestedEps
+       })
     }
 
     handleChange = (event) => {
@@ -43,8 +56,8 @@ class NewTrip2 extends Component {
         
                 
     }
-    moreInfo = () =>{
-        window.open(`${this.state.ep.link}`);
+    moreInfo = (link) =>{
+        window.open(`${link}`);
     }
     
 
@@ -56,7 +69,7 @@ class NewTrip2 extends Component {
         //and the button will be displayed. the button will bring the user to the entry point web page
         if(this.state.epReady){
             info = `Selected Entry Point: ${this.state.ep.number} ${this.state.ep.name}`
-            moreInfoButton = <button onClick={this.moreInfo}>more information</button>
+            moreInfoButton = <button onClick={()=>this.moreInfo(this.state.ep.link)}>more information</button>
         }
 
         return (
@@ -75,7 +88,14 @@ class NewTrip2 extends Component {
                 <br/>
                 <p>{info}</p>
                 {moreInfoButton}
-                              
+                <p>Suggested Entry Points (based on trip form page 1):</p>
+                <ul>
+                    {this.state.suggestedEps.map((ep)=>{
+                        return(
+                            <li>{ep.number} {ep.name} <button onClick={()=>this.moreInfo(ep.link)}>more information</button></li>
+                        )
+                    })}
+                </ul>              
             </div>
         );
     }
