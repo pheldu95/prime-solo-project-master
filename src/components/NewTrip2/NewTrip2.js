@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import EntryPoint from '../EntryPoint/EntryPoint'
 
+
 class NewTrip2 extends Component {
     state = {
         //entry point #
@@ -26,8 +27,7 @@ class NewTrip2 extends Component {
                 
     }
     moreInfo = () =>{
-        console.log('more info');
-        
+        window.open(`${this.state.ep.link}`);
     }
     
 

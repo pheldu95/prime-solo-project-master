@@ -16,6 +16,8 @@ function* getAllTrips(){
 
 function* allTripsSaga() {
   yield takeLatest('GET_ALL_TRIPS', getAllTrips);
+  
+ 
 }
 
 export default allTripsSaga;

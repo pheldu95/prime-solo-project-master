@@ -10,12 +10,14 @@ function* createTrip(action){
             url: '/api/trip',
             data: {title: 'New Trip', user_id: action.payload}
         })
-        //response coming from the post will be the tripId.
-        let tripId = response.data.rows[0].id;
+        //response coming from the post will be the new trip object
+        let trip = response.data.rows[0];
+        console.log('trip in createTrip', trip);
+        
         //now we send this id to the trip reducer. which will just hold the id
         yield put({
             type: 'SET_TRIP_ID',
-            payload: tripId
+            payload: trip
         })
     } catch (error) {
         console.log(error);
@@ -29,7 +31,8 @@ function* putPageOne(action){
     
     //send the data from the first page in a put request
     try {
-        yield axios({
+        //we will use the response to update the tripReducer
+        let response= yield axios({
             method: 'PUT',
             url: `/api/trip/${pageOneData.trip_id}`,
             data: pageOneData
@@ -37,6 +40,7 @@ function* putPageOne(action){
         yield put({
             type: 'GET_ALL_TRIPS'
         })
+        yield put({})
     } catch (error) {
         console.log(error);
     }

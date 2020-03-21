@@ -8,8 +8,9 @@ class NewTrip1 extends Component {
     state = {
         title: '',
         userId: this.props.reduxState.user.id,
-        startDate: '',
-        endDate: '',
+        //hard coding some dates so i don't have to type trhem in for testing
+        startDate: '0022-02-22',
+        endDate: '0022-02-22',
         difficulty: 1,
         experience: 1,
         area: 'either',
@@ -28,8 +29,7 @@ class NewTrip1 extends Component {
         this.setState({
             [type]: event.target.value
         })        
-        console.log(event.target.value);
-        console.log(this.state);
+        
         
     }
     //capture changes made in new member form
@@ -49,7 +49,7 @@ class NewTrip1 extends Component {
     }
     cancelNewTrip=()=>{
         //send dispatch to newTripSaga to delete trip entry from table
-        this.props.dispatch({type: 'DELETE_NEW_TRIP', payload: this.props.reduxState.trip});
+        this.props.dispatch({type: 'DELETE_NEW_TRIP', payload: this.props.reduxState.trip.id});
         //go back to the home page
         this.props.history.push('/home');
     }
@@ -57,7 +57,7 @@ class NewTrip1 extends Component {
         //send the state to redux so it can be posted to the db
         let pageOneData = this.state
         //give the object the trip_id
-        pageOneData.trip_id = this.props.reduxState.trip
+        pageOneData.trip_id = this.props.reduxState.trip.id
         this.props.dispatch({type:'PAGE_1_DATA', payload: pageOneData});
         //go to the next page of the new trip form
         this.props.history.push('/newtrip2');

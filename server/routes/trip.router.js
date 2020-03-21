@@ -3,16 +3,16 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-router.get('/', (req, res) => {
-    
-});
+// router.get('/:tripId', (req, res) => {
+//     let queryText = 
+// });
 router.post('/', (req, res) => {
     console.log('req.body in trip post', req.body);
     let newTrip = req.body;
-    //RETURNING "id" comes back with the id of the row its just made
+    //RETURNING * comes back with all the info for the row that was just made
     let queryText = `INSERT INTO "trips" ("title", "user_id")
                         VALUES ($1, $2)
-                        RETURNING "id";`;
+                        RETURNING *;`;
     pool.query(queryText, [newTrip.title, newTrip.user_id])
     .then(result => {    
         res.send(result);
@@ -26,16 +26,17 @@ router.post('/', (req, res) => {
 router.put('/:trip_id', (req, res) => {
     let pageOneData = req.body;
 
-    let queryString = `UPDATE "trips" SET start_date = $1, end_date = $2, difficulty = $3, experience = $4, area = $5 WHERE "id" = ${req.params.trip_id};`
+    //we will RETURNING * here again so we can update the tripReducer
+    let queryString = `UPDATE "trips" SET start_date = $1, end_date = $2, difficulty = $3, experience = $4, area = $5 WHERE "id" = ${req.params.trip_id} RETURNING *;`
     pool.query(queryString, [pageOneData.startDate, pageOneData.endDate, pageOneData.difficulty, pageOneData.experience, pageOneData.area]).then((results) => {
-    res.sendStatus(200);
+        res.send(results);
     }).catch((err) => {
-    res.sendStatus(500);
-    console.log(err);
+        res.sendStatus(500);
+        console.log(err);
     })
 });
 router.delete('/:trip_id', (req, res) => {
-    //gets the trip id from the url of the delete request in newTripSaga
+    //gets the trip from the url of the delete request in newTripSaga
     let trip_id = req.params.trip_id;    
     let queryText = `DELETE FROM trips WHERE id=$1`
     pool.query(queryText, [trip_id]).then((results) => {
