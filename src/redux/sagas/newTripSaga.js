@@ -53,21 +53,22 @@ function* postMembers(action){
     
     let members = action.payload.members;
     let trip_id = action.payload.trip_id;
-    
-     try {
-        yield axios({
+    //loop through array to post each member to the db
+    for(let i = 0; i < members.length; i++){
+        try {
+            yield axios({
             method: 'POST',
             url: `/api/members/${trip_id}`,
-            data: members
+            data: members[i]
         })
         // yield put({
         //     type: 'GET_GIFS_FROM_FAVORITES'
         // })
-    } catch (error) {
-        console.log(error);
+        } catch (error) {
+            console.log(error);
+        }
     }
-    
-    
+  
 }
 function* deleteTrip(action){
     let trip_id = action.payload; 
