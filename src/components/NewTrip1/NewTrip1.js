@@ -5,7 +5,7 @@ import Nav from '../Nav/Nav';
 class NewTrip1 extends Component {
 
     state = {
-        title: '',
+        title: this.props.reduxState.pageOne.title,
         userId: this.props.reduxState.user.id,
         //hard coding some dates so i don't have to type trhem in for testing
         startDate: '0022-02-22',
@@ -53,11 +53,12 @@ class NewTrip1 extends Component {
         this.props.history.push('/home');
     }
     nextPage=()=>{
-        //send the state to redux so it can be posted to the db
         let pageOneData = this.state
         //give the object the trip_id
         pageOneData.trip_id = this.props.reduxState.trip.id
-        this.props.dispatch({type:'PAGE_1_DATA', payload: pageOneData});
+        //send it to pageOneReducer to be held before the user hits the final submit
+        //this is so they can go back and edit if they want
+        this.props.dispatch({type:'HOLD_PAGE_1', payload: pageOneData});
         //go to the next page of the new trip form
         this.props.history.push('/newtrip2');
     }
@@ -71,7 +72,7 @@ class NewTrip1 extends Component {
                 {/* <p>{this.state.trip_id}</p> */}
                 <form>
                     <label>Trip title:</label>
-                    <input onChange={(event)=>this.inputChange(event, 'title')} placeholder='title'/>
+                    <input value={this.state.title} onChange={(event)=>this.inputChange(event, 'title')} placeholder='title'/>
                     <br/>
                     <label>trip start date:</label>
                     <input onChange={(event)=>this.inputChange(event, 'startDate')} type= 'date'/>

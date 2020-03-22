@@ -5,6 +5,7 @@ import user from './userReducer';
 import trip from './tripReducer';
 import allTrips from './allTripsReducer';
 import entryPoints from './entryPointsReducer';
+import pageOne from './pageOneReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -15,8 +16,9 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
-  trip, //will hold the trip id so tables can be edited
+  trip, //will hold the trip that the user is making or looking at
   allTrips, //will hold all the user's trips
+  pageOne, // will hold the data from newtrip page 1
   entryPoints //will hold all entry points from db
 });
 

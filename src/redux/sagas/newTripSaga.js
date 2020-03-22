@@ -91,8 +91,8 @@ function* deleteTrip(action){
 
 function* newTripSaga() {
   yield takeLatest('CREATE_TRIP', createTrip);
-  yield takeLatest('PAGE_1_DATA', putPageOne);
-  yield takeLatest('PAGE_1_DATA', postMembers);
+  yield takeLatest('PUT_PAGE_1_DATA', putPageOne);
+  yield takeLatest('PUT_PAGE_1_DATA', postMembers);
   yield takeLatest('DELETE_NEW_TRIP', deleteTrip);
 
 }

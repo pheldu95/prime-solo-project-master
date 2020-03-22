@@ -11,23 +11,16 @@ class NewTrip2 extends Component {
         //entry points that will be suggested to the user based on difficulty level
         suggestedEps: []
     }
-
-    //this function will wait for props to update
-    componentDidUpdate(prevProps){
-        console.log('here is prevProps', prevProps.reduxState.trip);
-        console.log('here is current trip', this.props.reduxState.trip);
-        //if our previous tripReducer is different than the current one, then we will run 
-        //setSuggestedEps
-        //this will make sure we have the difficulty level available before we run setSuggestedEps
-        if(prevProps.reduxState.trip !== this.props.reduxState.trip)
-        { 
-            this.setSuggestedEps();
-        }
+    componentDidMount(){
+        this.setSuggestedEps();
     }
+    
     setSuggestedEps = () =>{
         //difficulty is the trip difficulty the user chose on the page before
         //it will be matched with any ep that has the same difficulty
-       let difficulty = this.props.reduxState.trip.difficulty;
+       let difficulty = Number(this.props.reduxState.pageOne.difficulty);
+       console.log(difficulty);
+       
        let epArray = this.props.reduxState.entryPoints;
        let suggestedEps = [] //the matched eps will be pushed to this array. then it will be set to suggestedEps in the state
        for(let i=0; i < epArray.length; i++){
@@ -60,7 +53,10 @@ class NewTrip2 extends Component {
     }
     
     submit = () =>{
+        //post the entry point
         this.props.dispatch({type: 'PUT_ENTRY_POINT', payload: {ep:this.state.ep.number, trip: this.props.reduxState.trip.id}})
+        //we will also be updating the trip table with all of the info from page 1 of the new trip form
+        this.props.dispatch({type: 'PUT_PAGE_1_DATA', payload: this.props.reduxState.pageOne});
         this.props.history.push('/tripHome');
     }
 
