@@ -50,24 +50,22 @@ function* putPageOne(action){
 
 //seperate function to post the members
 function* postMembers(action){
-    console.log(action.payload);
     
-    let members = action.payload.member;
-    // let trip_id = action.payload.trip_id;
-    // console.log(action.payload);
+    let members = action.payload.members;
+    let trip_id = action.payload.trip_id;
     
-    //  try {
-    //     yield axios({
-    //         method: 'POST',
-    //         url: '/api/members',
-    //         data: members
-    //     })
-    //     // yield put({
-    //     //     type: 'GET_GIFS_FROM_FAVORITES'
-    //     // })
-    // } catch (error) {
-    //     console.log(error);
-    // }
+     try {
+        yield axios({
+            method: 'POST',
+            url: `/api/members/${trip_id}`,
+            data: members
+        })
+        // yield put({
+        //     type: 'GET_GIFS_FROM_FAVORITES'
+        // })
+    } catch (error) {
+        console.log(error);
+    }
     
     
 }
