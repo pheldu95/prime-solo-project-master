@@ -10,16 +10,16 @@ class NewTrip1 extends Component {
         //hard coding some dates so i don't have to type trhem in for testing
         startDate: '0022-02-22',
         endDate: '0022-02-22',
-        difficulty: 1,
-        experience: 1,
-        area: 'either',
+        difficulty: this.props.reduxState.pageOne.difficulty,
+        experience: this.props.reduxState.pageOne.experience,
+        area: this.props.reduxState.pageOne.area,
         newMember:{
             firstName: '',
             lastName: '',
             age: 0,
             exercise: 0
         },
-        members: []
+        members: this.props.reduxState.pageOne.members
     //the trip id is held in tripReducer so we dont need it in the local state
     }
     
@@ -79,20 +79,20 @@ class NewTrip1 extends Component {
                     <label>trip end date:</label>
                     <input onChange={(event)=>this.inputChange(event, 'endDate')} type = 'date'/>
                     <label>Trip Difficulty Level:</label>
-                    <select onChange={(event)=>this.inputChange(event, 'difficulty')}>
+                    <select value={this.state.difficulty} onChange={(event)=>this.inputChange(event, 'difficulty')}>
                         <option value={1}>Beginner</option>
                         <option value={2}>Intermediate</option>
                         <option value={3}>Advanced</option>
                     </select>
                     <label>Approximate Outdoor Experience:</label>
-                    <select onChange={(event)=>this.inputChange(event, 'experience')}>
+                    <select value={this.state.experience} onChange={(event)=>this.inputChange(event, 'experience')}>
                         <option value={1}>Our group is not very experienced in the outdoors</option>
                         <option value={2}>Our group has some experience in the outdoors</option>
                         <option value={3}>Our group is very experienced in the outdoors</option>
                     </select>
                     <br/>
                     <label>Which side of the BWCA would you like to go to?</label>
-                    <select onChange={(event)=>this.inputChange(event, 'area')}>
+                    <select value={this.state.area} onChange={(event)=>this.inputChange(event, 'area')}>
                         <option value='either'>Either</option>
                         <option value='east'>East</option>
                         <option value='west'>West</option>

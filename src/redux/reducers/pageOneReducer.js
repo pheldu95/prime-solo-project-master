@@ -7,7 +7,18 @@ const pageOneReducer = (state = {}, action) => {
       return action.payload;
     default:
       return {
-                state
+          //this is the default so that our local state on NewTrip1
+          //is actually populated with data even if the user
+          //hasn't done anything yet
+          //or else NewPage1 would error out because all the attributes in the state would be trying to read
+          //an undefined object
+                title: '',
+                startDate: '0000-00-00',
+                endDate: '0000-00-00',
+                difficulty: 1,
+                experience: 1,
+                area: 'either',
+                members: []
             };
   }
 };
