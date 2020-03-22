@@ -6,6 +6,9 @@ import trip from './tripReducer';
 import allTrips from './allTripsReducer';
 import entryPoints from './entryPointsReducer';
 import pageOne from './pageOneReducer';
+import members from './membersReducer';
+import packingList from './packingListReducer';
+import groupPackingList from './groupPackingListReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -19,7 +22,10 @@ const rootReducer = combineReducers({
   trip, //will hold the trip that the user is making or looking at
   allTrips, //will hold all the user's trips
   pageOne, // will hold the data from newtrip page 1
-  entryPoints //will hold all entry points from db
+  entryPoints, //will hold all entry points from db
+  members, //will hold all members of current trip that the user is looking at
+  packingList, //holds the member packing list
+  groupPackingList //holds the group packing list
 });
 
 export default rootReducer;

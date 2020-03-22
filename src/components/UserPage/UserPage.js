@@ -10,7 +10,6 @@ import Nav from '../Nav/Nav';
 // and then instead of `props.user.username` you could use `user.username`
 class UserPage extends Component{
   
-  
   componentDidMount = () =>{
     this.getAllTrips();
     //get all the entry points and put them in the entrypointsReducer. for later use

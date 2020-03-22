@@ -3,8 +3,17 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-router.get('/', (req, res) => {
-
+router.get('/:trip_id', (req, res) => {
+    console.log(req.params);
+    let queryText = `SELECT * FROM "trip_members" WHERE "trip_id" = ${req.params.trip_id}`
+     pool.query(queryText)
+    .then(result => {
+        res.send(result.rows);
+    })
+    .catch(error => {
+        console.log('error getting members', error);
+        res.sendStatus(500);   
+    })
 });
 
 router.post('/:trip_id', (req, res) => {

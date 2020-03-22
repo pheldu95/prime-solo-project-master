@@ -13,8 +13,25 @@ class NewTrip2 extends Component {
     }
     componentDidMount(){
         this.setSuggestedEps();
+        this.createMemberPackingList();
     }
     
+    //figure out the quantities for the items that each member will need, then send to db
+    createMemberPackingList = () =>{
+        //calculate the number of days the trip will last
+        let trip = this.props.reduxState.pageOne;
+        //convert them to dates that javascript can use
+        let startDate = new Date(trip.startDate);
+        let endDate = new Date(trip.endDate);
+        //find the difference in time in miliseconds
+        let differenceInTime = endDate.getTime() - startDate.getTime();
+        //turn differenceInTime into days
+        let days = differenceInTime/(1000*3600*24);
+       
+        
+        
+    }
+
     setSuggestedEps = () =>{
         //difficulty is the trip difficulty the user chose on the page before
         //it will be matched with any ep that has the same difficulty
