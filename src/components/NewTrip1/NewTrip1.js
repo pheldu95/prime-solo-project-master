@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LoginPage from '../LoginPage/LoginPage';
 import Nav from '../Nav/Nav';
 
 class NewTrip1 extends Component {
@@ -63,6 +62,7 @@ class NewTrip1 extends Component {
         this.props.history.push('/newtrip2');
     }
     render() {
+        let trip = this.props.reduxState.trip
         return (
             <div>
                 <Nav/>

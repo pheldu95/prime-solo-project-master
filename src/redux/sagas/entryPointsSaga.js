@@ -11,20 +11,25 @@ function* getEntryPoints(){
     yield put({type: 'SET_ENTRY_POINTS', payload: response.data});
     
 }
-// function* suggestedEntryPoints(action){
-//     console.log('actiosdaijas', action.payload);
-    
-//     let tripDifficultyLevel = action.payload.trip.difficulty;
-//     let eps = action.payload.eps
-//     console.log('ashfasnjfaafasd', tripDifficultyLevel, eps);
-    
-// }
+function* putEntryPoint(action){
+  console.log(action.payload);
+  
+  try {
+    yield axios({
+        method: 'PUT',
+        url: `/api/entryPoints/${action.payload.trip}`,
+        data: action.payload
+    })
+    } catch (error) {
+        console.log(error);
+    }  
+}
+
 
 
 function* entryPointsSaga() {
   yield takeLatest('GET_ENTRY_POINTS', getEntryPoints);
-//   yield takeLatest('SET_SUGGESTED_EPS', suggestedEntryPoints);
-
+  yield takeLatest('PUT_ENTRY_POINT', putEntryPoint);
 }
 
 export default entryPointsSaga;

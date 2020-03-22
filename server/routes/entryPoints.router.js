@@ -16,6 +16,18 @@ router.get('/', (req, res) => {
     
 });
 
-// no posts or anything. this router is just to get all trips for displaying
+//update the entry point column with the chosen entry point
+router.put('/:trip_id', (req, res) => {
+    
+    console.log(req.body, req.params);
+    
+    let queryString = `UPDATE "trips" SET entry_point = $1 WHERE "id" = ${req.params.trip_id} RETURNING *;`
+    pool.query(queryString, [req.body.ep]).then((results) => {
+        res.send(results);
+    }).catch((err) => {
+        res.sendStatus(500);
+        console.log(err);
+    })
+});
 
 module.exports = router;

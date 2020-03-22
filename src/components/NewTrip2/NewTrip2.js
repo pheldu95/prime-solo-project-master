@@ -60,6 +60,7 @@ class NewTrip2 extends Component {
     }
     
     submit = () =>{
+        this.props.dispatch({type: 'PUT_ENTRY_POINT', payload: {ep:this.state.ep.number, trip: this.props.reduxState.trip.id}})
         this.props.history.push('/tripHome');
     }
 

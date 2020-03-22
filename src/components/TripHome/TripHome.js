@@ -11,7 +11,7 @@ class TripHome extends Component {
 
             <div>
                 <TripNav/>
-               Trip Home           
+                Trip Home           
             </div>
         );
     }

@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+// i should probably change this to just tripSaga, instead of newTripSaga
 function* createTrip(action){
     console.log(action.payload);
     
@@ -49,7 +50,12 @@ function* putPageOne(action){
 
 //seperate function to post the members
 function* postMembers(action){
-    // let members = action.payload.members;
+    console.log(action.payload);
+    
+    let members = action.payload.member;
+    // let trip_id = action.payload.trip_id;
+    // console.log(action.payload);
+    
     //  try {
     //     yield axios({
     //         method: 'POST',
@@ -82,9 +88,9 @@ function* deleteTrip(action){
         alert('Unable to delete item');
     };   
 }
+
 function* newTripSaga() {
   yield takeLatest('CREATE_TRIP', createTrip);
-  yield takeLatest('GET_TRIPS', postMembers);  
   yield takeLatest('PAGE_1_DATA', putPageOne);
   yield takeLatest('PAGE_1_DATA', postMembers);
   yield takeLatest('DELETE_NEW_TRIP', deleteTrip);

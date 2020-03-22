@@ -8,7 +8,6 @@ import {
 
 import {connect} from 'react-redux';
 
-import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
@@ -18,7 +17,11 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import NewTrip1 from '../NewTrip1/NewTrip1';
 import NewTrip2 from '../NewTrip2/NewTrip2';
-import TripHome from '../TripHome/TripHome'
+import TripHome from '../TripHome/TripHome';
+import IndividualPackingList from '../IndividualPackingList/IndividualPackingList';
+import GroupPackingList from '../GroupPackingList/GroupPackingList';
+import Outfitters from '../Outfitters/Outfitters'
+
 
 import './App.css';
 
@@ -31,7 +34,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          {/* <Nav /> */}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -71,6 +73,21 @@ class App extends Component {
               exact path = "/tripHome"
               component={TripHome}
             />
+            <ProtectedRoute 
+              exact path = "/packingList"
+              component={IndividualPackingList}
+            />
+            <ProtectedRoute 
+              exact path = "/groupPackingList"
+              component={GroupPackingList}
+            />
+            <ProtectedRoute 
+              exact path = "/outfitters"
+              component={Outfitters}
+            />
+
+            {/* I think I have to add triplistItem so it can have access to props.history. props.history was coming back as undefined */}
+           
             <Route render={() => <h1>404</h1>} />
           </Switch>
           <Footer />
