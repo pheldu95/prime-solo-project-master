@@ -69,29 +69,13 @@ function* putPageOne(action){
 
   
 // }
-function* deleteTrip(action){
-    let trip_id = action.payload; 
-    //send the trip id in req.params
-    try {
-        yield axios({
-            method: 'DELETE',
-            url: `/api/trip/${trip_id}`,
-        })
-        yield put({
-            type: 'GET_ALL_TRIPS'
-        })
-    }
-    catch (error) {
-        console.log(error);
-        alert('Unable to delete item');
-    };   
-}
+
 
 function* newTripSaga() {
   yield takeLatest('CREATE_TRIP', createTrip);
   yield takeLatest('PUT_PAGE_1_DATA', putPageOne);
 //   yield takeLatest('ADD_MEMBER', postMember);
-  yield takeLatest('DELETE_NEW_TRIP', deleteTrip);
+  
   
 }
 

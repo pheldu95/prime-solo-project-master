@@ -35,16 +35,31 @@ router.put('/:trip_id', (req, res) => {
         console.log(err);
     })
 });
+
+//There might be a way to do this without repeating myself over and over
 router.delete('/:trip_id', (req, res) => {
-    //gets the trip from the url of the delete request in newTripSaga
-    let trip_id = req.params.trip_id;    
-    let queryText = `DELETE FROM trips WHERE id=$1`
-    pool.query(queryText, [trip_id]).then((results) => {
-    res.sendStatus(200);
-    }).catch((err) => {
-    res.sendStatus(500);
-    console.log(err);
-    })
+    ;(async () => {
+        const client = await pool.connect()
+        try {
+            await client.query('BEGIN')
+            let queryText = `DELETE FROM trip_members WHERE trip_id = $1;`
+            await client.query(queryText, [req.params.trip_id]);
+            queryText = `DELETE FROM packing_list_items WHERE trip_id = $1`
+            await client.query(queryText, [req.params.trip_id]);
+            queryText = `DELETE FROM trips WHERE id =$1`;
+            await client.query(queryText, [req.params.trip_id]);
+            await client.query('COMMIT')
+        } catch (error) {
+            await client.query('ROLLBACK')
+            throw error
+        } finally {
+            res.sendStatus(200)
+            //must release the client at the end
+            //or else the client will remain unavailable if you 
+            //want to use it again?
+            client.release()
+        }
+    })().catch(e => console.error(e.stack))
 });
 
 module.exports = router;

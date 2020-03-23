@@ -50,7 +50,7 @@ class NewTrip1 extends Component {
     }
     cancelNewTrip=()=>{
         //send dispatch to newTripSaga to delete trip entry from table
-        this.props.dispatch({type: 'DELETE_NEW_TRIP', payload: this.props.reduxState.trip.id});
+        this.props.dispatch({type: 'DELETE_TRIP', payload: this.props.reduxState.trip.id});
         //go back to the home page
         this.props.history.push('/home');
     }

@@ -52,7 +52,7 @@ function* removeMember(action){
         yield put({
             type: 'GET_MEMBERS',
             payload: trip_id
-        })
+        });
     }
     catch (error) {
         console.log(error);
