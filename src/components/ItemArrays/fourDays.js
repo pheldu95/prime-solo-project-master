@@ -6,6 +6,14 @@ let itemArray = [
     {
         name: 'sleeping bag',
         quantity: 1
+    },
+    {
+        name: 'warm layer',
+        quantity: 1
+    },
+    {
+        name: 'head lamp',
+        quantity: 1
     }
 ]
 

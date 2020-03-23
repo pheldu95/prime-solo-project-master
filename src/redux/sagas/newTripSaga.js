@@ -48,26 +48,27 @@ function* putPageOne(action){
     }
 }
 
-//seperate function to post the members
-function* postMember(action){
+// //seperate function to post the members
+// function* postMember(action){
     
-    let member = action.payload.member;
-    let trip_id = action.payload.trip_id;
+//     let member = action.payload.member;
+//     let trip_id = action.payload.trip_id;
     
        
-    try {
-        yield axios({
-        method: 'POST',
-        url: `/api/members/${trip_id}`,
-        data: member
-    })
-    
-    } catch (error) {
-        console.log(error);
-    }
+//     try {
+//         yield axios({
+//         method: 'POST',
+//         url: `/api/members/${trip_id}`,
+//         data: member
+//     })
+//         yield put({type:'GET_MEMBERS', payload: trip_id});
+//     } 
+//     catch (error) {
+//         console.log(error);
+//     }
 
   
-}
+// }
 function* deleteTrip(action){
     let trip_id = action.payload; 
     //send the trip id in req.params
@@ -89,7 +90,7 @@ function* deleteTrip(action){
 function* newTripSaga() {
   yield takeLatest('CREATE_TRIP', createTrip);
   yield takeLatest('PUT_PAGE_1_DATA', putPageOne);
-  yield takeLatest('ADD_MEMBER', postMember);
+//   yield takeLatest('ADD_MEMBER', postMember);
   yield takeLatest('DELETE_NEW_TRIP', deleteTrip);
   
 }

@@ -4,7 +4,7 @@ const membersReducer = (state = [], action) => {
     case 'SET_MEMBERS':
       return action.payload;
     default:
-      return [];
+      return state;
   }
 };
 

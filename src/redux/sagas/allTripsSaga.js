@@ -12,19 +12,19 @@ function* getAllTrips(){
     
 }
 
-function* getMembers(action){
-  console.log('getting members. trip id:', action.payload);
-  //the payload is the trip id
-  let response = yield axios({
-    method: 'GET',
-    url: `/api/members/${action.payload}`
-  })
-  console.log('members coming back from server:', response.data);
+// function* getMembers(action){
+//   console.log('getting members. trip id:', action.payload);
+//   //the payload is the trip id
+//   let response = yield axios({
+//     method: 'GET',
+//     url: `/api/members/${action.payload}`
+//   })
+//   console.log('members coming back from server:', response.data);
   
-  yield put({type: 'SET_MEMBERS', payload: response.data});
+//   yield put({type: 'SET_MEMBERS', payload: response.data});
   
   
-}
+// }
 
 // function* postMemberItems(action){
 //   console.log('items to post for member packing list:', action.payload);
@@ -45,7 +45,7 @@ function* getMembers(action){
 // }
 function* allTripsSaga() {
   yield takeLatest('GET_ALL_TRIPS', getAllTrips);
-  yield takeLatest('GET_MEMBERS', getMembers);
+  // yield takeLatest('GET_MEMBERS', getMembers);
   //post member item(s) to packing list
   //yield takeLatest('POST_MEMBER_ITEMS', postMemberItems)
  

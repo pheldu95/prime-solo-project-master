@@ -33,4 +33,17 @@ router.post('/:trip_id', (req, res) => {
 
 });
 
+
+//delete 
+router.delete('/:id', (req, res) => {
+    //gets the member id from the url of the delete request in membersSaga
+    let id = req.params.id;    
+    let queryText = `DELETE FROM "trip_members" WHERE id=$1`
+    pool.query(queryText, [id]).then((results) => {
+    res.sendStatus(200);
+    }).catch((err) => {
+    res.sendStatus(500);
+    console.log(err);
+    })
+});
 module.exports = router;

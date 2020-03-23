@@ -83,9 +83,9 @@ class NewTrip1 extends Component {
                     <input onChange={(event)=>this.inputChange(event, 'endDate')} type = 'date'/>
                     <label>Trip Difficulty Level:</label>
                     <select value={this.state.difficulty} onChange={(event)=>this.inputChange(event, 'difficulty')}>
-                        <option value={1}>Beginner</option>
+                        <option value={1}>Easy</option>
                         <option value={2}>Intermediate</option>
-                        <option value={3}>Advanced</option>
+                        <option value={3}>Challenging</option>
                     </select>
                     <label>Approximate Outdoor Experience:</label>
                     <select value={this.state.experience} onChange={(event)=>this.inputChange(event, 'experience')}>
