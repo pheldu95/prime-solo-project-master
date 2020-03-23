@@ -30,15 +30,15 @@ function* postMemberItems(action){
   for(let i = 0; i < itemArray.length; i++){
     console.log('posting item:', itemArray[i]);
     
-    // try {
-    //   yield axios({
-    //       method: 'POST',
-    //       url: `/api/packingList/${action.payload.trip_id}`,
-    //       data: itemArray[i]
-    //   })
-    // } catch (error) {
-    //     console.log('error adding packing list items', error);
-    // }
+    try {
+      yield axios({
+          method: 'POST',
+          url: `/api/packingList/${action.payload.trip_id}`,
+          data: itemArray[i]
+      })
+    } catch (error) {
+        console.log('error adding packing list items', error);
+    }
   }
 }
 function* allTripsSaga() {
