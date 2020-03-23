@@ -20,11 +20,14 @@ class TripHome extends Component {
                 <TripNav/>
                 Trip Home
                 <ul>
-                    {this.props.reduxState.members.map((member) =>{
-                        return(
-                            <Member member={member}/>
-                        )
-                    })}
+                    {this.props.reduxState.members&&
+                        this.props.reduxState.members.map((member) => {
+                            return(
+                                <Member member={member}/>
+                            )
+                        })
+                    }
+                
                 </ul>           
             </div>
         );

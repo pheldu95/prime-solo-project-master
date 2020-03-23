@@ -19,6 +19,8 @@ function* getMembers(action){
     method: 'GET',
     url: `/api/members/${action.payload}`
   })
+  console.log('members coming back from server:', response.data);
+  
   yield put({type: 'SET_MEMBERS', payload: response.data});
   
   
