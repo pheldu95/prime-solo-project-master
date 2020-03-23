@@ -93,7 +93,7 @@ function* newTripSaga() {
   yield takeLatest('PUT_PAGE_1_DATA', putPageOne);
   yield takeLatest('PUT_PAGE_1_DATA', postMembers);
   yield takeLatest('DELETE_NEW_TRIP', deleteTrip);
-
+  
 }
 
 

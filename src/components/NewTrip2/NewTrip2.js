@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import EntryPoint from '../EntryPoint/EntryPoint'
 import Nav from '../Nav/Nav';
 
+//require item arrays. these will be posted based on how long the trip is.
+let fourDays = require('../ItemArrays/fourDays');
+let eightDays = require('../ItemArrays/eightDays');
+
 class NewTrip2 extends Component {
     state = {
         //entry point #
@@ -18,6 +22,7 @@ class NewTrip2 extends Component {
     
     //figure out the quantities for the items that each member will need, then send to db
     createMemberPackingList = () =>{
+        let itemArray;
         //calculate the number of days the trip will last
         let trip = this.props.reduxState.pageOne;
         //convert them to dates that javascript can use
@@ -27,8 +32,16 @@ class NewTrip2 extends Component {
         let differenceInTime = endDate.getTime() - startDate.getTime();
         //turn differenceInTime into days
         let days = differenceInTime/(1000*3600*24);
-       
         
+        //array of items if days is less than 5
+        if(days<5){
+            itemArray = fourDays;
+            console.log(itemArray);
+        }else if(days>4 && days<9){//array of items if days are less than 9
+            itemArray = eightDays;
+            console.log(itemArray);
+        }
+        this.props.dispatch({type: 'POST_MEMBER_ITEMS', payload: {itemArray: itemArray, trip_id: this.props.reduxState.trip.id}});
         
     }
 
@@ -36,13 +49,11 @@ class NewTrip2 extends Component {
         //difficulty is the trip difficulty the user chose on the page before
         //it will be matched with any ep that has the same difficulty
        let difficulty = Number(this.props.reduxState.pageOne.difficulty);
-       console.log(difficulty);
        
        let epArray = this.props.reduxState.entryPoints;
        let suggestedEps = [] //the matched eps will be pushed to this array. then it will be set to suggestedEps in the state
        for(let i=0; i < epArray.length; i++){
            if(difficulty === epArray[i].difficulty){
-               console.log(epArray[i]);
                suggestedEps.push(epArray[i]);
            } 
        }
@@ -73,7 +84,9 @@ class NewTrip2 extends Component {
         //post the entry point
         this.props.dispatch({type: 'PUT_ENTRY_POINT', payload: {ep:this.state.ep.number, trip: this.props.reduxState.trip.id}})
         //we will also be updating the trip table with all of the info from page 1 of the new trip form
-        this.props.dispatch({type: 'PUT_PAGE_1_DATA', payload: this.props.reduxState.pageOne});
+        let pageOne = this.props.reduxState.pageOne;
+        pageOne.trip_id = this.props.reduxState.trip.id; //give the object the correct trip id. being stored in the reduxt store
+        this.props.dispatch({type: 'PUT_PAGE_1_DATA', payload: pageOne});
         this.props.history.push('/tripHome');
     }
 

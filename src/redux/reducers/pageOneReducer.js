@@ -13,8 +13,8 @@ const pageOneReducer = (state = {}, action) => {
           //or else NewPage1 would error out because all the attributes in the state would be trying to read
           //an undefined object
                 title: '',
-                startDate: '0000-00-00',
-                endDate: '0000-00-00',
+                startDate: '0001-01-01',
+                endDate: '0001-01-01',
                 difficulty: 1,
                 experience: 1,
                 area: 'either',
