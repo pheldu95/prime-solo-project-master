@@ -54,7 +54,11 @@ function* postMembers(action){
     let members = action.payload.members;
     let trip_id = action.payload.trip_id;
     //loop through array to post each member to the db
+    console.log('asdadasdads', action.payload);
+    
     for(let i = 0; i < members.length; i++){
+        console.log('memer: ', members[i]);
+        
         try {
             yield axios({
             method: 'POST',

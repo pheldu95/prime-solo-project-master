@@ -46,6 +46,7 @@ class NewTrip1 extends Component {
         this.setState({
             members: [...this.state.members, this.state.newMember]
         })
+        
     }
     cancelNewTrip=()=>{
         //send dispatch to newTripSaga to delete trip entry from table
@@ -55,6 +56,7 @@ class NewTrip1 extends Component {
     }
     nextPage=()=>{
         let pageOneData = this.state
+        
         //give the object the trip_id
         pageOneData.trip_id = this.props.reduxState.trip.id
         //send it to pageOneReducer to be held before the user hits the final submit

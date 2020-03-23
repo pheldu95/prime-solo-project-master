@@ -14,6 +14,15 @@ class UserPage extends Component{
     this.getAllTrips();
     //get all the entry points and put them in the entrypointsReducer. for later use
     this.getEntryPoints();
+
+    //give the pageOneReducer some initial values. so that pageOneReducer isnt undefined
+    this.props.dispatch({type: 'HOLD_PAGE_1', payload: {title: '',
+               startDate: '0001-01-01',
+               endDate: '0001-01-01',
+               difficulty: 1,
+               experience: 1,
+               area: 'either',
+               members: []}});
   }
 
   //get the user's trips
