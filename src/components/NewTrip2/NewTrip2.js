@@ -79,15 +79,32 @@ class NewTrip2 extends Component {
     moreInfo = (link) =>{
         window.open(`${link}`);
     }
-    
+    putPageOneData = () =>{
+        //we will be updating the trip table with all of the info from page 1 of the new trip form
+        let pageOne = this.props.reduxState.pageOne;
+        pageOne.trip_id = this.props.reduxState.trip.id; //give the object the correct trip id. being stored in the reduxt store
+        this.props.dispatch({
+            type: 'PUT_PAGE_1_DATA',
+            payload: pageOne
+        });
+        
+        let members = pageOne.members;
+        //loop through array of members, sending a dispatch for each one. posting to db
+        //i did this to make sure all members are posted before the next page is loaded
+        for(let i = 0; i<members.length; i++){
+            this.props.dispatch({type: 'ADD_MEMBER', payload: {member: members[i], trip_id: pageOne.trip_id}});
+        }
+
+        //send promise back to submit function
+        return Promise.resolve();
+    }
     submit = () =>{
         //post the entry point
         this.props.dispatch({type: 'PUT_ENTRY_POINT', payload: {ep:this.state.ep.number, trip: this.props.reduxState.trip.id}})
-        //we will also be updating the trip table with all of the info from page 1 of the new trip form
-        let pageOne = this.props.reduxState.pageOne;
-        pageOne.trip_id = this.props.reduxState.trip.id; //give the object the correct trip id. being stored in the reduxt store
-        this.props.dispatch({type: 'PUT_PAGE_1_DATA', payload: pageOne});
-        this.props.history.push('/tripHome');
+        //wait until promise is recieved, then go to next page
+        //this is because we want the db and reducers to be updated before we go to the next page, or else the reducers will be empty
+        //on page Trip Hom page load, so there will be nothing to display
+        this.putPageOneData().then(() => this.props.history.push('/tripHome'));
     }
 
     render() {

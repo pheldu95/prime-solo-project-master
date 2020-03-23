@@ -49,24 +49,23 @@ function* putPageOne(action){
 }
 
 //seperate function to post the members
-function* postMembers(action){
+function* postMember(action){
     
-    let members = action.payload.members;
+    let member = action.payload.member;
     let trip_id = action.payload.trip_id;
-    //loop through array to post each member to the db
-    for(let i = 0; i < members.length; i++){
+    
        
-        try {
-            yield axios({
-            method: 'POST',
-            url: `/api/members/${trip_id}`,
-            data: members[i]
-        })
-        
-        } catch (error) {
-            console.log(error);
-        }
+    try {
+        yield axios({
+        method: 'POST',
+        url: `/api/members/${trip_id}`,
+        data: member
+    })
+    
+    } catch (error) {
+        console.log(error);
     }
+
   
 }
 function* deleteTrip(action){
@@ -90,7 +89,7 @@ function* deleteTrip(action){
 function* newTripSaga() {
   yield takeLatest('CREATE_TRIP', createTrip);
   yield takeLatest('PUT_PAGE_1_DATA', putPageOne);
-  yield takeLatest('PUT_PAGE_1_DATA', postMembers);
+  yield takeLatest('ADD_MEMBER', postMember);
   yield takeLatest('DELETE_NEW_TRIP', deleteTrip);
   
 }
