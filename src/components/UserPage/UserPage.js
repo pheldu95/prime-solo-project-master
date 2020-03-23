@@ -54,13 +54,14 @@ class UserPage extends Component{
           <h1>Trips</h1>
           <ul>
           {/* here we will map the trips array coming from the database */}
-            {this.props.state.allTrips.map((trip) =>{
-              return(
-                // pass it the trip and history. 
-                //need to pass it history so it can do a this.props.history.push
-                //or else history is undefined
-                <TripListItem trip={trip} history={this.props.history}/>
-              )
+            {this.props.state.allTrips&&
+              this.props.state.allTrips.map((trip) =>{
+                return(
+                  // pass it the trip and history. 
+                  //need to pass it history so it can do a this.props.history.push
+                  //or else history is undefined
+                  <TripListItem trip={trip} history={this.props.history}/>
+                )
             })}
           </ul>
           <button onClick={this.newTrip}>Create New Trip</button>

@@ -26,28 +26,28 @@ function* getMembers(action){
   
 }
 
-function* postMemberItems(action){
-  console.log('items to post for member packing list:', action.payload);
-  let itemArray = action.payload.itemArray;
-  for(let i = 0; i < itemArray.length; i++){
-    console.log('posting item:', itemArray[i]);
+// function* postMemberItems(action){
+//   console.log('items to post for member packing list:', action.payload);
+//   let itemArray = action.payload.itemArray;
+//   for(let i = 0; i < itemArray.length; i++){
+//     console.log('posting item:', itemArray[i]);
     
-    try {
-      yield axios({
-          method: 'POST',
-          url: `/api/packingList/${action.payload.trip_id}`,
-          data: itemArray[i]
-      })
-    } catch (error) {
-        console.log('error adding packing list items', error);
-    }
-  }
-}
+//     try {
+//       yield axios({
+//           method: 'POST',
+//           url: `/api/packingList/${action.payload.trip_id}`,
+//           data: itemArray[i]
+//       })
+//     } catch (error) {
+//         console.log('error adding packing list items', error);
+//     }
+//   }
+// }
 function* allTripsSaga() {
   yield takeLatest('GET_ALL_TRIPS', getAllTrips);
   yield takeLatest('GET_MEMBERS', getMembers);
   //post member item(s) to packing list
-  yield takeLatest('POST_MEMBER_ITEMS', postMemberItems)
+  //yield takeLatest('POST_MEMBER_ITEMS', postMemberItems)
  
 }
 

@@ -6,10 +6,14 @@ import Member from '../Member/Member';
 class TripHome extends Component {
    componentDidMount(){
        this.getMembers();
+       this.getPackingList();
    }
    getMembers = () =>{
        //this dispatch will go to allTripsSaga. where axios will get members of the trip
        this.props.dispatch({type: 'GET_MEMBERS', payload: this.props.reduxState.trip.id});
+   }
+   getPackingList = () =>{
+       this.props.dispatch({type: 'GET_PACKING_LIST', payload: this.props.reduxState.trip.id})
    }
 
     render() {

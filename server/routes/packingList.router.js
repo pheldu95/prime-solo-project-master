@@ -5,8 +5,14 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
-
+router.get('/:trip_id', (req, res) => {
+    let queryText = `SELECT * FROM "packing_list_items" WHERE "trip_id" = ${req.params.trip_id}`;
+    pool.query(queryText).then((result) => {
+        res.send(result.rows);
+    }).catch((error) => {
+        console.log(error);
+        res.sendStatus(500);
+    });
 });
 
 /**

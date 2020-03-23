@@ -4,7 +4,7 @@ const packingListReducer = (state = [], action) => {
     case 'SET_PACKING_LIST':
       return action.payload;
     default:
-      return [];
+      return state;
   }
 };
 
