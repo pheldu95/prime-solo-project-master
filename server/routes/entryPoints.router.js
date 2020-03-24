@@ -21,8 +21,8 @@ router.put('/:trip_id', (req, res) => {
     
     console.log(req.body, req.params);
     
-    let queryString = `UPDATE "trips" SET entry_point = $1 WHERE "id" = ${req.params.trip_id} RETURNING *;`
-    pool.query(queryString, [req.body.ep]).then((results) => {
+    let queryText = `UPDATE "trips" SET entry_point = $1 WHERE "id" = ${req.params.trip_id} RETURNING *;`
+    pool.query(queryText, [req.body.ep]).then((results) => {
         res.send(results);
     }).catch((err) => {
         res.sendStatus(500);

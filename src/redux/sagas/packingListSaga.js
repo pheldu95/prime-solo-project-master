@@ -31,11 +31,31 @@ function* getPackingList(action){
   
 }
 
+function* checkItem(action){
+ 
+    //send the item id with its boolean value
+    try {
+        
+       yield axios({
+            method: 'PUT',
+            url: `/api/packingList/have/${action.payload.item_id}`,
+            data: action.payload
+        })
+        
+        yield put({
+            type:'GET_PACKING_LIST',
+            payload: action.payload.trip_id
+        })
+    } catch (error) {
+        console.log(error);
+    } 
+    
+}
 
 function* allTripsSaga() {
     yield takeLatest('POST_MEMBER_ITEMS', postMemberItems)
     yield takeLatest('GET_PACKING_LIST', getPackingList)
-
+    yield takeLatest('CHECK_ITEM', checkItem)
 }
 
 export default allTripsSaga;

@@ -7,16 +7,60 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 
 class IndividualPackingList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+       packingItems: this.props.reduxState.packingList,
+      reorderEnabled: false,
+      selectedRowIds: [],
+      draggingRowId: null
+    }
+    this.onDragEnd = this.onDragEnd.bind(this);
+  }
   
+  onDragEnd = result => {
+    const { destination, source, reason } = result;
+
+    if (!destination || reason === 'CANCEL') {
+      this.setState({
+        draggingRowId: null,
+      });
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    const packingItems = Object.assign([], this.state.packingItems);
+    const packingItem = this.state.packingItems[source.index];
+    packingItems.splice(source.index, 1);
+    packingItems.splice(destination.index, 0, packingItem);
+
+    console.log('id of item dragged:', packingItem.id);
+    
+    //where the dragged item is ending up
+    console.log('destination.index:', destination.index);
+    
+    let itemInfo = {idOfDraggedItem: packingItem.id, indexOfDestination: destination.index}
+    this.props.dispatch({type: 'DRAG_ITEM', payload: itemInfo});
+    this.setState({
+      packingItems
+    });
+  }
 
     render() {
-        
+        const { packingItems, selectedRowIds, reorderEnabled } = this.state;
+
         return (
 
             <div>
                 <TripNav/>
                 Packing List
-                <ul>
+                {/* <ul>
                     {this.props.reduxState.packingList&&
                         this.props.reduxState.packingList.map((item) => {
                             return(
@@ -25,8 +69,8 @@ class IndividualPackingList extends Component {
                         })
                     }
                 
-                </ul>
-                {/* <DragDropContext onDragEnd={this.onDragEnd}>
+                </ul> */}
+                <DragDropContext onDragEnd={this.onDragEnd}>
                 <Table singleLine>
                 <Table.Header>
                 <Table.Row>
@@ -40,40 +84,19 @@ class IndividualPackingList extends Component {
                 {(provided, snapshot) => (
                     <Ref innerRef={provided.innerRef}>
                     <Table.Body {...provided.droppableProps}>
-                        {this.state.packingItems.map((packingItem, idx)=>{
-                        return(
-                            <Draggable draggableId={packingItem.id.toString()} index={idx} key = {packingItem.id}>
-                            {(provided, snapshot) =>(
-                                <Ref innerRef={provided.innerRef}>
-                                <Table.Row
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    style={this.getItemStyle(
-                                    snapshot.isDragging,
-                                    provided.draggableProps.style
-                                    )}
-                                    key={packingItem.id}
-                                >
-                                    
-                                    <Table.Cell className="itemNameCell">
-                                    {packingItem.name}
-                                    </Table.Cell>
-                                    <Table.Cell>
-                                    {packingItem.quantity}
-                                    </Table.Cell>
-                                    
-                                </Table.Row>
-                                </Ref>
-                            )}
-                            </Draggable>
-                        )
-                        })}
+                        {this.props.reduxState.packingList&&
+                            this.props.reduxState.packingList.map((item, idx)=>{
+                                return(
+                                    <PackingListItem item={item} idx = {idx}/>
+                                )
+                            })
+                        }
                     </Table.Body>
                     </Ref>
                 )} 
                 </Droppable>
             </Table>
-            </DragDropContext> */}
+            </DragDropContext>
 
             </div>
         );
