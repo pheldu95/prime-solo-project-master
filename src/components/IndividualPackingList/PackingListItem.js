@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd'
-import { Button, Icon, Table, Flag, Ref, Checkbox } from 'semantic-ui-react'
+import { Button, Table, Ref, Checkbox } from 'semantic-ui-react'
 
 class PackingListItem extends Component {
-  state = {
-      have : this.props.item.have
-  }
+
   getItemStyle = (isDragging, draggableStyle) => ({
     background: isDragging && ("lightblue"),
     ...draggableStyle,
@@ -14,9 +12,15 @@ class PackingListItem extends Component {
   handleCheck = (have, id) =>{
       
       console.log(have);
+      //the new boolean have value that will be sent to the db
+      //is set to the opposite of whatever the current have value is for the item
       let newHaveValue = !have;
+      //now we will send it in a dispatch with the corresponding item id
       this.props.dispatch({type: 'CHECK_ITEM', payload: {have: newHaveValue, item_id: id, trip_id: this.props.reduxState.trip.id}});
 
+  }
+  removeItem = (id) =>{
+    this.props.dispatch({type: 'REMOVE_ITEM', payload: {item_id: id, trip_id: this.props.reduxState.trip.id}})
   }
   render() {
       //props coming from IndividualPackingList
@@ -37,13 +41,16 @@ class PackingListItem extends Component {
                 >
                     
                     <Table.Cell className="itemNameCell">
-                    {item.name}
+                        {item.name}
                     </Table.Cell>
                     <Table.Cell>
-                    {item.quantity}
+                        {item.quantity}
                     </Table.Cell>
-                     <Table.Cell>
+                    <Table.Cell>
                         <Checkbox checked={item.have} onChange = {()=>this.handleCheck(item.have, item.id)}/>
+                    </Table.Cell>
+                    <Table.Cell>
+                        <Button color = 'red' content = 'remove' onClick = {()=>this.removeItem(item.id)}/>
                     </Table.Cell>
                 </Table.Row>
                 </Ref>

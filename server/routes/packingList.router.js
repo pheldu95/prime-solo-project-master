@@ -37,8 +37,9 @@ router.put('/have/:item_id', (req, res)=>{
     console.log(req.body, req.params);
     let item_id = req.params.item_id;
     let have = req.body.have;
+    //update the have value of the item to the boolean value that was sent
     let queryText = `UPDATE "packing_list_items" SET have = $1
-                        WHERE id = ${item_id};`;
+                        WHERE "id" = ${item_id};`;
     pool.query(queryText, [have]).then((results) => {
         res.send(results);
     }).catch((err) => {
@@ -47,4 +48,14 @@ router.put('/have/:item_id', (req, res)=>{
     })
 })
 
+router.delete('/:item_id', (req, res) =>{
+    let item_id = req.params.item_id;
+    let queryText = `DELETE FROM "packing_list_items" WHERE "id" = ${item_id};`;
+    pool.query(queryText).then((results)=>{
+        res.sendStatus(200)
+    }).catch((err)=>{
+        res.sendStatus(500);
+        console.log('error deleting item', err);
+    })
+})
 module.exports = router;

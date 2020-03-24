@@ -60,43 +60,33 @@ class IndividualPackingList extends Component {
             <div>
                 <TripNav/>
                 Packing List
-                {/* <ul>
-                    {this.props.reduxState.packingList&&
-                        this.props.reduxState.packingList.map((item) => {
-                            return(
-                                <PackingListItem item={item}/>
-                            )
-                        })
-                    }
-                
-                </ul> */}
                 <DragDropContext onDragEnd={this.onDragEnd}>
-                <Table singleLine>
-                <Table.Header>
-                <Table.Row>
-                    {reorderEnabled && (<Table.HeaderCell />)}
-                    < Table.HeaderCell> Name </Table.HeaderCell>
-                    <Table.HeaderCell>Quantity</Table.HeaderCell>
-                    <Table.HeaderCell>Have</Table.HeaderCell>
-                </Table.Row>
-                </Table.Header>
-                <Droppable droppableId="table">
-                {(provided, snapshot) => (
-                    <Ref innerRef={provided.innerRef}>
-                    <Table.Body {...provided.droppableProps}>
-                        {this.props.reduxState.packingList&&
-                            this.props.reduxState.packingList.map((item, idx)=>{
-                                return(
-                                    <PackingListItem item={item} idx = {idx}/>
-                                )
-                            })
-                        }
-                    </Table.Body>
-                    </Ref>
-                )} 
-                </Droppable>
-            </Table>
-            </DragDropContext>
+                    <Table singleLine>
+                        <Table.Header>
+                            <Table.Row>
+                                {reorderEnabled && (<Table.HeaderCell />)}
+                                < Table.HeaderCell> Name </Table.HeaderCell>
+                                <Table.HeaderCell>Quantity</Table.HeaderCell>
+                                <Table.HeaderCell>Have</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                            <Droppable droppableId="table">
+                            {(provided, snapshot) => (
+                                <Ref innerRef={provided.innerRef}>
+                                <Table.Body {...provided.droppableProps}>
+                                    {this.props.reduxState.packingList&&
+                                        this.props.reduxState.packingList.map((item, idx)=>{
+                                            return(
+                                                <PackingListItem item={item} idx = {idx}/>
+                                            )
+                                        })
+                                    }
+                                </Table.Body>
+                                </Ref>
+                            )} 
+                            </Droppable>
+                    </Table>
+                </DragDropContext>
 
             </div>
         );

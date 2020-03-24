@@ -33,7 +33,7 @@ function* getPackingList(action){
 
 function* checkItem(action){
  
-    //send the item id with its boolean value
+    //send the item id with its boolean value to the packingList router
     try {
         
        yield axios({
@@ -51,11 +51,29 @@ function* checkItem(action){
     } 
     
 }
+function* removeItem(action){
+     try {
+        yield axios({
+            method: 'DELETE',
+            url: `/api/packingList/${action.payload.item_id}`,
+        })
+        yield put({
+            type:'GET_PACKING_LIST',
+            payload: action.payload.trip_id
+        })
+    }
+    catch (error) {
+        console.log(error);
+        alert('Unable to delete item');
+    };   
+    
+}
 
 function* allTripsSaga() {
     yield takeLatest('POST_MEMBER_ITEMS', postMemberItems)
     yield takeLatest('GET_PACKING_LIST', getPackingList)
     yield takeLatest('CHECK_ITEM', checkItem)
+    yield takeLatest('REMOVE_ITEM', removeItem)
 }
 
 export default allTripsSaga;
