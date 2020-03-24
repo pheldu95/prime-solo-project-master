@@ -7,94 +7,136 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 
 class IndividualPackingList extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-       packingItems: this.props.reduxState.packingList,
-      reorderEnabled: false,
-      selectedRowIds: [],
-      draggingRowId: null
+constructor(props) {
+super(props)
+this.state = {
+    packingItems: this.props.reduxState.packingList,
+    reorderEnabled: false,
+    selectedRowIds: [],
+    draggingRowId: null,
+    addItemToggle: false,
+    newItem: {
+        name: '',
+        quantity: 0
     }
-    this.onDragEnd = this.onDragEnd.bind(this);
-  }
-  
-  onDragEnd = result => {
-    const { destination, source, reason } = result;
+}
+this.onDragEnd = this.onDragEnd.bind(this);
+}
 
-    if (!destination || reason === 'CANCEL') {
-      this.setState({
-        draggingRowId: null,
-      });
-      return;
-    }
+onDragEnd = result => {
+const { destination, source, reason } = result;
 
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-
-    const packingItems = Object.assign([], this.state.packingItems);
-    const packingItem = this.state.packingItems[source.index];
-    packingItems.splice(source.index, 1);
-    packingItems.splice(destination.index, 0, packingItem);
-
-    console.log('id of item dragged:', packingItem.id);
-    
-    //where the dragged item is ending up
-    console.log('destination.index:', destination.index);
-    
-    let itemInfo = {idOfDraggedItem: packingItem.id, indexOfDestination: destination.index}
-    this.props.dispatch({type: 'DRAG_ITEM', payload: itemInfo});
+if (!destination || reason === 'CANCEL') {
     this.setState({
-      packingItems
+    draggingRowId: null,
     });
-  }
+    return;
+}
 
-    render() {
-        const { packingItems, selectedRowIds, reorderEnabled } = this.state;
+if (
+    destination.droppableId === source.droppableId &&
+    destination.index === source.index
+) {
+    return;
+}
 
-        return (
+const packingItems = Object.assign([], this.state.packingItems);
+const packingItem = this.state.packingItems[source.index];
+packingItems.splice(source.index, 1);
+packingItems.splice(destination.index, 0, packingItem);
 
-            <div>
-                <TripNav/>
-                Packing List
-                <DragDropContext onDragEnd={this.onDragEnd}>
-                    <Table singleLine>
-                        <Table.Header>
-                            <Table.Row>
-                                {reorderEnabled && (<Table.HeaderCell />)}
-                                < Table.HeaderCell> Name </Table.HeaderCell>
-                                <Table.HeaderCell>Quantity</Table.HeaderCell>
-                                <Table.HeaderCell>Have</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
-                            <Droppable droppableId="table">
-                            {(provided, snapshot) => (
-                                <Ref innerRef={provided.innerRef}>
-                                <Table.Body {...provided.droppableProps}>
-                                    {this.props.reduxState.packingList&&
-                                        this.props.reduxState.packingList.map((item, idx)=>{
-                                            return(
-                                                <PackingListItem item={item} idx = {idx}/>
-                                            )
-                                        })
-                                    }
-                                </Table.Body>
-                                </Ref>
-                            )} 
-                            </Droppable>
-                    </Table>
-                </DragDropContext>
+console.log('id of item dragged:', packingItem.id);
 
-            </div>
-        );
+//where the dragged item is ending up
+console.log('destination.index:', destination.index);
+
+let itemInfo = {idOfDraggedItem: packingItem.id, indexOfDestination: destination.index}
+this.props.dispatch({type: 'DRAG_ITEM', payload: itemInfo});
+this.setState({
+    packingItems
+});
+}
+addItemToggle = () =>{
+    this.setState({
+        addItemToggle: !this.state.addItemToggle
+    })
+}
+handleItemInputChange = (event, type) =>{
+    this.setState({
+        newItem:{
+            ...this.state.newItem,
+            [type]: event.target.value
+        }
+    })
+}
+
+addItem = () =>{
+    //send the new item to packingListSaga
+    this.props.dispatch({type: 'ADD_ITEM', payload: {newItem:this.state.newItem, trip_id: this.props.reduxState.trip.id}});
+    //reset the values so the inputs get emptied
+    this.setState({
+        newItem: {
+            name: '',
+            quantity: 0
+        }
+    })
+}
+
+render() {
+    const { packingItems, selectedRowIds, reorderEnabled } = this.state;
+    let addItem;
+    if(this.state.addItemToggle){
+        addItem = <div>
+                    <input value={this.state.newItem.name} onChange={(event)=>this.handleItemInputChange(event, 'name')} placeholder='item name'/>
+                    <input value={this.state.newItem.quantity} type='number' onChange={(event)=>this.handleItemInputChange(event, 'quantity')} placeholder = 'quantity'/>
+                    <Button onClick = {this.addItem} color = 'light green' content = 'add item'/>
+                    <Button color = 'red' content = 'cancel' onClick = {this.addItemToggle}/>
+                </div>
+    }else{
+        addItem = <Button color = 'light green' content = '+' onClick = {this.addItemToggle}/>
+
     }
+    return (
+
+        <div>
+            <TripNav/>
+            Packing List
+            <DragDropContext onDragEnd={this.onDragEnd}>
+                <Table singleLine>
+                    <Table.Header>
+                        <Table.Row>
+                            {reorderEnabled && (<Table.HeaderCell />)}
+                            < Table.HeaderCell> Name </Table.HeaderCell>
+                            <Table.HeaderCell>Quantity</Table.HeaderCell>
+                            <Table.HeaderCell>Have</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                        <Droppable droppableId="table">
+                        {(provided, snapshot) => (
+                            <Ref innerRef={provided.innerRef}>
+                            <Table.Body {...provided.droppableProps}>
+                                {this.props.reduxState.packingList&&
+                                    this.props.reduxState.packingList.map((item, idx)=>{
+                                        return(
+                                            <PackingListItem item={item} idx = {idx}/>
+                                        )
+                                    })
+                                }
+                            </Table.Body>
+                            </Ref>
+                        )} 
+                        </Droppable>
+                </Table>
+                {addItem}
+            </DragDropContext>
+
+        </div>
+    );
+}
 }
 
 const mapReduxStateToProps = (reduxState) => ({
-    reduxState
+reduxState
 });
 
 export default connect(mapReduxStateToProps)(IndividualPackingList);

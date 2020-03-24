@@ -69,11 +69,28 @@ function* removeItem(action){
     
 }
 
+function* addItem(action){
+    try {
+        yield axios({
+            method: 'POST',
+            url: `/api/packingList/${action.payload.trip_id}`,
+            data: action.payload.newItem
+        })
+        yield put({
+            type:'GET_PACKING_LIST',
+            payload: action.payload.trip_id
+        })
+    } catch (error) {
+        console.log('error adding packing list items', error);
+    }
+}
+
 function* allTripsSaga() {
     yield takeLatest('POST_MEMBER_ITEMS', postMemberItems)
     yield takeLatest('GET_PACKING_LIST', getPackingList)
     yield takeLatest('CHECK_ITEM', checkItem)
     yield takeLatest('REMOVE_ITEM', removeItem)
+    yield takeLatest('ADD_ITEM', addItem)
 }
 
 export default allTripsSaga;
