@@ -41,7 +41,7 @@ router.post('/:trip_id', (req, res) => {
     .then(result =>{
         res.sendStatus(201);
     }).catch(error => {
-        console.log('error adding to packing_list_items');
+        console.log('error adding to group_packing_list_items');
         res.sendStatus(500);
     })
 });
@@ -52,7 +52,7 @@ router.put('/have/:item_id', (req, res)=>{
     let item_id = req.params.item_id;
     let have = req.body.have;
     //update the have value of the item to the boolean value that was sent
-    let queryText = `UPDATE "packing_list_items" SET have = $1
+    let queryText = `UPDATE "group_packing_list_items" SET have = $1
                         WHERE "id" = ${item_id};`;
     pool.query(queryText, [have]).then((results) => {
         res.send(results);
@@ -67,7 +67,7 @@ router.put('/quantity/:item_id', (req, res)=>{
     console.log(req.body, req.params);
     let item_id = req.params.item_id;
     let quantity = req.body.quantity;
-    let queryText = `UPDATE "packing_list_items" SET quantity = $1
+    let queryText = `UPDATE "group_packing_list_items" SET quantity = $1
                         WHERE "id" = ${item_id};`;
     pool.query(queryText, [quantity]).then((results) => {
         res.send(results);
@@ -79,7 +79,7 @@ router.put('/quantity/:item_id', (req, res)=>{
 
 router.delete('/:item_id', (req, res) =>{
     let item_id = req.params.item_id;
-    let queryText = `DELETE FROM "packing_list_items" WHERE "id" = ${item_id};`;
+    let queryText = `DELETE FROM "group_packing_list_items" WHERE "id" = ${item_id};`;
     pool.query(queryText).then((results)=>{
         res.sendStatus(200)
     }).catch((err)=>{

@@ -42,76 +42,76 @@ function* getRentals(action){
         payload: response.data
     });
 }
-// function* checkItem(action){
+function* checkItem(action){
  
-//     //send the item id with its boolean value to the packingList router
-//     try {
+    //send the item id with its boolean value to the packingList router
+    try {
         
-//        yield axios({
-//             method: 'PUT',
-//             url: `/api/packingList/have/${action.payload.item_id}`,
-//             data: action.payload
-//         })
+       yield axios({
+            method: 'PUT',
+            url: `/api/groupPackingList/have/${action.payload.item_id}`,
+            data: action.payload
+        })
         
-//         yield put({
-//             type:'GET_PACKING_LIST',
-//             payload: action.payload.trip_id
-//         })
-//     } catch (error) {
-//         console.log(error);
-//     } 
+        yield put({
+            type:'GET_GROUP_PACKING_LIST',
+            payload: action.payload.trip_id
+        })
+    } catch (error) {
+        console.log(error);
+    } 
     
-// }
-// function* removeItem(action){
-//      try {
-//         yield axios({
-//             method: 'DELETE',
-//             url: `/api/packingList/${action.payload.item_id}`,
-//         })
-//         yield put({
-//             type:'GET_PACKING_LIST',
-//             payload: action.payload.trip_id
-//         })
-//     }
-//     catch (error) {
-//         console.log(error);
-//         alert('Unable to delete item');
-//     };   
+}
+function* removeItem(action){
+     try {
+        yield axios({
+            method: 'DELETE',
+            url: `/api/groupPackingList/${action.payload.item_id}`,
+        })
+        yield put({
+            type:'GET_GROUP_PACKING_LIST',
+            payload: action.payload.trip_id
+        })
+    }
+    catch (error) {
+        console.log(error);
+        alert('Unable to delete item');
+    };   
     
-// }
+}
 
-// function* addItem(action){
-//     try {
-//         yield axios({
-//             method: 'POST',
-//             url: `/api/packingList/${action.payload.trip_id}`,
-//             data: action.payload.newItem
-//         })
-//         yield put({
-//             type:'GET_PACKING_LIST',
-//             payload: action.payload.trip_id
-//         })
-//     } catch (error) {
-//         console.log('error adding packing list items', error);
-//     }
-// }
-// function* changeQuantity(action){
-//      try {
+function* addItem(action){
+    try {
+        yield axios({
+            method: 'POST',
+            url: `/api/groupPackingList/${action.payload.trip_id}`,
+            data: action.payload.newItem
+        })
+        yield put({
+            type:'GET_GROUP_PACKING_LIST',
+            payload: action.payload.trip_id
+        })
+    } catch (error) {
+        console.log('error adding packing list items', error);
+    }
+}
+function* changeQuantity(action){
+     try {
         
-//        yield axios({
-//             method: 'PUT',
-//             url: `/api/packingList/quantity/${action.payload.item_id}`,
-//             data: {quantity: action.payload.quantity}
-//         })
+       yield axios({
+            method: 'PUT',
+            url: `/api/groupPackingList/quantity/${action.payload.item_id}`,
+            data: {quantity: action.payload.quantity}
+        })
         
-//         yield put({
-//             type:'GET_PACKING_LIST',
-//             payload: action.payload.trip_id
-//         })
-//     } catch (error) {
-//         console.log(error);
-//     } 
-// }
+        yield put({
+            type:'GET_GROUP_PACKING_LIST',
+            payload: action.payload.trip_id
+        })
+    } catch (error) {
+        console.log(error);
+    } 
+}
 
 
 function* groupPackingListSaga() {
@@ -119,10 +119,10 @@ function* groupPackingListSaga() {
     yield takeLatest('GET_GROUP_PACKING_LIST', getPackingList)
     yield takeLatest('GET_RENTALS', getRentals)
 
-    // yield takeLatest('CHECK_ITEM', checkItem)
-    // yield takeLatest('REMOVE_ITEM', removeItem)
-    // yield takeLatest('ADD_ITEM', addItem)
-    // yield takeLatest('CHANGE_QUANTITY', changeQuantity)
+    yield takeLatest('CHECK_GROUP_ITEM', checkItem)
+    yield takeLatest('REMOVE_GROUP_ITEM', removeItem)
+    yield takeLatest('ADD__GROUP_ITEM', addItem)
+    yield takeLatest('CHANGE_GROUP_QUANTITY', changeQuantity)
 }
 
 export default groupPackingListSaga;

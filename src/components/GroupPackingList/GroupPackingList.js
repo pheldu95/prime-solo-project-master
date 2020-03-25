@@ -97,10 +97,15 @@ render() {
 
     }
     return (
-
+        // both tables are getting info from the same database table
+        //but the items that are marked as rentals get stored in the rentals reducer
+        //and the rest get stored in the groupPackingList reducer
+        //each reducer gets mapped to its own table
         <div >
             <TripNav/>
-                <div className='groupPackingAndRentals'>
+            {
+                /* className='groupPackingAndRentals' */ }
+                <div >
                     Packing List
                     <DragDropContext onDragEnd={this.onDragEnd}>
                         <Table singleLine>
