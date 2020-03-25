@@ -46,6 +46,8 @@ router.delete('/:trip_id', (req, res) => {
             await client.query(queryText, [req.params.trip_id]);
             queryText = `DELETE FROM packing_list_items WHERE trip_id = $1`
             await client.query(queryText, [req.params.trip_id]);
+            queryText = `DELETE FROM group_packing_list_items WHERE trip_id = $1`
+            await client.query(queryText, [req.params.trip_id]);
             queryText = `DELETE FROM trips WHERE id =$1`;
             await client.query(queryText, [req.params.trip_id]);
             await client.query('COMMIT')

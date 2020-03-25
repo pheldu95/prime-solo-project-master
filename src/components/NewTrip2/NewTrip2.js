@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import EntryPoint from '../EntryPoint/EntryPoint'
 import Nav from '../Nav/Nav';
 
-//require item arrays. these will be posted based on how long the trip is.
-let fourDays = require('../ItemArrays/fourDays');
-let eightDays = require('../ItemArrays/eightDays');
+//require our group packing list  and member packing list finder function
+let groupPackingListFinder = require('./groupPackingListFinder');
+let memberPackingListFinder = require('./memberPackingListFinder');
 
 class NewTrip2 extends Component {
     state = {
@@ -18,11 +18,12 @@ class NewTrip2 extends Component {
     componentDidMount(){
         this.setSuggestedEps();
         this.createMemberPackingList();
+        this.createGroupPackingList();
     }
     
     //figure out the quantities for the items that each member will need, then send to db
     createMemberPackingList = () =>{
-        let itemArray;
+        
         //calculate the number of days the trip will last
         let trip = this.props.reduxState.pageOne;
         //convert them to dates that javascript can use
@@ -33,18 +34,28 @@ class NewTrip2 extends Component {
         //turn differenceInTime into days
         let days = differenceInTime/(1000*3600*24);
         
-        //array of items if days is less than 5
-        if(days<5){
-            itemArray = fourDays;
-            console.log(itemArray);
-        }else if(days>4 && days<9){//array of items if days are less than 9
-            itemArray = eightDays;
-            console.log(itemArray);
-        }
+        let itemArray = memberPackingListFinder(days);
+        
         this.props.dispatch({type: 'POST_MEMBER_ITEMS', payload: {itemArray: itemArray, trip_id: this.props.reduxState.trip.id}});
         
     }
-
+    createGroupPackingList = () =>{
+        //find how many members are on the trip
+        let members = this.props.reduxState.pageOne.members.length;
+        //find which packing list we need based on number of members
+        //this function that we required will return an array of items based on # of members
+        let groupPackingList = groupPackingListFinder(members);
+        this.props.dispatch(
+                                {
+                                    type: 'POST_GROUP_ITEMS', 
+                                    payload: 
+                                        {
+                                            itemArray: groupPackingList,
+                                            trip_id: this.props.reduxState.trip.id
+                                        }
+                                }
+                            )      
+    }
     setSuggestedEps = () =>{
         //difficulty is the trip difficulty the user chose on the page before
         //it will be matched with any ep that has the same difficulty

@@ -103,7 +103,7 @@ function* changeQuantity(action){
 }
 
 
-function* allTripsSaga() {
+function* packingListSaga() {
     yield takeLatest('POST_MEMBER_ITEMS', postMemberItems)
     yield takeLatest('GET_PACKING_LIST', getPackingList)
     yield takeLatest('CHECK_ITEM', checkItem)
@@ -112,4 +112,4 @@ function* allTripsSaga() {
     yield takeLatest('CHANGE_QUANTITY', changeQuantity)
 }
 
-export default allTripsSaga;
+export default packingListSaga;

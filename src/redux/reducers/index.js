@@ -9,6 +9,7 @@ import pageOne from './pageOneReducer';
 import members from './membersReducer';
 import packingList from './packingListReducer';
 import groupPackingList from './groupPackingListReducer';
+import rentals from './rentalsReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   entryPoints, //will hold all entry points from db
   members, //will hold all members of current trip that the user is looking at
   packingList, //holds the member packing list
-  groupPackingList //holds the group packing list
+  groupPackingList, //holds the group packing list
+  rentals //holds all the rentals for the trip
 });
 
 export default rootReducer;

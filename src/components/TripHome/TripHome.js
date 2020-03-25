@@ -17,15 +17,20 @@ class TripHome extends Component {
     }
    componentDidMount(){
        this.getMembers();
-       this.getPackingList();
+       this.getAllPackingLists();
    }
    getMembers = () =>{
        //this dispatch will go to allTripsSaga. where axios will get members of the trip
        this.props.dispatch({type: 'GET_MEMBERS', payload: this.props.reduxState.trip.id});
    }
-   getPackingList = () =>{
-       this.props.dispatch({type: 'GET_PACKING_LIST', payload: this.props.reduxState.trip.id})
-   }
+   getAllPackingLists = () =>{
+        let trip_id = this.props.reduxState.trip.id;
+        this.props.dispatch({type: 'GET_PACKING_LIST', payload: trip_id});
+        this.props.dispatch({type:'GET_GROUP_PACKING_LIST', payload: trip_id});
+        this.props.dispatch({type: 'GET_RENTALS', payload: trip_id});
+
+    }
+  
    toggleAddMember = () =>{
        if(this.state.addMember === false){
            this.setState({
