@@ -7,7 +7,7 @@ import './Nav.css';
 const TripNav = (props) => (
   <div className="nav">
     <Link to="/home">
-      <h2 className="nav-title">Boundary Waters Buddy</h2>
+      <h2 className="nav-title">Boundary Waters Buddy or Boundary Waters Basics</h2>
     </Link>
     <div className="nav-right">
       <Link className="nav-link" to="/home">
@@ -22,7 +22,7 @@ const TripNav = (props) => (
           <Link className="nav-link" to="/info">
             Info Page
           </Link>
-          <LogOutButton className="nav-link"/>
+          <LogOutButton onClick={()=>window.location.reload(false)} className="nav-link"/>
         </>
       )}
       {/* Always show this link since the about page is not protected */}

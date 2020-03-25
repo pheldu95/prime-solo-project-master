@@ -67,7 +67,8 @@ class GroupPackingList extends Component {
                                 {reorderEnabled && (<Table.HeaderCell />)}
                                 < Table.HeaderCell> Name </Table.HeaderCell>
                                 <Table.HeaderCell>Quantity</Table.HeaderCell>
-                                <Table.HeaderCell>Have</Table.HeaderCell>
+                                <Table.HeaderCell>Need to Rent</Table.HeaderCell>
+
                             </Table.Row>
                         </Table.Header>
                             <Droppable droppableId="table">

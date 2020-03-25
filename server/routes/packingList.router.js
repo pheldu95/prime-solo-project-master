@@ -48,6 +48,21 @@ router.put('/have/:item_id', (req, res)=>{
     })
 })
 
+//put request to update the quantity of the item
+router.put('/quantity/:item_id', (req, res)=>{
+    console.log(req.body, req.params);
+    let item_id = req.params.item_id;
+    let quantity = req.body.quantity;
+    let queryText = `UPDATE "packing_list_items" SET quantity = $1
+                        WHERE "id" = ${item_id};`;
+    pool.query(queryText, [quantity]).then((results) => {
+        res.send(results);
+    }).catch((err) => {
+        res.sendStatus(500);
+        console.log(err);
+    })
+})
+
 router.delete('/:item_id', (req, res) =>{
     let item_id = req.params.item_id;
     let queryText = `DELETE FROM "packing_list_items" WHERE "id" = ${item_id};`;

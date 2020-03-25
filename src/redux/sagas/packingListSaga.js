@@ -84,6 +84,24 @@ function* addItem(action){
         console.log('error adding packing list items', error);
     }
 }
+function* changeQuantity(action){
+     try {
+        
+       yield axios({
+            method: 'PUT',
+            url: `/api/packingList/quantity/${action.payload.item_id}`,
+            data: {quantity: action.payload.quantity}
+        })
+        
+        yield put({
+            type:'GET_PACKING_LIST',
+            payload: action.payload.trip_id
+        })
+    } catch (error) {
+        console.log(error);
+    } 
+}
+
 
 function* allTripsSaga() {
     yield takeLatest('POST_MEMBER_ITEMS', postMemberItems)
@@ -91,6 +109,7 @@ function* allTripsSaga() {
     yield takeLatest('CHECK_ITEM', checkItem)
     yield takeLatest('REMOVE_ITEM', removeItem)
     yield takeLatest('ADD_ITEM', addItem)
+    yield takeLatest('CHANGE_QUANTITY', changeQuantity)
 }
 
 export default allTripsSaga;

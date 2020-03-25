@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import TripListItem from '../TripListItem/TripListItem';
 import Nav from '../Nav/Nav';
+import { Button } from 'semantic-ui-react'
 
 
 // this could also be written with destructuring parameters as:
@@ -64,7 +65,7 @@ class UserPage extends Component{
                 )
             })}
           </ul>
-          <button onClick={this.newTrip}>Create New Trip</button>
+          <Button content='Create New Trip' onClick={this.newTrip}/>
         </div>
         
         <p>Your ID is: {this.props.user.id}</p>

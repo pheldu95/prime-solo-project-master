@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Button } from 'semantic-ui-react'
+
 
 class TripListItem extends Component {
   goToTrip = (trip)=>{
@@ -19,8 +21,8 @@ class TripListItem extends Component {
     return (
         
             <li>
-              <button onClick={()=>this.goToTrip(trip)}>{trip.title}, {trip.id}</button> 
-              <button onClick={()=>this.deleteTrip(trip.id)}>delete trip</button>
+              <Button basic color='light blue' content={trip.title} onClick={()=>this.goToTrip(trip)}/>
+              <Button color='red' content='delete trip' onClick={()=>this.deleteTrip(trip.id)}/>
             </li>
        
     );

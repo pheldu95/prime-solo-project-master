@@ -22,6 +22,26 @@ class PackingListItem extends Component {
   removeItem = (id) =>{
     this.props.dispatch({type: 'REMOVE_ITEM', payload: {item_id: id, trip_id: this.props.reduxState.trip.id}})
   }
+  changeQuantity = (quantity, id, operator) => {
+    if(operator === '+'){
+       quantity++;
+    }else if(operator === '-'){
+        quantity--;
+    }
+    
+    this.props.dispatch(
+        {
+            type: 'CHANGE_QUANTITY', 
+            payload: {
+                    item_id: id, 
+                    quantity: quantity, 
+                    trip_id: this.props.reduxState.trip.id
+                }
+        });
+
+
+  }
+  
   render() {
       //props coming from IndividualPackingList
     let item = this.props.item;
@@ -44,7 +64,15 @@ class PackingListItem extends Component {
                         {item.name}
                     </Table.Cell>
                     <Table.Cell>
-                        {item.quantity}
+                        <div className='quantityCell'>
+                            {item.quantity}
+                        
+                            <Button.Group vertical>
+                                <Button onClick = {()=>this.changeQuantity(item.quantity, item.id, '+')} size='mini'>+</Button>
+                                <Button onClick = {()=>this.changeQuantity(item.quantity, item.id, '-')} size='mini'>-</Button>
+                            </Button.Group>
+                            
+                        </div>
                     </Table.Cell>
                     <Table.Cell>
                         <Checkbox checked={item.have} onChange = {()=>this.handleCheck(item.have, item.id)}/>

@@ -40,21 +40,21 @@ if (
     return;
 }
 
-const packingItems = Object.assign([], this.state.packingItems);
-const packingItem = this.state.packingItems[source.index];
-packingItems.splice(source.index, 1);
-packingItems.splice(destination.index, 0, packingItem);
+    const packingItems = Object.assign([], this.state.packingItems);
+    const packingItem = this.state.packingItems[source.index];
+    packingItems.splice(source.index, 1);
+    packingItems.splice(destination.index, 0, packingItem);
 
-console.log('id of item dragged:', packingItem.id);
+    console.log('id of item dragged:', packingItem.id);
 
-//where the dragged item is ending up
-console.log('destination.index:', destination.index);
+    //where the dragged item is ending up
+    console.log('destination.index:', destination.index);
 
-let itemInfo = {idOfDraggedItem: packingItem.id, indexOfDestination: destination.index}
-this.props.dispatch({type: 'DRAG_ITEM', payload: itemInfo});
-this.setState({
-    packingItems
-});
+    let itemInfo = {idOfDraggedItem: packingItem.id, indexOfDestination: destination.index}
+    this.props.dispatch({type: 'DRAG_ITEM', payload: itemInfo});
+    this.setState({
+        packingItems
+    });
 }
 addItemToggle = () =>{
     this.setState({
