@@ -12,7 +12,7 @@ CREATE TABLE "user" (
 CREATE TABLE trips (
     id SERIAL PRIMARY KEY,
     title character varying(80) NOT NULL,
-    user_id integer REFERENCES user(id),
+    user_id integer REFERENCES user,
     start_date date,
     end_date date,
     difficulty integer,
@@ -23,7 +23,7 @@ CREATE TABLE trips (
 
 CREATE TABLE trip_members (
     id SERIAL PRIMARY KEY,
-    trip_id integer REFERENCES trips(id),
+    trip_id integer REFERENCES trips,
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     age integer NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE packing_list_items (
     id SERIAL PRIMARY KEY,
     name character varying,
     quantity integer,
-    trip_id integer REFERENCES trips(id),
+    trip_id integer REFERENCES trips,
     have boolean DEFAULT false,
     "displayOrder" integer
 );
@@ -45,7 +45,7 @@ CREATE TABLE group_packing_list_items (
     id SERIAL PRIMARY KEY,
     name character varying,
     quantity integer,
-    trip_id integer REFERENCES trips(id),
+    trip_id integer REFERENCES trips,
     have boolean DEFAULT false,
     "displayOrder" integer,
     rental boolean DEFAULT false
@@ -55,7 +55,7 @@ CREATE TABLE rental_items (
     id SERIAL PRIMARY KEY,
     name character varying,
     quantity integer,
-    trip_id integer REFERENCES trips(id),
+    trip_id integer REFERENCES trips,
     "displayOrder" integer
 );
 

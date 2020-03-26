@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TripNav from '../TripNav/TripNav';
-import GroupPackingListItem from './GroupPackingListItem';
-import { Button, Icon, Table, Flag, Ref, Tab } from 'semantic-ui-react'
+import { Button, Menu, Icon, Table, Flag, Ref, Tab } from 'semantic-ui-react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import MainPackingList from './MainPackingList/MainPackingList';
 import RentalList from './RentalList/RentalList';
@@ -12,6 +11,7 @@ class GroupPackingList extends Component {
 constructor(props) {
 super(props)
 this.state = {
+    activeItem: 'main packing list',
     packingItems: this.props.reduxState.groupPackingList,
     reorderEnabled: false,
     selectedRowIds: [],
@@ -83,9 +83,13 @@ addItem = () =>{
         }
     })
 }
-
+handleMenuItemClick = (event, {name}) =>{
+    this.setState({ activeItem: name })
+    
+}
 render() {
     const { packingItems, selectedRowIds, reorderEnabled } = this.state;
+    const activeItem = this.state.activeItem;
     let addItem;
     if(this.state.addItemToggle){
         addItem = <div>
@@ -105,8 +109,23 @@ render() {
         //each reducer gets mapped to its own table
         <div >
             <TripNav/>
-            <MainPackingList/>
-            <RentalList/>
+            <Menu tabular>
+                <Menu.Item
+                    name='main packing list'
+                    active={activeItem==='main packing list'}
+                    onClick={this.handleMenuItemClick}
+                />
+                <Menu.Item
+                    name='rental list'
+                    active={activeItem === 'rental list'}
+                    onClick={this.handleMenuItemClick}
+                />
+            </Menu>
+            {this.state.activeItem === 'main packing list'
+                ?<MainPackingList/>
+                :<RentalList/>
+            }
+           
                     
                     {/* Rental List
                     <DragDropContext onDragEnd={this.onDragEnd}>

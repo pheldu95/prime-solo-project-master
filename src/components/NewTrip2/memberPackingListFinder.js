@@ -7,12 +7,11 @@ let eightDays = require('../ItemArrays/eightDays');
 
 
 function memberPackingListFinder(days) {
-     if(days<5){
-            return fourDays;
-        }else if(days>4 && days<9){//array of items if days are less than 9
-            return eightDays;
-        }
-        
+    if(days<5){
+        return fourDays;
+    } else if (days>4 && days<9) {//array of items if days are less than 9
+        return eightDays;
+    }
 }
 
 module.exports = memberPackingListFinder;

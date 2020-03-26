@@ -23,6 +23,15 @@ this.state = {
 this.onDragEnd = this.onDragEnd.bind(this);
 }
 
+//so that when we change quantity, or add an item, the item array in the state updates along with the redux state
+componentDidUpdate = (prevProps) =>{
+    if (this.props.reduxState.groupPackingList !== prevProps.reduxState.groupPackingList) {
+        this.setState({
+            packingItems: this.props.reduxState.groupPackingList
+        })
+    }
+}
+
 onDragEnd = result => {
 const { destination, source, reason } = result;
 
@@ -121,7 +130,7 @@ render() {
                                     <Ref innerRef={provided.innerRef}>
                                     <Table.Body {...provided.droppableProps}>
                                         {this.props.reduxState.groupPackingList&&
-                                            this.props.reduxState.groupPackingList.map((item, idx)=>{
+                                            this.state.packingItems.map((item, idx)=>{
                                                 return(
                                                     <GroupPackingListItem item={item} idx = {idx}/>
                                                 )

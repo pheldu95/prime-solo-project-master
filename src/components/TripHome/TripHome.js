@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TripNav from '../TripNav/TripNav';
 import Member from '../Member/Member';
+import { Button, Icon, Table, Flag, Ref, Tab } from "semantic-ui-react";
 
 class TripHome extends Component {
     state = {
@@ -79,7 +80,7 @@ class TripHome extends Component {
 
             <div>
                 <TripNav/>
-                Trip Home
+                <label>Trip Info</label> <Button content='edit'/>
                 <ul>
                     {this.props.reduxState.members&&
                         this.props.reduxState.members.map((member) => {

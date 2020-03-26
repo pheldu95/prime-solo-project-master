@@ -17,13 +17,18 @@ class UserPage extends Component{
     this.getEntryPoints();
 
     //give the pageOneReducer some initial values. so that pageOneReducer isnt undefined
-    this.props.dispatch({type: 'HOLD_PAGE_1', payload: {title: '',
-               startDate: '0001-01-01',
-               endDate: '0001-01-01',
-               difficulty: 1,
-               experience: 1,
-               area: 'either',
-               members: []}});
+    this.props.dispatch({
+      type: 'HOLD_PAGE_1',
+      payload: {
+        title: '',
+        startDate: '0001-01-01',
+        endDate: '0001-01-01',
+        difficulty: 1,
+        experience: 1,
+        area: 'either',
+        members: []
+      }
+    });
   }
 
   //get the user's trips
@@ -33,8 +38,8 @@ class UserPage extends Component{
 
   //dispatch to entryPointSaga to get all entry points for entryPointsReducer
   getEntryPoints = () =>{
-        this.props.dispatch({type: 'GET_ENTRY_POINTS'})
-    }
+    this.props.dispatch({type: 'GET_ENTRY_POINTS'})
+  }
 
   //need to have the new trip already created when the user gets to new trip page 1.
   //that way, the trip id will already be available so the member table can use it for the reference column

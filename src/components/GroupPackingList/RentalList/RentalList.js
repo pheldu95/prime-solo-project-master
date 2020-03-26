@@ -9,7 +9,7 @@ class RentalList extends Component {
 constructor(props) {
 super(props)
 this.state = {
-    packingItems: this.props.reduxState.groupPackingList,
+    packingItems: this.props.reduxState.rentals,
     reorderEnabled: false,
     selectedRowIds: [],
     draggingRowId: null,
@@ -23,6 +23,14 @@ this.state = {
 this.onDragEnd = this.onDragEnd.bind(this);
 }
 
+//so that when we change quantity, or add an item, the item array in the state updates along with the redux state
+componentDidUpdate = (prevProps) =>{
+    if (this.props.reduxState.rentals !== prevProps.reduxState.rentals) {
+        this.setState({
+            packingItems: this.props.reduxState.rentals
+        })
+    }
+}
 onDragEnd = result => {
 const { destination, source, reason } = result;
 
@@ -78,7 +86,7 @@ addItem = () =>{
         newItem: {
             name: '',
             quantity: 0
-        }
+        },
     })
 }
 
@@ -118,7 +126,7 @@ render() {
                             <Ref innerRef={provided.innerRef}>
                             <Table.Body {...provided.droppableProps}>
                                 {this.props.reduxState.rentals&&
-                                    this.props.reduxState.rentals.map((item, idx)=>{
+                                    this.state.packingItems.map((item, idx)=>{
                                         return(
                                             <RentalListItem item={item} idx = {idx}/>
                                         )

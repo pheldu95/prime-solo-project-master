@@ -42,19 +42,19 @@ class NewTrip1 extends Component {
         })    
     }
     //adds the new member to the area in the state
-    addMember = () =>{
+    addMember = () => {
         this.setState({
             members: [...this.state.members, this.state.newMember]
         })
         
     }
-    cancelNewTrip=()=>{
+    cancelNewTrip = () => {
         //send dispatch to newTripSaga to delete trip entry from table
         this.props.dispatch({type: 'DELETE_TRIP', payload: this.props.reduxState.trip.id});
         //go back to the home page
         this.props.history.push('/home');
     }
-    nextPage=()=>{
+    nextPage = () => {
         let pageOneData = this.state
         console.log(pageOneData);
         
