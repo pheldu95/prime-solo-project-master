@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* postMemberItems(action){
+function* postGroupItems(action){
   console.log('items to post for group packing list:', action.payload);
   let itemArray = action.payload.itemArray;
   for(let i = 0; i < itemArray.length; i++){
@@ -19,7 +19,7 @@ function* postMemberItems(action){
   }
 }
 
-function* getPackingList(action){
+function* getGroupPackingList(action){
     console.log('getting packing list. trip id:', action.payload);
   //the payload is the trip id
   let response = yield axios({
@@ -113,16 +113,33 @@ function* changeQuantity(action){
     } 
 }
 
+function* changeRentalStatus(action){
+    try {
+        
+       yield axios({
+            method: 'PUT',
+            url: `/api/groupPackingList/rental/${action.payload.item_id}`,
+            data: {rentalStatus: action.payload.rentalStatus}
+        })
+        
+        yield put({
+            type:'GET_GROUP_PACKING_LIST',
+            payload: action.payload.trip_id
+        })
+    } catch (error) {
+        console.log(error);
+    }   
+}
 
 function* groupPackingListSaga() {
-    yield takeLatest('POST_GROUP_ITEMS', postMemberItems)
-    yield takeLatest('GET_GROUP_PACKING_LIST', getPackingList)
-    yield takeLatest('GET_RENTALS', getRentals)
-
+    yield takeLatest('POST_GROUP_ITEMS', postGroupItems)
+    yield takeLatest('GET_GROUP_PACKING_LIST', getGroupPackingList)
+    yield takeLatest('GET_GROUP_PACKING_LIST', getRentals)
     yield takeLatest('CHECK_GROUP_ITEM', checkItem)
     yield takeLatest('REMOVE_GROUP_ITEM', removeItem)
     yield takeLatest('ADD__GROUP_ITEM', addItem)
     yield takeLatest('CHANGE_GROUP_QUANTITY', changeQuantity)
+    yield takeLatest('CHANGE_RENTAL_STATUS', changeRentalStatus)
 }
 
 export default groupPackingListSaga;

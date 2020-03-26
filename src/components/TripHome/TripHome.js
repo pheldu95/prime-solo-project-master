@@ -27,7 +27,6 @@ class TripHome extends Component {
         let trip_id = this.props.reduxState.trip.id;
         this.props.dispatch({type: 'GET_PACKING_LIST', payload: trip_id});
         this.props.dispatch({type:'GET_GROUP_PACKING_LIST', payload: trip_id});
-        this.props.dispatch({type: 'GET_RENTALS', payload: trip_id});
 
     }
   

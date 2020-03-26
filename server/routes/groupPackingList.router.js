@@ -77,6 +77,21 @@ router.put('/quantity/:item_id', (req, res)=>{
     })
 })
 
+//put request to update if an item will be rented or not
+router.put('/rental/:item_id', (req, res)=>{
+    console.log(req.body, req.params);
+    let item_id = req.params.item_id;
+    let rentalStatus = req.body.rentalStatus;
+    let queryText = `UPDATE "group_packing_list_items" SET rental = $1
+                        WHERE "id" = ${item_id};`;
+    pool.query(queryText, [rentalStatus]).then((results) => {
+        res.send(results);
+    }).catch((err) => {
+        res.sendStatus(500);
+        console.log(err);
+    })
+})
+
 router.delete('/:item_id', (req, res) =>{
     let item_id = req.params.item_id;
     let queryText = `DELETE FROM "group_packing_list_items" WHERE "id" = ${item_id};`;
