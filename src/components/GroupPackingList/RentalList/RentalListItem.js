@@ -9,16 +9,7 @@ class GroupPackingListItem extends Component {
     background: isDragging && ("lightblue"),
     ...draggableStyle,
   })
-  handleCheck = (have, id) =>{
-      
-      console.log(have);
-      //the new boolean have value that will be sent to the db
-      //is set to the opposite of whatever the current have value is for the item
-      let newHaveValue = !have;
-      //now we will send it in a dispatch with the corresponding item id
-      this.props.dispatch({type: 'CHECK_GROUP_ITEM', payload: {have: newHaveValue, item_id: id, trip_id: this.props.reduxState.trip.id}});
-
-  }
+  
   removeItem = (id) =>{
     this.props.dispatch({type: 'REMOVE_GROUP_ITEM', payload: {item_id: id, trip_id: this.props.reduxState.trip.id}})
   }
@@ -91,9 +82,6 @@ class GroupPackingListItem extends Component {
                             </Button.Group>
                             
                         </div>
-                    </Table.Cell>
-                    <Table.Cell>
-                        <Checkbox checked={item.have} onChange = {()=>this.handleCheck(item.have, item.id)}/>
                     </Table.Cell>
                     <Table.Cell>
                         {button}

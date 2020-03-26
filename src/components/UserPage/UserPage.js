@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import TripListItem from '../TripListItem/TripListItem';
 import Nav from '../Nav/Nav';
-import { Button } from 'semantic-ui-react'
+import { Button, List } from 'semantic-ui-react'
 
 
 // this could also be written with destructuring parameters as:
@@ -53,7 +53,7 @@ class UserPage extends Component{
         </h1>
         <div>
           <h1>Trips</h1>
-          <ul>
+          <List>
           {/* here we will map the trips array coming from the database */}
             {this.props.state.allTrips&&
               this.props.state.allTrips.map((trip) =>{
@@ -64,7 +64,7 @@ class UserPage extends Component{
                   <TripListItem trip={trip} history={this.props.history}/>
                 )
             })}
-          </ul>
+          </List>
           <Button content='Create New Trip' onClick={this.newTrip}/>
         </div>
         

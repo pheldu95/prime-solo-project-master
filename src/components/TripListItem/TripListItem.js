@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Button } from 'semantic-ui-react'
+import { Button, List } from 'semantic-ui-react'
 
 
 class TripListItem extends Component {
@@ -20,10 +20,14 @@ class TripListItem extends Component {
     let trip = this.props.trip;
     return (
         
-            <li>
-              <Button basic color='light blue' content={trip.title} onClick={()=>this.goToTrip(trip)}/>
-              <Button color='red' content='delete trip' onClick={()=>this.deleteTrip(trip.id)}/>
-            </li>
+            <List.Item>
+              <List.Content>
+                <List.Header as='a' onClick={()=>this.goToTrip(trip)}>{trip.title}</List.Header>
+                <List.Description>{trip.start_date} - {trip.end_date}</List.Description>
+                {/* <Button basic color='light blue' content={trip.title} onClick={()=>this.goToTrip(trip)}/> */}
+                <Button color='red' content='delete trip' onClick={()=>this.deleteTrip(trip.id)}/>
+              </List.Content>
+            </List.Item>
        
     );
   }
