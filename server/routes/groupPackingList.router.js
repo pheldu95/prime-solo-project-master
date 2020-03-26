@@ -33,11 +33,10 @@ router.get('/rentals/:trip_id', (req, res) => {
  * POST route template
  */
 router.post('/:trip_id', (req, res) => {
-    console.log(req.body, req.params.trip_id, 'item to add');
     let item = req.body;
-    let queryText = `INSERT INTO "group_packing_list_items" ("name", "quantity", "trip_id")
-                        VALUES ($1, $2, $3)`
-    pool.query(queryText, [item.name, item.quantity, req.params.trip_id])
+    let queryText = `INSERT INTO "group_packing_list_items" ("name", "quantity", "trip_id", "rental")
+                        VALUES ($1, $2, $3, $4)`
+    pool.query(queryText, [item.name, item.quantity, req.params.trip_id, item.rental])
     .then(result =>{
         res.sendStatus(201);
     }).catch(error => {

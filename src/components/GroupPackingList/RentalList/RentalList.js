@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TripNav from '../TripNav/TripNav';
-import GroupPackingListItem from './GroupPackingListItem';
+import RentalListItem from './RentalListItem';
 import { Button, Icon, Table, Flag, Ref, Tab } from 'semantic-ui-react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import MainPackingList from './MainPackingList/MainPackingList';
-import RentalList from './RentalList/RentalList';
 
 
-class GroupPackingList extends Component {
+class RentalList extends Component {
 constructor(props) {
 super(props)
 this.state = {
@@ -19,7 +16,8 @@ this.state = {
     addItemToggle: false,
     newItem: {
         name: '',
-        quantity: 0
+        quantity: 0,
+        rental: true
     }
 }
 this.onDragEnd = this.onDragEnd.bind(this);
@@ -104,38 +102,35 @@ render() {
         //and the rest get stored in the groupPackingList reducer
         //each reducer gets mapped to its own table
         <div >
-            <TripNav/>
-            <MainPackingList/>
-            <RentalList/>
-                    
-                    {/* Rental List
-                    <DragDropContext onDragEnd={this.onDragEnd}>
-                        <Table singleLine>
-                            <Table.Header>
-                                <Table.Row>
-                                    {reorderEnabled && (<Table.HeaderCell />)}
-                                    < Table.HeaderCell> Name </Table.HeaderCell>
-                                    <Table.HeaderCell>Quantity</Table.HeaderCell>
-                                </Table.Row>
-                            </Table.Header>
-                                <Droppable droppableId="table">
-                                {(provided, snapshot) => (
-                                    <Ref innerRef={provided.innerRef}>
-                                    <Table.Body {...provided.droppableProps}>
-                                        {this.props.reduxState.rentals&&
-                                            this.props.reduxState.rentals.map((item, idx)=>{
-                                                return(
-                                                    <GroupPackingListItem item={item} idx = {idx}/>
-                                                )
-                                            })
-                                        }
-                                    </Table.Body>
-                                    </Ref>
-                                )} 
-                                </Droppable>
-                        </Table>
-                        {addItem}
-                    </DragDropContext> */}
+         
+            Rental List
+            <DragDropContext onDragEnd={this.onDragEnd}>
+                <Table singleLine>
+                    <Table.Header>
+                        <Table.Row>
+                            {reorderEnabled && (<Table.HeaderCell />)}
+                            < Table.HeaderCell> Name </Table.HeaderCell>
+                            <Table.HeaderCell>Quantity</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                        <Droppable droppableId="table">
+                        {(provided, snapshot) => (
+                            <Ref innerRef={provided.innerRef}>
+                            <Table.Body {...provided.droppableProps}>
+                                {this.props.reduxState.rentals&&
+                                    this.props.reduxState.rentals.map((item, idx)=>{
+                                        return(
+                                            <RentalListItem item={item} idx = {idx}/>
+                                        )
+                                    })
+                                }
+                            </Table.Body>
+                            </Ref>
+                        )} 
+                        </Droppable>
+                </Table>
+                {addItem}
+            </DragDropContext>
                                               
         </div>
     );
@@ -146,4 +141,4 @@ const mapReduxStateToProps = (reduxState) => ({
 reduxState
 });
 
-export default connect(mapReduxStateToProps)(GroupPackingList);
+export default connect(mapReduxStateToProps)(RentalList);

@@ -56,6 +56,7 @@ class NewTrip1 extends Component {
     }
     nextPage=()=>{
         let pageOneData = this.state
+        console.log(pageOneData);
         
         //give the object the trip_id
         pageOneData.trip_id = this.props.reduxState.trip.id

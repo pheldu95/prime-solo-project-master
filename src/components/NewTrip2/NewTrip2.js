@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import EntryPoint from '../EntryPoint/EntryPoint'
 import Nav from '../Nav/Nav';
+import axios from 'axios';
 
 //require our group packing list  and member packing list finder function
 let groupPackingListFinder = require('./groupPackingListFinder');
@@ -117,6 +118,22 @@ class NewTrip2 extends Component {
         //on page Trip Hom page load, so there will be nothing to display
         this.putPageOneData().then(() => this.props.history.push('/tripHome'));
     }
+    backToPageOne = () =>{
+        //delete the packing list items that were posted to the db
+        //this way, there won't be duplicates, since the items will be posted again 
+        //when the user comes back to this page
+        axios({
+            method: 'DELETE',
+            url: `/api/trip/deleteItems/${this.props.reduxState.trip.id}`
+        }).then(response =>{
+            console.log(response)
+            
+        }).catch(error=>{
+            console.log('error deleting all packing items', error);
+            
+        })
+        this.props.history.push('/newtrip1');
+    }
 
     render() {
         let info;
@@ -154,7 +171,7 @@ class NewTrip2 extends Component {
                         )
                     })}
                 </ul>
-                <button>back</button>
+                <button onClick={this.backToPageOne}>back</button>
                 <button onClick = {this.submit}>submit</button>             
             </div>
         );

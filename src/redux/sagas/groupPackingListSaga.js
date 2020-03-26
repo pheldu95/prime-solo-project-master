@@ -80,7 +80,7 @@ function* removeItem(action){
     
 }
 
-function* addItem(action){
+function* addGroupItem(action){
     try {
         yield axios({
             method: 'POST',
@@ -137,7 +137,7 @@ function* groupPackingListSaga() {
     yield takeLatest('GET_GROUP_PACKING_LIST', getRentals)
     yield takeLatest('CHECK_GROUP_ITEM', checkItem)
     yield takeLatest('REMOVE_GROUP_ITEM', removeItem)
-    yield takeLatest('ADD__GROUP_ITEM', addItem)
+    yield takeLatest('ADD_GROUP_ITEM', addGroupItem)
     yield takeLatest('CHANGE_GROUP_QUANTITY', changeQuantity)
     yield takeLatest('CHANGE_RENTAL_STATUS', changeRentalStatus)
 }

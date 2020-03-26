@@ -16,7 +16,8 @@ this.state = {
     addItemToggle: false,
     newItem: {
         name: '',
-        quantity: 0
+        quantity: 0,
+        rental: false
     }
 }
 this.onDragEnd = this.onDragEnd.bind(this);
@@ -71,7 +72,7 @@ handleItemInputChange = (event, type) =>{
 
 addItem = () =>{
     //send the new item to grouppackingListSaga
-    this.props.dispatch({type: 'ADD_ITEM', payload: {newItem:this.state.newItem, trip_id: this.props.reduxState.trip.id}});
+    this.props.dispatch({type: 'ADD_GROUP_ITEM', payload: {newItem:this.state.newItem, trip_id: this.props.reduxState.trip.id}});
     //reset the values so the inputs get emptied
     this.setState({
         newItem: {
