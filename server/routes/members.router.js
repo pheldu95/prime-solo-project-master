@@ -20,9 +20,9 @@ router.post('/:trip_id', (req, res) => {
     console.log('req.body in members router', req.body, req.params.trip_id);
     let member = (req.body);
    
-    let queryText = `INSERT INTO "trip_members" ("trip_id", "first_name", "last_name", "age", "exercise", "email")
-                        VALUES ($1, $2, $3, $4, $5, $6);`
-    pool.query(queryText, [req.params.trip_id, member.firstName, member.lastName, member.age, member.exercise, member.email])
+    let queryText = `INSERT INTO "trip_members" ("trip_id", "first_name", "last_name", "age", "email")
+                        VALUES ($1, $2, $3, $4, $5);`
+    pool.query(queryText, [req.params.trip_id, member.firstName, member.lastName, member.age, member.email])
     .then(result => {
         res.sendStatus(201);
     })

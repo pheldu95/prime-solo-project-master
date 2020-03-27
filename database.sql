@@ -27,7 +27,6 @@ CREATE TABLE trip_members (
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     age integer NOT NULL,
-    exercise integer NOT NULL,
     email character varying NOT NULL,
     role character varying
 );

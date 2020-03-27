@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { List } from 'semantic-ui-react';
 
 class Member extends Component {
   
@@ -11,7 +12,14 @@ class Member extends Component {
       //props coming from UserPage
     let member = this.props.member;
     return (
-        <li>{member.first_name} {member.last_name} {member.age} {member.email} <button>edit</button> <button onClick={()=>this.removeMember(member.id)}>remove</button></li>
+      <List.Item>
+        <List.Content>
+          <List.Header>{member.first_name} {member.last_name}</List.Header>
+          <List.Description>
+            {member.email}
+           </List.Description>
+        </List.Content>
+      </List.Item>
     );
   }
 }

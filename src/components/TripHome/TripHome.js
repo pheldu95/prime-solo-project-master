@@ -2,23 +2,63 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TripNav from '../TripNav/TripNav';
 import Member from '../Member/Member';
-import { Button, Icon, Table, Flag, Ref, Tab } from "semantic-ui-react";
+import { Button, List, Icon, Table, Flag, Ref, Tab } from "semantic-ui-react";
+
+//function we will use to calculate paddle info
+import {paddleInfoCalculator} from './paddleInfoCalculator';
+import axios from 'axios';
 
 class TripHome extends Component {
     state = {
         //addMember is for conditional rendering
         addMember: false,
-         newMember:{
+        editMode: false,
+        newMember:{
             firstName: '',
             lastName: '',
             age: 0,
-            exercise: 0,
             email: ''
         },
+        paddleInfo: '',
+        entry_point: {},
     }
    componentDidMount(){
        this.getMembers();
        this.getAllPackingLists();
+       this.calculatePaddleInfo();
+       this.getEntryPointInfo();
+
+   }
+
+   //wait until the trip reducer has been updated with the entry point.
+   //once it has, we can run getEntryPointInfo because we will have the entry point number
+   componentDidUpdate = (prevProps) =>{
+        if (this.props.reduxState.trip !== prevProps.reduxState.trip) {
+            this.getEntryPointInfo();
+        }
+    }
+
+   calculatePaddleInfo = () =>{
+       let trip = this.props.reduxState.trip;
+       let groupSize = this.props.reduxState.members.length;
+       //calculate the number of days the trip will last
+       //convert them to dates that javascript can use
+       let start_date = new Date(trip.start_date);
+       let end_date = new Date(trip.end_date);
+       //find the difference in time in miliseconds
+       let differenceInTime = end_date.getTime() - start_date.getTime();
+       //turn differenceInTime into days
+       let days = differenceInTime / (1000 * 3600 * 24);
+       console.log('days', days);
+
+       let paddleInfo = paddleInfoCalculator(trip, groupSize, days);
+       console.log('paddleInfo', paddleInfo);
+       this.setState({
+           paddleInfo: paddleInfo
+       })
+
+
+       
    }
    getMembers = () =>{
        //this dispatch will go to allTripsSaga. where axios will get members of the trip
@@ -30,7 +70,29 @@ class TripHome extends Component {
         this.props.dispatch({type:'GET_GROUP_PACKING_LIST', payload: trip_id});
 
     }
-  
+    getEntryPointInfo = () =>{
+        let ep_number = this.props.reduxState.trip.entry_point;
+        console.log('getting ep', ep_number);
+        
+        axios({
+            method: 'GET',
+            url: `/api/entryPoints/${ep_number}`
+        }).then((response) =>{
+            console.log('ep info back from db', response.data);
+            //if we dont have this conditional, it will 
+            //error out when this function run in componentDidMount
+            //because the trip redux state might not have the entry point number yet
+            if(response.data[0] != undefined){
+                this.setState({
+                    entry_point: response.data[0]
+                    
+                })
+            }
+        }).catch((error)=>{
+            console.log('error getting ep', error);
+            
+        })
+    }
    toggleAddMember = () =>{
        if(this.state.addMember === false){
            this.setState({
@@ -57,8 +119,11 @@ class TripHome extends Component {
         this.setState({
             addMember: false
         })
+        
     }
     render() {
+        let ep = this.state.entry_point;
+        let trip = this.props.reduxState.trip
         //conditional rendering
         //if addMember is false, the dom will just have a button asking if the user wants to add a member
         //if the user clicks this button, it will run toggleAddMember, which turns the variable addMember
@@ -71,17 +136,26 @@ class TripHome extends Component {
             addMember = <div><input onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
                 <input onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
                 <input onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
-                <input onChange={(event)=>this.memberInputsChange(event, 'exercise')} type='number' style={{width:'220px'}} placeholder='average hours of exercise per week'/>
                 <input onChange={(event)=>this.memberInputsChange(event, 'email')} placeholder='email'/>
                 <button onClick={()=> this.setState({addMember: false})}>Cancel</button>
                 <button onClick={this.addMember}>Add</button></div>
         }
         return (
-
+            
             <div>
                 <TripNav/>
                 <label>Trip Info</label> <Button content='edit'/>
-                <ul>
+                <p>
+                    Trip start: {trip.start_date}
+                    <br/>
+                    Trip end: {trip.end_date}
+                </p>
+                <p>
+                    Entry Point: {ep.number} -- {ep.name}   
+                </p>
+               
+                <p>estimated distance per day: {this.state.paddleInfo.distance} miles</p>               
+                <List relaxed>
                     {this.props.reduxState.members&&
                         this.props.reduxState.members.map((member) => {
                             return(
@@ -90,7 +164,7 @@ class TripHome extends Component {
                         })
                     }
                     {addMember}
-                </ul>           
+                </List>           
             </div>
         );
     }

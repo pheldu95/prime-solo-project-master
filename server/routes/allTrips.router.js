@@ -11,7 +11,12 @@ router.get('/', (req, res) => {
     console.log('user', req.user);
     //if we are authenticated, then it will send the query, else it will send 403, which means forbidden
     if(req.isAuthenticated()){
-        let queryText = `SELECT * FROM "trips" WHERE user_id = ${req.user.id} ORDER BY id ASC`;
+        let queryText = `SELECT trips.id, trips.title, trips.user_id, trips.area, trips.difficulty, 
+                            trips.start_date, trips.end_date, trips.entry_point, trips.experience, 
+                            entry_points."name", entry_points.link, entry_points.address
+                            FROM "trips" 
+                            JOIN entry_points ON trips.entry_point = entry_points.number
+                            WHERE user_id = ${req.user.id} ORDER BY id ASC`;
         pool.query(queryText).then((result) => {
             res.send(result.rows);
         }).catch((error) => {

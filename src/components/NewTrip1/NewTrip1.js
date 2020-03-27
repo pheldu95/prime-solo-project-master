@@ -17,7 +17,6 @@ class NewTrip1 extends Component {
             firstName: '',
             lastName: '',
             age: 0,
-            exercise: 0,
             email: ''
         },
         members: this.props.reduxState.pageOne.members
@@ -113,7 +112,6 @@ class NewTrip1 extends Component {
                 <input onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
                 <input onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
                 <input onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
-                <input onChange={(event)=>this.memberInputsChange(event, 'exercise')} type='number' style={{width:'220px'}} placeholder='average hours of exercise per week'/>
                 <input onChange={(event)=>this.memberInputsChange(event, 'email')} placeholder='email'/>
                 <button onClick={this.addMember}>Add</button>
                 <br/>
