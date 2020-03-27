@@ -59,3 +59,10 @@ input {
 .groupPackingAndRentals{
     display: flex;
 }
+
+.default_hr{
+    border-top: 3px skyblue;
+    width: 1%
+
+}
+

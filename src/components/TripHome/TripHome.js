@@ -144,7 +144,10 @@ class TripHome extends Component {
             
             <div>
                 <TripNav/>
-                <label>Trip Info</label> <Button content='edit'/>
+                <div style={{display: "flex"}}>
+                    <h3>Trip Info</h3> <Button content='edit' />
+                </div>
+                <hr classNam="default_hr"></hr>
                 <p>
                     Trip start: {trip.start_date}
                     <br/>
@@ -155,6 +158,7 @@ class TripHome extends Component {
                 </p>
                
                 <p>estimated distance per day: {this.state.paddleInfo.distance} miles</p>               
+                <h3>Trip Members</h3>
                 <List relaxed>
                     {this.props.reduxState.members&&
                         this.props.reduxState.members.map((member) => {
