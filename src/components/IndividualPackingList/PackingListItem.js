@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd'
-import { Button, Table, Ref, Checkbox } from 'semantic-ui-react'
+import { Button, Icon, Table, Ref, Checkbox } from 'semantic-ui-react'
 
 class PackingListItem extends Component {
 
@@ -63,16 +63,16 @@ class PackingListItem extends Component {
                     <Table.Cell className="itemNameCell">
                         {item.name}
                     </Table.Cell>
-                    <Table.Cell>
-                        <div className='quantityCell'>
+                    <Table.Cell className='quantityCell'>
+                        <div className='quantity'>
                             {item.quantity}
-                        
-                            <Button.Group vertical>
-                                <Button onClick = {()=>this.changeQuantity(item.quantity, item.id, '+')} size='mini'>+</Button>
-                                <Button onClick = {()=>this.changeQuantity(item.quantity, item.id, '-')} size='mini'>-</Button>
-                            </Button.Group>
-                            
                         </div>
+                        <Button.Group vertical className='quantityButtons'>
+                            <Button icon onClick = {()=>this.changeQuantity(item.quantity, item.id, '+')} size='mini'><Icon name='caret up'/></Button>
+                            <Button icon onClick = {()=>this.changeQuantity(item.quantity, item.id, '-')} size='mini'><Icon name='caret up'/></Button>
+                        </Button.Group>
+                            
+                        
                     </Table.Cell>
                     <Table.Cell>
                         <Checkbox checked={item.have} onChange = {()=>this.handleCheck(item.have, item.id)}/>

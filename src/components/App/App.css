@@ -66,3 +66,13 @@ input {
 
 }
 
+.quantityButtons{
+    padding-left: 30px;
+    padding-right: 10px;
+}
+.quantity{
+    padding-top: 20px;
+    padding-left: 30px;
+    font-size: large;
+}
+

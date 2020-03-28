@@ -2,13 +2,13 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 var nodemailer = require('nodemailer');
-const creds = require('../config')
+require('dotenv').config();
 
 var transport = {
     host: 'smtp.gmail.com',
     auth: {
-        user: creds.USER,
-        pass: creds.PASS
+        user: process.env.EMAIL,
+        pass: process.env.PASS
     }
 }
 
