@@ -105,7 +105,7 @@ class NewTrip1 extends Component {
                 <ul>
                     {this.state.members.map((member)=>{
                         return(
-                            <li>{member.firstName} {member.lastName} {member.age}</li>
+                            <li>{member.firstName} {member.lastName} {member.email}</li>
                         )
                     })}
                 </ul>

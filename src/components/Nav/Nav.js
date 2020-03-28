@@ -7,7 +7,7 @@ import './Nav.css';
 const TripNav = (props) => (
   <div className="nav">
     <Link to="/home">
-      <h2 className="nav-title">Boundary Waters Buddy or Boundary Waters Basics</h2>
+      <h2 className="nav-title">Boundary Waters Basics</h2>
     </Link>
     <div className="nav-right">
       <Link className="nav-link" to="/home">

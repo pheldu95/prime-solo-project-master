@@ -114,9 +114,9 @@ render() {
             {
                 /* className='groupPackingAndRentals' */ }
                 <div >
-                    Packing List
+                    <h3>Packing List</h3>
                     <DragDropContext onDragEnd={this.onDragEnd}>
-                        <Table singleLine>
+                        <Table celled>
                             <Table.Header>
                                 <Table.Row>
                                     {reorderEnabled && (<Table.HeaderCell />)}

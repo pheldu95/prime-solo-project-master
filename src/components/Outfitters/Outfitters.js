@@ -40,8 +40,9 @@ class Outfitters extends Component {
                     <Table.Header>
                         <Table.Row>
                             < Table.HeaderCell> Name </Table.HeaderCell>
-                            <Table.HeaderCell width={10}>Description</Table.HeaderCell>
-                            <Table.HeaderCell>Address</Table.HeaderCell>
+                            <Table.HeaderCell width={8}>Description</Table.HeaderCell>
+                            <Table.HeaderCell width={3}>Address</Table.HeaderCell>
+                            <Table.HeaderCell>Phone #</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -56,6 +57,9 @@ class Outfitters extends Component {
                                     </Table.Cell>
                                     <Table.Cell>
                                         {outfitter.address}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {outfitter.phone}
                                     </Table.Cell>
                                 </Table.Row>
                             )

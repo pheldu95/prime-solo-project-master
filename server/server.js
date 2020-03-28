@@ -17,6 +17,7 @@ const entryPointsRouter = require('./routes/entryPoints.router');
 const packingList = require('./routes/packingList.router');
 const groupPackingList = require('./routes/groupPackingList.router');
 const outfittersRouter = require('./routes/outfitters.router');
+const sendList = require('./routes/sendList.router');
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,6 +38,7 @@ app.use('/api/entryPoints', entryPointsRouter)
 app.use('/api/packingList', packingList);
 app.use('/api/groupPackingList', groupPackingList);
 app.use('/api/outfitters', outfittersRouter);
+app.use('/api/send', sendList);
 // Serve static files
 app.use(express.static('build'));
 

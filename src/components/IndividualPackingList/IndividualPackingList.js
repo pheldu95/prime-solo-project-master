@@ -4,6 +4,7 @@ import TripNav from "../TripNav/TripNav";
 import PackingListItem from "./PackingListItem";
 import { Button, Icon, Table, Flag, Ref, Tab } from "semantic-ui-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import axios from 'axios';
 
 class IndividualPackingList extends Component {
     constructor(props) {
@@ -99,6 +100,33 @@ class IndividualPackingList extends Component {
             }
         });
     };
+    sendList = () =>{
+        let members = this.props.reduxState.members
+        let packingList = this.props.reduxState.packingList;
+        let packingListString = '<ul>';
+        for(let i = 0; i < packingList.length; i++){
+            packingListString = packingListString + `<li>${packingList[i].name}: ${packingList[i].quantity}</li>`
+        }
+        packingListString = packingListString + '</ul>';
+        for(let i =0; i< members.length; i++){
+            axios({
+                method: 'POST',
+                url: '/api/send',
+                data: {
+                    name: members[i].name,
+                    email: members[i].email,
+                    message: packingListString
+                }
+            }).then((response) => {
+                if (response.data.msg === 'success') {
+                    alert("Message Sent.");
+                    
+                } else if (response.data.msg === 'fail') {
+                    alert("Message failed to send.")
+                }
+            })
+        }
+    }
 
     render() {
         const { packingItems, selectedRowIds, reorderEnabled } = this.state;
@@ -133,9 +161,11 @@ class IndividualPackingList extends Component {
         return (
             <div>
                 <TripNav />
-                Packing List
+                <div style={{display:'flex'}}>
+                    <h3>Packing List</h3> <Button onClick={this.sendList}>email to trip members</Button>
+                </div>
                 <DragDropContext onDragEnd={this.onDragEnd}>
-                    <Table singleLine>
+                    <Table celled>
                         <Table.Header>
                             <Table.Row>
                                 {reorderEnabled && <Table.HeaderCell />}

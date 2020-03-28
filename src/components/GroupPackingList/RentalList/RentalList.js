@@ -111,9 +111,9 @@ render() {
         //each reducer gets mapped to its own table
         <div >
          
-            Rental List
+            <h3>Rental List</h3>
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <Table singleLine>
+                <Table celled>
                     <Table.Header>
                         <Table.Row>
                             {reorderEnabled && (<Table.HeaderCell />)}
