@@ -1,36 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 
-const TripNav = (props) => (
-  <div className="nav">
-    <Link to="/home">
-      <h2 className="nav-title">Boundary Waters Basics</h2>
+const Nav = (props) => (
+  <div id='cssmenu'>
+    <Link onClick={()=>setActive(activeLink='home')} className="navLink" to="/home">
+      <h2 >Boundary Waters Basics</h2>
     </Link>
-    <div className="nav-right">
-      <Link className="nav-link" to="/home">
-        {/* Show this link if they are logged in or not,
-        but call this link 'Home' if they are logged in,
-        and call this link 'Login / Register' if they are not */}
-        {props.user.id ? 'Home' : 'Login / Register'}
-      </Link>
-      {/* Show the link to the info page and the logout button if the user is logged in */}
+    <ul>
+      <li class='active'><a href='#'>
+        <Link className="navLink" to="/home">Home</Link>
+      </a></li>
       {props.user.id && (
         <>
-          <Link className="nav-link" to="/info">
-            Info Page
-          </Link>
-          <LogOutButton onClick={()=>window.location.reload(false)} className="nav-link"/>
+          <li><a href='#'>
+            <Link className="navLink" to="/info">Info</Link>
+          </a></li>
+          <li><a href='#'>
+            <LogOutButton className="navLink" onClick={() => window.location.reload(false)}/>
+          </a></li>
         </>
       )}
-      {/* Always show this link since the about page is not protected */}
-      <Link className="nav-link" to="/about">
-        About
-      </Link>
-    </div>
+      <li><a href='#'>
+        <Link className="navLink" to="/about">About</Link>
+      </a></li>
+    </ul>
   </div>
+  // <div className="nav">
+  //   <Link to="/home">
+  //     <h2 className="nav-title">Boundary Waters Basics</h2>
+  //   </Link>
+  //   <div className="nav-right">
+  //     <Link className="nav-link" to="/home">
+  //       {/* Show this link if they are logged in or not,
+  //       but call this link 'Home' if they are logged in,
+  //       and call this link 'Login / Register' if they are not */}
+  //       {props.user.id ? 'Home' : 'Login / Register'}
+  //     </Link>
+  //     {/* Show the link to the info page and the logout button if the user is logged in */}
+  //     {props.user.id && (
+  //       <>
+  //         <Link className="nav-link" to="/info">
+  //           Info Page
+  //         </Link>
+  //         <LogOutButton onClick={()=>window.location.reload(false)} className="nav-link"/>
+  //       </>
+  //     )}
+  //     {/* Always show this link since the about page is not protected */}
+  //     <Link className="nav-link" to="/about">
+  //       About
+  //     </Link>
+  //   </div>
+  // </div>
 );
 
 // Instead of taking everything from state, we just want the user
@@ -42,4 +65,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(TripNav);
+export default connect(mapStateToProps)(Nav);
