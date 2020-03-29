@@ -4,7 +4,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import TripListItem from '../TripListItem/TripListItem';
 import Nav from '../Nav/Nav';
 import { Button, List } from 'semantic-ui-react'
-
+import './UserPage.css';
 
 // this could also be written with destructuring parameters as:
 // const UserPage = ({ user }) => (
@@ -51,30 +51,32 @@ class UserPage extends Component{
   render(){
     
     return(
-      <div>
+      <div className="userPage">
         <Nav/>
         <h1 id="welcome">
           Welcome, { this.props.user.username }!
         </h1>
         <div>
-          <h1>Trips</h1>
-          <List>
-          {/* here we will map the trips array coming from the database */}
-            {this.props.state.allTrips&&
-              this.props.state.allTrips.map((trip) =>{
-                return(
-                  // pass it the trip and history. 
-                  //need to pass it history so it can do a this.props.history.push
-                  //or else history is undefined
-                  <TripListItem trip={trip} history={this.props.history}/>
-                )
-            })}
-          </List>
-          <Button content='Create New Trip' onClick={this.newTrip}/>
+          <h1>Your Trips</h1>
+            <div>
+              <List className="tripsList">
+              {/* here we will map the trips array coming from the database */}
+                {this.props.state.allTrips&&
+                  this.props.state.allTrips.map((trip) =>{
+                    return(
+                      // pass it the trip and history. 
+                      //need to pass it history so it can do a this.props.history.push
+                      //or else history is undefined
+                      <TripListItem trip={trip} history={this.props.history}/>
+                    )
+                })}
+              </List>
+            </div>
+          <Button className="genericButton" content='Create New Trip' onClick={this.newTrip}/>
         </div>
         
         <p>Your ID is: {this.props.user.id}</p>
-        <LogOutButton className="log-in" />
+        <LogOutButton className="navLink" />
       </div>
     );
   }

@@ -79,3 +79,7 @@ input {
 .navLink {
     color: #f2f2f2;
 }
+
+.genericButton{
+    padding: 20px;
+}
