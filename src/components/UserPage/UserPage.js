@@ -60,8 +60,8 @@ class UserPage extends Component{
           <h1 style={{textDecoration: 'underline'}}>Your Trips</h1>
           {/* use a conditional to see if the user has any trips */}
           {this.props.state.allTrips.length === 0
-                ?<><h2>Looks like you haven't planned any trips.</h2>
-                  <h2>Click the "Creat New Trips" button to start planning!</h2></>
+                ?<><h2>Looks like you don't have any trips planned.</h2>
+                  <h2>Click the "Creat New Trip" button to start planning!</h2></>
                 :<List className="tripsList">
                 {/* here we will map the trips array coming from the database */}
                   {this.props.state.allTrips&&

@@ -119,13 +119,14 @@ class IndividualPackingList extends Component {
                 }
             }).then((response) => {
                 if (response.data.msg === 'success') {
-                    alert("Message Sent.");
+                    console.log("Message Sent.");
                     
                 } else if (response.data.msg === 'fail') {
-                    alert("Message failed to send.")
+                    console.log("Message failed to send.");
                 }
             })
         }
+        alert("Packing List Sent.")
     }
 
     render() {

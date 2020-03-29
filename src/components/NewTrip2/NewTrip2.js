@@ -149,7 +149,13 @@ class NewTrip2 extends Component {
         return (
             <div>
                 <Nav/>
-                <label>Entry Point</label>
+                <p>Entry Point Selection</p>
+                <p>The entry point is the lake or river that you will
+                    be entering the Boundary Waters on. You must buy a permit
+                    for the entry point you choose. Below are some suggested entry points
+                    based on the difficulty level and experience level specified on the form.
+                </p>
+                <label>Choose Your Entry Point: </label>
                 <select onChange={(event)=>this.handleChange(event)}>
                     {/* wait until this.props.reduxState.entryPoints exists, then do the mapping */}
                     {this.props.reduxState.entryPoints &&
