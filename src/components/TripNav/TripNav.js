@@ -6,73 +6,47 @@ import './TripNav.css';
 
 
 class Nav extends Component {
-  state = {
-    activeTab: ''
-  }
-  setActive = (tab) => {
-    this.setState({
-      activeTab: tab
-    });
-  }
+  
   render() {
-    let activeTab = this.state.activeTab;
-    if (window.location === '/home') {
-      console.log('asdsasdsasadasdasdassdadsadasdas');
-
-    }
     return (
       <div id='cssmenu'>
-        <Link onClick={() => this.setActive('home')} className="navLink" to="/tripHome">
+        <Link  className="navLink" to="/tripHome">
           <h2 className="nav-title">{this.props.state.trip.title}</h2>
         </Link>
         <ul>
-          {activeTab === 'home'
-            ? <li class='active'><a href='#'>
-              <Link onClick={() => this.setActive('home')} className="navLink" to="/home">Home</Link>
-            </a></li>
-            : <li><a href='#'>
-              <Link onClick={() => this.setActive('home')} className="navLink" to="/home">Home</Link>
-            </a></li>
-          }
+          <li><a href='#'>
+              <Link  className="navLink" to="/home">Home</Link>
+          </a></li>
+           
           {this.props.user.id && (
             <>
-              {activeTab === 'tripInfo'
-                ? <li class='active'><a href='#'>
-                  <Link onClick={() => this.setActive('tripInfo')} className="navLink" to="/tripHome">Trip Info</Link>
-                </a></li>
-                : <li><a href='#'>
-                  <Link onClick={() => this.setActive('tripInfo')} className="navLink" to="/tripHome">Trip Info</Link>
-                </a></li>
-              }
+              {/* had to give the li and href, or else if the user didnt click on the link
+                and instead clicked on the li, he would be brought to the home page */}
+              <li><a href='#/tripHome'>
+                <Link className="navLink" to="/tripHome">Trip Info</Link>
+              </a></li>
+             
 
-              {activeTab === 'packingList'
-                ? <li class='active'><a href='#'>
-                  <Link onClick={() => this.setActive('packingList')} className="navLink" to="/packingList">Member Packing List</Link>
-                </a></li>
-                : <li><a href='#'>
-                  <Link onClick={() => this.setActive('packingList')} className="navLink" to="/packingList"> Member Packing List</Link>
-                </a></li>
-              }
+              
+              <li><a href='#/packingList'>
+                <Link className="navLink" to="/packingList">Member Packing List</Link>
+              </a></li>
+            
+              
 
-              {activeTab === 'groupPackingList'
-                ? <li class='active'><a href='#'>
-                  <Link onClick={() => this.setActive('groupPackingList')} className="navLink" to="/groupPackingList">Group Packing List</Link>
-                </a></li>
-                : <li><a href='#'>
-                  <Link onClick={() => this.setActive('groupPackingList')} className="navLink" to="/groupPackingList">Group Packing List</Link>
-                </a></li>
-              }
+             
+              <li><a href='#/groupPackingList'>
+                <Link className="navLink" to="/groupPackingList">Group Packing List</Link>
+              </a></li>
+              
+              
 
-              {activeTab === 'outfitters'
-                ? <li class='active'><a href='#'>
-                  <Link onClick={() => this.setActive('outfitters')} className="navLink" to="/outfitters">Outfitters</Link>
+              
+                <li><a href='#/outfitters'>
+                  <Link className="navLink" to="/outfitters">Outfitters</Link>
                 </a></li>
-                : <li><a href='#'>
-                  <Link onClick={() => this.setActive('outfitters')} className="navLink" to="/outfitters">Outfitters</Link>
-                </a></li>
-              }
               <li><a href='#'>
-                <LogOutButton onClick={() => this.setActive('')} className="navLink" onClick={() => window.location.reload(false)} />
+                <LogOutButton className="navLink" onClick={() => window.location.reload(false)} />
               </a></li>
             </>
           )}
