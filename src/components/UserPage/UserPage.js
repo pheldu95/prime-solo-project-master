@@ -57,21 +57,25 @@ class UserPage extends Component{
           Welcome, { this.props.user.username }!
         </h1>
         <div>
-          <h1>Your Trips</h1>
-            <div>
-              <List className="tripsList">
-              {/* here we will map the trips array coming from the database */}
-                {this.props.state.allTrips&&
-                  this.props.state.allTrips.map((trip) =>{
-                    return(
-                      // pass it the trip and history. 
-                      //need to pass it history so it can do a this.props.history.push
-                      //or else history is undefined
-                      <TripListItem trip={trip} history={this.props.history}/>
-                    )
-                })}
-              </List>
-            </div>
+          <h1 style={{textDecoration: 'underline'}}>Your Trips</h1>
+          {/* use a conditional to see if the user has any trips */}
+          {this.props.state.allTrips.length === 0
+                ?<><h2>Looks like you haven't planned any trips.</h2>
+                  <h2>Click the "Creat New Trips" button to start planning!</h2></>
+                :<List className="tripsList">
+                {/* here we will map the trips array coming from the database */}
+                  {this.props.state.allTrips&&
+                    this.props.state.allTrips.map((trip) =>{
+                      return(
+                        // pass it the trip and history. 
+                        //need to pass it history so it can do a this.props.history.push
+                        //or else history is undefined
+                        <TripListItem trip={trip} history={this.props.history}/>
+                      )
+                  })}
+              
+                </List>
+          } 
           <Button className="genericButton" content='Create New Trip' onClick={this.newTrip}/>
         </div>
         

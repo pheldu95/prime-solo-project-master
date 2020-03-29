@@ -140,24 +140,29 @@ class TripHome extends Component {
                 <button onClick={()=> this.setState({addMember: false})}>Cancel</button>
                 <button onClick={this.addMember}>Add</button></div>
         }
+        // let start_date = trip.start_date.substring(0, 10);
+        // let end_date = trip.end_date.substring(0, 10);
         return (
-            
             <div>
                 <TripNav/>
                 <div style={{display: "flex"}}>
                     <h3>Trip Info</h3> <Button content='edit' />
                 </div>
                 <hr classNam="default_hr"></hr>
-                <p>
-                    Trip start: {trip.start_date}
-                    <br/>
-                    Trip end: {trip.end_date}
-                </p>
+                {/* will wait until the dates are not null, then appear on DOM */}
+                {this.props.reduxState.trip.start_date != null&&
+                    <p>
+                        Trip start: {trip.start_date.substring(0, 10)}
+                        <br/>
+                        Trip end: {trip.end_date.substring(0, 10)}
+                    </p>
+                }
                 <p>
                     Entry Point: {ep.number} -- {ep.name}   
                 </p>
-               
-                <p>estimated distance per day: {this.state.paddleInfo.distance} miles</p>               
+                {this.state.paddleInfo&&
+                    <p>estimated distance per day: {this.state.paddleInfo.distance} miles</p>               
+                }
                 <h3>Trip Members</h3>
                 <List relaxed>
                     {this.props.reduxState.members&&

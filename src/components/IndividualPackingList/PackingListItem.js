@@ -69,7 +69,7 @@ class PackingListItem extends Component {
                         </div>
                         <Button.Group vertical className='quantityButtons'>
                             <Button icon onClick = {()=>this.changeQuantity(item.quantity, item.id, '+')} size='mini'><Icon name='caret up'/></Button>
-                            <Button icon onClick = {()=>this.changeQuantity(item.quantity, item.id, '-')} size='mini'><Icon name='caret up'/></Button>
+                            <Button icon onClick = {()=>this.changeQuantity(item.quantity, item.id, '-')} size='mini'><Icon name='caret down'/></Button>
                         </Button.Group>
                             
                         
