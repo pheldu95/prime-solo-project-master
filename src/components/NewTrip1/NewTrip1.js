@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Nav from '../Nav/Nav';
+import { Button, Input, List} from "semantic-ui-react";
+import './NewTrip1.css';
 
 class NewTrip1 extends Component {
 
@@ -68,31 +70,34 @@ class NewTrip1 extends Component {
     render() {
         let trip = this.props.reduxState.trip
         return (
-            <div>
+            <div className="newTrip1">
                 <Nav/>
                 <h3>New Trip</h3>
                 <p>step 1/2</p>
                 {/* <p>{this.state.trip_id}</p> */}
                 <form>
                     <label>Trip title:</label>
-                    <input value={this.state.title} onChange={(event)=>this.inputChange(event, 'title')} placeholder='title'/>
+                    <Input size='mini' className="genericInput" value={this.state.title} onChange={(event)=>this.inputChange(event, 'title')} placeholder='title'/>
                     <br/>
                     <label>trip start date:</label>
-                    <input onChange={(event)=>this.inputChange(event, 'startDate')} type= 'date'/>
+                    <Input size='mini' className="genericInput" onChange={(event)=>this.inputChange(event, 'startDate')} type= 'date'/>
                     <label>trip end date:</label>
-                    <input onChange={(event)=>this.inputChange(event, 'endDate')} type = 'date'/>
+                    <Input size='mini' className="genericInput" onChange={(event)=>this.inputChange(event, 'endDate')} type = 'date'/>
+                    <br/>
                     <label>Trip Difficulty Level:</label>
                     <select value={this.state.difficulty} onChange={(event)=>this.inputChange(event, 'difficulty')}>
                         <option value={1}>Easy</option>
                         <option value={2}>Intermediate</option>
                         <option value={3}>Challenging</option>
                     </select>
-                    <label>Approximate Outdoor Experience:</label>
-                    <select value={this.state.experience} onChange={(event)=>this.inputChange(event, 'experience')}>
-                        <option value={1}>Our group is not very experienced in the outdoors</option>
-                        <option value={2}>Our group has some experience in the outdoors</option>
-                        <option value={3}>Our group is very experienced in the outdoors</option>
-                    </select>
+                    <div className="experienceSelector">
+                        <label>Approximate Outdoor Experience:</label>
+                        <select value={this.state.experience} onChange={(event)=>this.inputChange(event, 'experience')}>
+                            <option value={1}>Our group is not very experienced in the outdoors</option>
+                            <option value={2}>Our group has some experience in the outdoors</option>
+                            <option value={3}>Our group is very experienced in the outdoors</option>
+                        </select>
+                    </div>
                     <br/>
                     <label>Which side of the BWCA would you like to go to?</label>
                     <select value={this.state.area} onChange={(event)=>this.inputChange(event, 'area')}>
@@ -109,14 +114,15 @@ class NewTrip1 extends Component {
                         )
                     })}
                 </ul>
-                <input onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
-                <input onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
-                <input onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
-                <input onChange={(event)=>this.memberInputsChange(event, 'email')} placeholder='email'/>
-                <button onClick={this.addMember}>Add</button>
+                <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
+                <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
+                <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
+                <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'email')} placeholder='email'/>
+                <Button onClick={this.addMember}>Add</Button>
                 <br/>
-                <button onClick={this.cancelNewTrip}>Cancel</button>
-                <button onClick={this.nextPage}>Next</button>
+                <Button onClick={this.cancelNewTrip}>Cancel</Button>
+                <Button onClick={this.nextPage}>Next</Button>
+                
             </div>
         );
     }
