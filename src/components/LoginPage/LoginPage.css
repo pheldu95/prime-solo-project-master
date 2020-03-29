@@ -1,0 +1,29 @@
+
+.loginPage{
+    width: 800px;
+    margin-top: 150px;
+}
+
+
+.col-1 {
+    position: relative;
+    width: 50%;
+    float: left;
+    height: 100%;
+    z-index: 1010101010;
+}
+
+.col-2 {
+    position: relative;
+    width: 50%;
+    float: left;
+    height: 100%;
+    background-color: #F4F3EF;
+    z-index: 1010101010;
+    text-align: center;
+}
+
+.loginPhoto{
+    width: 100%;
+    border: solid #4F87A8 14px;
+}
