@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import EntryPoint from '../EntryPoint/EntryPoint'
 import Nav from '../Nav/Nav';
 import axios from 'axios';
+import './NewTrip2.css';
+import { Button, List } from 'semantic-ui-react'
 
 //require our group packing list  and member packing list finder function
 let groupPackingListFinder = require('./groupPackingListFinder');
@@ -143,42 +145,44 @@ class NewTrip2 extends Component {
         //and the button will be displayed. the button will bring the user to the entry point web page
         if(this.state.epReady){
             info = `Selected Entry Point: ${this.state.ep.number} ${this.state.ep.name}`
-            moreInfoButton = <button onClick={()=>this.moreInfo(this.state.ep.link)}>more information</button>
+            moreInfoButton = <Button onClick={()=>this.moreInfo(this.state.ep.link)}>More Information</Button>
         }
 
         return (
-            <div>
+            <div className="newTrip2">
                 <Nav/>
-                <p>Entry Point Selection</p>
-                <p>The entry point is the lake or river that you will
-                    be entering the Boundary Waters on. You must buy a permit
-                    for the entry point you choose. Below are some suggested entry points
-                    based on the difficulty level and experience level specified on the form.
-                </p>
-                <label>Choose Your Entry Point: </label>
-                <select onChange={(event)=>this.handleChange(event)}>
-                    {/* wait until this.props.reduxState.entryPoints exists, then do the mapping */}
-                    {this.props.reduxState.entryPoints &&
-                        this.props.reduxState.entryPoints.map((ep) => {
+                <div className="newTrip2Content">
+                    <h3>Entry Point Selection</h3>
+                    <p>The entry point is the lake or river that you will
+                        be entering the Boundary Waters on. You must buy a permit
+                        for the entry point you choose. Below are some suggested entry points
+                        based on the difficulty level and experience level specified on the form.
+                    </p>
+                    <label>Choose Your Entry Point: </label>
+                    <select onChange={(event)=>this.handleChange(event)}>
+                        {/* wait until this.props.reduxState.entryPoints exists, then do the mapping */}
+                        {this.props.reduxState.entryPoints &&
+                            this.props.reduxState.entryPoints.map((ep) => {
+                                return(
+                                    <EntryPoint ep={ep}/>
+                                )
+                            })
+                        }
+                    </select>
+                    <br/>
+                    <p>{info}</p>
+                    {moreInfoButton}
+                    <h3>Suggested Entry Points (based on trip form page 1):</h3>
+                    <List>
+                        {this.state.suggestedEps.map((ep)=>{
                             return(
-                                <EntryPoint ep={ep}/>
+                                <List.Item>{ep.number} {ep.name} <Button onClick={()=>this.moreInfo(ep.link)}>More Information</Button></List.Item>
                             )
-                        })
-                    }
-                </select>
-                <br/>
-                <p>{info}</p>
-                {moreInfoButton}
-                <p>Suggested Entry Points (based on trip form page 1):</p>
-                <ul>
-                    {this.state.suggestedEps.map((ep)=>{
-                        return(
-                            <li>{ep.number} {ep.name} <button onClick={()=>this.moreInfo(ep.link)}>more information</button></li>
-                        )
-                    })}
-                </ul>
-                <button onClick={this.backToPageOne}>back</button>
-                <button onClick = {this.submit}>submit</button>             
+                        })}
+                    </List>
+                    <Button onClick={this.backToPageOne}>Back</Button>
+                    <Button style={{marginBottom:'20px'}} onClick = {this.submit}>Submit</Button>             
+                </div>
             </div>
         );
     }

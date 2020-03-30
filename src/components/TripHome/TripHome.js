@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TripNav from '../TripNav/TripNav';
 import Member from '../Member/Member';
-import { Button, List, Icon, Table, Flag, Ref, Tab } from "semantic-ui-react";
+import { Button, List, Input } from "semantic-ui-react";
+import './TripHome.css'
 
 //function we will use to calculate paddle info
 import {paddleInfoCalculator} from './paddleInfoCalculator';
@@ -131,49 +132,51 @@ class TripHome extends Component {
         //pressing cancel toggles it back to the "add member?" button
         let addMember
         if(this.state.addMember === false){
-            addMember = <button onClick = {this.toggleAddMember}>add member?</button>
+            addMember = <Button style={{ margin:'20px'}} onClick = {this.toggleAddMember}>Add member?</Button>
         }else if(this.state.addMember === true){
-            addMember = <div><input onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
-                <input onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
-                <input onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
-                <input onChange={(event)=>this.memberInputsChange(event, 'email')} placeholder='email'/>
-                <button onClick={()=> this.setState({addMember: false})}>Cancel</button>
-                <button onClick={this.addMember}>Add</button></div>
+            addMember = <div style={{margin:'20px'}}><Input size='mini' onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
+                <Input size='mini' onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
+                <Input size='mini' onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
+                <Input size='mini' onChange={(event)=>this.memberInputsChange(event, 'email')} placeholder='email'/>
+                <Button onClick={()=> this.setState({addMember: false})}>Cancel</Button>
+                <Button onClick={this.addMember}>Add</Button></div>
         }
         // let start_date = trip.start_date.substring(0, 10);
         // let end_date = trip.end_date.substring(0, 10);
         return (
-            <div>
+            <div className="tripHome">
                 <TripNav/>
-                <div style={{display: "flex"}}>
-                    <h3>Trip Info</h3> <Button content='edit' />
-                </div>
-                <hr classNam="default_hr"></hr>
-                {/* will wait until the dates are not null, then appear on DOM */}
-                {this.props.reduxState.trip.start_date != null&&
-                    <p>
-                        Trip start: {trip.start_date.substring(0, 10)}
-                        <br/>
-                        Trip end: {trip.end_date.substring(0, 10)}
-                    </p>
-                }
-                <p>
-                    Entry Point: {ep.number} -- {ep.name}   
-                </p>
-                {this.state.paddleInfo&&
-                    <p>estimated distance per day: {this.state.paddleInfo.distance} miles</p>               
-                }
-                <h3>Trip Members</h3>
-                <List relaxed>
-                    {this.props.reduxState.members&&
-                        this.props.reduxState.members.map((member) => {
-                            return(
-                                <Member member={member}/>
-                            )
-                        })
+                <div className="tripHomeContent">
+                    <div style={{display: "flex"}}>
+                        <h3>Trip Info</h3> <Button style={{marginLeft:'20px'}} content='edit' />
+                    </div>
+                    <hr classNam="default_hr"></hr>
+                    {/* will wait until the dates are not null, then appear on DOM */}
+                    {this.props.reduxState.trip.start_date != null&&
+                        <p>
+                            Trip start: {trip.start_date.substring(0, 10)}
+                            <br/>
+                            Trip end: {trip.end_date.substring(0, 10)}
+                        </p>
                     }
-                    {addMember}
-                </List>           
+                    <p>
+                        Entry Point: {ep.number} -- {ep.name}   
+                    </p>
+                    {this.state.paddleInfo&&
+                        <p>estimated distance per day: {this.state.paddleInfo.distance} miles</p>               
+                    }
+                    <h3>Trip Members</h3>
+                    <List relaxed>
+                        {this.props.reduxState.members&&
+                            this.props.reduxState.members.map((member) => {
+                                return(
+                                    <Member member={member}/>
+                                )
+                            })
+                        }
+                        {addMember}
+                    </List>     
+                </div>      
             </div>
         );
     }

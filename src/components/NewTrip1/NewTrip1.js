@@ -72,57 +72,60 @@ class NewTrip1 extends Component {
         return (
             <div className="newTrip1">
                 <Nav/>
-                <h3>New Trip</h3>
-                <p>step 1/2</p>
-                {/* <p>{this.state.trip_id}</p> */}
-                <form>
-                    <label>Trip title:</label>
-                    <Input size='mini' className="genericInput" value={this.state.title} onChange={(event)=>this.inputChange(event, 'title')} placeholder='title'/>
-                    <br/>
-                    <label>trip start date:</label>
-                    <Input size='mini' className="genericInput" onChange={(event)=>this.inputChange(event, 'startDate')} type= 'date'/>
-                    <label>trip end date:</label>
-                    <Input size='mini' className="genericInput" onChange={(event)=>this.inputChange(event, 'endDate')} type = 'date'/>
-                    <br/>
-                    <label>Trip Difficulty Level:</label>
-                    <select value={this.state.difficulty} onChange={(event)=>this.inputChange(event, 'difficulty')}>
-                        <option value={1}>Easy</option>
-                        <option value={2}>Intermediate</option>
-                        <option value={3}>Challenging</option>
-                    </select>
-                    <div className="experienceSelector">
-                        <label>Approximate Outdoor Experience:</label>
-                        <select value={this.state.experience} onChange={(event)=>this.inputChange(event, 'experience')}>
-                            <option value={1}>Our group is not very experienced in the outdoors</option>
-                            <option value={2}>Our group has some experience in the outdoors</option>
-                            <option value={3}>Our group is very experienced in the outdoors</option>
+                <div className="newTrip1Content">
+                    <h3>New Trip</h3>
+                    <p>step 1/2</p>
+                    {/* <p>{this.state.trip_id}</p> */}
+                    <form>
+                        <label>Trip title:</label>
+                        <Input size='mini' className="genericInput" value={this.state.title} onChange={(event)=>this.inputChange(event, 'title')} placeholder='title'/>
+                        <br/>
+                        <label>trip start date:</label>
+                        <Input size='mini' className="genericInput" onChange={(event)=>this.inputChange(event, 'startDate')} type= 'date'/>
+                        <label>trip end date:</label>
+                        <Input size='mini' className="genericInput" onChange={(event)=>this.inputChange(event, 'endDate')} type = 'date'/>
+                        <br/>
+                        <label>Trip Difficulty Level:</label>
+                        <select value={this.state.difficulty} onChange={(event)=>this.inputChange(event, 'difficulty')}>
+                            <option value={1}>Easy</option>
+                            <option value={2}>Intermediate</option>
+                            <option value={3}>Challenging</option>
                         </select>
-                    </div>
+                        <div className="experienceSelector">
+                            <label>Approximate Outdoor Experience:</label>
+                            <select value={this.state.experience} onChange={(event)=>this.inputChange(event, 'experience')}>
+                                <option value={1}>Our group is not very experienced in the outdoors</option>
+                                <option value={2}>Our group has some experience in the outdoors</option>
+                                <option value={3}>Our group is very experienced in the outdoors</option>
+                            </select>
+                        </div>
+                        <br/>
+                        <label>Which side of the BWCA would you like to go to?</label>
+                        <select value={this.state.area} onChange={(event)=>this.inputChange(event, 'area')}>
+                            <option value='either'>Either</option>
+                            <option value='east'>East</option>
+                            <option value='west'>West</option>
+                        </select>
+                    </form>
+                    <h3>Members</h3>
+                    <List>
+                        {this.state.members.map((member)=>{
+                            return(
+                                <List.Item>
+                                    {member.firstName} {member.lastName} {member.email}
+                                </List.Item>
+                            )
+                        })}
+                    </List>
+                    <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
+                    <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
+                    <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
+                    <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'email')} placeholder='email'/>
+                    <Button size='mini' onClick={this.addMember}>Add</Button>
                     <br/>
-                    <label>Which side of the BWCA would you like to go to?</label>
-                    <select value={this.state.area} onChange={(event)=>this.inputChange(event, 'area')}>
-                        <option value='either'>Either</option>
-                        <option value='east'>East</option>
-                        <option value='west'>West</option>
-                    </select>
-                </form>
-                <h3>Members</h3>
-                <ul>
-                    {this.state.members.map((member)=>{
-                        return(
-                            <li>{member.firstName} {member.lastName} {member.email}</li>
-                        )
-                    })}
-                </ul>
-                <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
-                <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
-                <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
-                <Input size='mini' className="genericInput" onChange={(event)=>this.memberInputsChange(event, 'email')} placeholder='email'/>
-                <Button onClick={this.addMember}>Add</Button>
-                <br/>
-                <Button onClick={this.cancelNewTrip}>Cancel</Button>
-                <Button onClick={this.nextPage}>Next</Button>
-                
+                    <Button onClick={this.cancelNewTrip}>Cancel</Button>
+                    <Button style={{marginBottom:'20px'}} onClick={this.nextPage}>Next</Button>
+                </div>
             </div>
         );
     }
