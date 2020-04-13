@@ -164,8 +164,8 @@ class TripHome extends Component {
                         Entry Point: {ep.number} -- {ep.name}   
                     </p>
                     {this.state.paddleInfo&&
-                        <p>Estimated distance per day: 9 miles</p>  
-                        //{this.state.paddleInfo.distance}
+                        <p>Estimated distance per day: {this.state.paddleInfo.distance} miles</p>  
+                        
                     }
                     <h3>Trip Members</h3>
                     <List relaxed>

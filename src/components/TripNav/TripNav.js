@@ -2,7 +2,6 @@ import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import './TripNav.css';
 
 
 class Nav extends Component {

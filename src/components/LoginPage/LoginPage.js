@@ -35,7 +35,7 @@ class LoginPage extends Component {
     return (
       <div className='loginPage'>
         <div className='col-1'>
-          <img className='loginPhoto' src={loginPhoto}/>
+          <img alt="some people canoeing on a misty lake" className='loginPhoto' src={loginPhoto}/>
         </div>
         <div className='col-2'>
           <Nav/>

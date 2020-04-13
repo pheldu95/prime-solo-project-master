@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd'
-import { Button, Table, Ref, Checkbox } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 import TripNav from '../TripNav/TripNav';
 import axios from 'axios';
 import './Outfitters.css';
