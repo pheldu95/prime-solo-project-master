@@ -114,7 +114,7 @@ render() {
             {
                 /* className='groupPackingAndRentals' */ }
                 <div >
-                    <h3>Packing List</h3>
+                    <h3>Group Items</h3>
                     <DragDropContext onDragEnd={this.onDragEnd}>
                         <Table celled>
                             <Table.Header>

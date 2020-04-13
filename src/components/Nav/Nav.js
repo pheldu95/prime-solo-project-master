@@ -22,7 +22,7 @@ class Nav extends Component {
     return(
       <div id='cssmenu'>
         <Link onClick={()=>this.setActive('home')} className="navLink" to="/home">
-          <h2 >Boundary Waters Basics</h2>
+          <h2 >Duncanoe</h2>
         </Link>
         <ul>
           {activeTab==='home'
@@ -43,7 +43,7 @@ class Nav extends Component {
                   <Link onClick={() => this.setActive('info')} className="navLink" to="/info">Info</Link>
                 </a></li>
               }
-              <li><a href='#'>
+              <li onClick={() => this.props.dispatch({ type: 'LOGOUT' })}><a href='#'>
                 <LogOutButton onClick={() => this.setActive('')} className="navLink" onClick={() => window.location.reload(false)}/>
               </a></li>
             </>
@@ -63,7 +63,7 @@ class Nav extends Component {
 }
   // <div className="nav">
   //   <Link to="/home">
-  //     <h2 className="nav-title">Boundary Waters Basics</h2>
+  //     <h2 className="nav-title">Duncanoe</h2>
   //   </Link>
   //   <div className="nav-right">
   //     <Link className="nav-link" to="/home">

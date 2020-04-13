@@ -36,6 +36,7 @@ class Outfitters extends Component {
             <div>
                 <TripNav/>
                 <h3>Outfitters</h3>
+                <p>Here are some outfitters near your chosen entry point.</p>
                 <Table celled>
                     <Table.Header>
                         <Table.Row>

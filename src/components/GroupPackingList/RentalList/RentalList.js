@@ -112,6 +112,7 @@ render() {
         <div >
          
             <h3>Rental List</h3>
+            <p>These items can be rented from an outfitter.</p>
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Table celled>
                     <Table.Header>

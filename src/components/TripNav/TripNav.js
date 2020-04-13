@@ -29,14 +29,14 @@ class Nav extends Component {
 
               
               <li><a href='#/packingList'>
-                <Link className="navLink" to="/packingList">Member Packing List</Link>
+                <Link className="navLink" to="/packingList">Packing List</Link>
               </a></li>
             
               
 
              
               <li><a href='#/groupPackingList'>
-                <Link className="navLink" to="/groupPackingList">Group Packing List</Link>
+                <Link className="navLink" to="/groupPackingList">Group Gear</Link>
               </a></li>
               
               

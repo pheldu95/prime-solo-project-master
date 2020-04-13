@@ -6,7 +6,6 @@ const router = express.Router();
  * GET route template
  */
 router.get('/:trip_id', (req, res) => {
-    console.log('asjdajsdnajjndajksjannjdsndaskjn');
     
     let queryText = `SELECT * FROM "group_packing_list_items" WHERE "trip_id" = ${req.params.trip_id} AND "rental" = false ORDER BY id ASC`;
     pool.query(queryText).then((result) => {

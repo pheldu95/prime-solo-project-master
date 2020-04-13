@@ -51,9 +51,9 @@ class GroupPackingListItem extends Component {
     let idx = this.props.idx
     let button; //the button that will switch the item from rental or not rental
     if(item.rental){
-        button = <Button content = 'not renting' onClick = {()=>this.rental(item.id, item.rental)}/>
+        button = <Button content = 'Not renting' onClick = {()=>this.rental(item.id, item.rental)}/>
     }else{  
-        button = <Button content = 'move to rentals' onClick = {()=>this.rental(item.id, item.rental)}/> 
+        button = <Button content = 'Move to Rental List' onClick = {()=>this.rental(item.id, item.rental)}/> 
     }
     return (
         <Draggable draggableId={item.id.toString()} index={idx} key = {item.id}>
@@ -87,7 +87,7 @@ class GroupPackingListItem extends Component {
                         {button}
                     </Table.Cell>
                     <Table.Cell>
-                        <Button color = 'red' content = 'remove' onClick = {()=>this.removeItem(item.id)}/>
+                        <Button color = 'red' content = 'Remove' onClick = {()=>this.removeItem(item.id)}/>
                     </Table.Cell>
                 </Table.Row>
                 </Ref>

@@ -132,14 +132,15 @@ class TripHome extends Component {
         //pressing cancel toggles it back to the "add member?" button
         let addMember
         if(this.state.addMember === false){
-            addMember = <Button style={{ margin:'20px'}} onClick = {this.toggleAddMember}>Add member?</Button>
+            addMember = <Button onClick = {this.toggleAddMember}>Add member?</Button>
         }else if(this.state.addMember === true){
-            addMember = <div style={{margin:'20px'}}><Input size='mini' onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
+            addMember = <div ><Input size='mini' onChange={(event)=>this.memberInputsChange(event, 'firstName')} placeholder='first name'/>
                 <Input size='mini' onChange={(event)=>this.memberInputsChange(event, 'lastName')} placeholder='last name'/>
                 <Input size='mini' onChange={(event)=>this.memberInputsChange(event, 'age')} type='number' placeholder='age'/>
                 <Input size='mini' onChange={(event)=>this.memberInputsChange(event, 'email')} placeholder='email'/>
+                <Button onClick={this.addMember}>Add</Button>
                 <Button onClick={()=> this.setState({addMember: false})}>Cancel</Button>
-                <Button onClick={this.addMember}>Add</Button></div>
+                </div>
         }
         // let start_date = trip.start_date.substring(0, 10);
         // let end_date = trip.end_date.substring(0, 10);
@@ -163,7 +164,8 @@ class TripHome extends Component {
                         Entry Point: {ep.number} -- {ep.name}   
                     </p>
                     {this.state.paddleInfo&&
-                        <p>estimated distance per day: {this.state.paddleInfo.distance} miles</p>               
+                        <p>Estimated distance per day: 9 miles</p>  
+                        //{this.state.paddleInfo.distance}
                     }
                     <h3>Trip Members</h3>
                     <List relaxed>

@@ -57,12 +57,12 @@ class UserPage extends Component{
           Welcome, { this.props.user.username }!
         </h1>
         <div>
-          <h1 style={{textDecoration: 'underline'}}>Your Trips</h1>
           {/* use a conditional to see if the user has any trips */}
           {this.props.state.allTrips.length === 0
                 ?<><h2>Looks like you don't have any trips planned.</h2>
-                  <h2>Click the "Creat New Trip" button to start planning!</h2></>
-                :<List className="tripsList">
+                  <h2>Click the "Create New Trip" button to start planning!</h2></>
+                :<><h1 style={{ textDecoration: 'underline' }}>Your Trips</h1>
+                <List size='big' className="tripsList">
                 {/* here we will map the trips array coming from the database */}
                   {this.props.state.allTrips&&
                     this.props.state.allTrips.map((trip) =>{
@@ -74,12 +74,11 @@ class UserPage extends Component{
                       )
                   })}
               
-                </List>
+                </List></>
           } 
           <Button className="genericButton" content='Create New Trip' onClick={this.newTrip}/>
         </div>
         
-        <p>Your ID is: {this.props.user.id}</p>
         <LogOutButton className="navLink" />
       </div>
     );

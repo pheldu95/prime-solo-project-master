@@ -163,7 +163,7 @@ class IndividualPackingList extends Component {
             <div>
                 <TripNav />
                 <div style={{display:'flex'}}>
-                    <h3>Packing List</h3> <Button onClick={this.sendList}>email to trip members</Button>
+                    <h3>Packing List</h3> <Button style={{marginLeft:'20px'}} onClick={this.sendList}>email to trip members</Button>
                 </div>
                 <DragDropContext onDragEnd={this.onDragEnd}>
                     <Table celled>

@@ -86,7 +86,7 @@ let groupItemArray = [
     },
     {
         name: 'Bugspray bottle',
-        quantity: 10000,
+        quantity: 1,
         rental: false
     },
     {

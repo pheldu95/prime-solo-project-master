@@ -11,7 +11,7 @@ class GroupPackingList extends Component {
 constructor(props) {
 super(props)
 this.state = {
-    activeItem: 'main packing list',
+    activeItem: 'group gear packing list',
     packingItems: this.props.reduxState.groupPackingList,
     reorderEnabled: false,
     selectedRowIds: [],
@@ -111,8 +111,8 @@ render() {
             <TripNav/>
             <Menu tabular>
                 <Menu.Item
-                    name='main packing list'
-                    active={activeItem==='main packing list'}
+                    name='group gear packing list'
+                    active={activeItem==='group gear packing list'}
                     onClick={this.handleMenuItemClick}
                 />
                 <Menu.Item
@@ -121,7 +121,7 @@ render() {
                     onClick={this.handleMenuItemClick}
                 />
             </Menu>
-            {this.state.activeItem === 'main packing list'
+            {this.state.activeItem === 'group gear packing list'
                 ?<MainPackingList/>
                 :<RentalList/>
             }
