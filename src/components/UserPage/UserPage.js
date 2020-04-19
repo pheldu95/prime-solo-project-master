@@ -63,7 +63,7 @@ class UserPage extends Component{
                   <h2>Click the "Create New Trip" button to start planning!</h2></>
                 :<><h1 style={{ textDecoration: 'underline' }}>Your Trips</h1>
                 <List size='big' className="tripsList">
-                {/* here we will map the trips array coming from the database */}
+                  {/* here we will map the trips array coming from the database */}
                   {this.props.state.allTrips&&
                     this.props.state.allTrips.map((trip) =>{
                       return(
