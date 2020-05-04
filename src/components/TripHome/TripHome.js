@@ -36,6 +36,7 @@ class TripHome extends Component {
    componentDidUpdate = (prevProps) =>{
         if (this.props.reduxState.trip !== prevProps.reduxState.trip) {
             this.getEntryPointInfo();
+            this.calculatePaddleInfo();
         }
     }
 
