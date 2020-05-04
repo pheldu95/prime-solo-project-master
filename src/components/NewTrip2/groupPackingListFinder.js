@@ -1,12 +1,5 @@
-let twoPeople = require('../GroupItemArrays/twoPeople');
-let threePeople = require('../GroupItemArrays/threePeople');
 
 function groupPackingListFinder(members){
-    // if(members === 2){
-    //     return twoPeople;
-    // }else if(members === 3){
-    //     return threePeople;
-    // }
     let groupItemArray = [
         {
             name: 'Canoes',
@@ -16,6 +9,11 @@ function groupPackingListFinder(members){
         {
             name: 'Paddles',
             quantity: Math.ceil(members*(2/3)),
+            rental: false
+        },
+        {
+            name: '4 Person Tents',
+            quantity: Math.ceil(members/4),
             rental: false
         },
         {
@@ -109,7 +107,6 @@ function groupPackingListFinder(members){
             rental: false
         }
     ]
-    console.log(groupItemArray);
     return groupItemArray;
     
 }
