@@ -3,7 +3,7 @@
 
 export function paddleInfoCalculator(trip, groupSize, days){
     let distance = 6;
-
+    console.log(days, groupSize, trip)
 
     if (trip.difficulty === 1) {
         distance += 3;

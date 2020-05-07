@@ -3,12 +3,12 @@ function groupPackingListFinder(members){
     let groupItemArray = [
         {
             name: 'Canoes',
-            quantity: members/3,
+            quantity: Math.ceil(members/3),
             rental: false
         },
         {
             name: 'Paddles',
-            quantity: Math.ceil(members*(2/3)),
+            quantity: (Math.ceil(members/3))*2,
             rental: false
         },
         {
