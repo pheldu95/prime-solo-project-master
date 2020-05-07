@@ -20,7 +20,7 @@ class TripHome extends Component {
             age: 0,
             email: ''
         },
-        paddleInfo: '',
+        paddleInfo: 0,
         entry_point: {},
     }
    componentDidMount(){
@@ -36,7 +36,10 @@ class TripHome extends Component {
    componentDidUpdate = (prevProps) =>{
         if (this.props.reduxState.trip !== prevProps.reduxState.trip) {
             this.getEntryPointInfo();
+        }
+        if(this.props.reduxState.members !== prevProps.reduxState.members){
             this.calculatePaddleInfo();
+
         }
     }
 
