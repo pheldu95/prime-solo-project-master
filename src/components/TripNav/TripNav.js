@@ -39,11 +39,15 @@ class Nav extends Component {
               </a></li>
               
               
+              <li><a href='#/mealPlan'>
+                <Link className="navLink" to="/mealPlan">Meal Planning</Link>
+              </a></li>
 
+
+              <li><a href='#/outfitters'>
+                <Link className="navLink" to="/outfitters">Outfitters</Link>
+              </a></li>
               
-                <li><a href='#/outfitters'>
-                  <Link className="navLink" to="/outfitters">Outfitters</Link>
-                </a></li>
               <li><a href='#'>
                 <LogOutButton className="navLink" onClick={() => window.location.reload(false)} />
               </a></li>
