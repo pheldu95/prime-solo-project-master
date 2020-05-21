@@ -58,6 +58,21 @@ CREATE TABLE group_packing_list_items
     rental boolean DEFAULT false
 );
 
+Create TABLE meals
+(
+    id SERIAL PRIMARY KEY,
+    name character varying,
+    meal integer,
+    day integer,
+    trip_id integer REFERENCES trips
+);
+Create TABLE meal_ingredients
+(
+    id SERIAL PRIMARY KEY,
+    name character varying,
+    meal_id integer REFERENCES trips
+);
+
 ---add entry points
 INSERT INTO entry_points
     (number, name, link, difficulty)

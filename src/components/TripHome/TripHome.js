@@ -55,6 +55,7 @@ class TripHome extends Component {
        //turn differenceInTime into days
        let days = differenceInTime / (1000 * 3600 * 24);
        console.log('days', days);
+        this.props.dispatch({type: 'SET_LENGTH', payload: days});
 
        let paddleInfo = paddleInfoCalculator(trip, groupSize, days);
        console.log('paddleInfo', paddleInfo);
@@ -87,7 +88,7 @@ class TripHome extends Component {
             //if we dont have this conditional, it will 
             //error out when this function run in componentDidMount
             //because the trip redux state might not have the entry point number yet
-            if(response.data[0] != undefined){
+            if(response.data[0] !== undefined){
                 this.setState({
                     entry_point: response.data[0]
                     
