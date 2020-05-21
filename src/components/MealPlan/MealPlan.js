@@ -49,6 +49,26 @@ class MealPlan extends Component {
                     day: 2,
                     meal: 3
                 }
+            },
+            {
+                breakfast: {
+                    name: 'oatmeal',
+                    ingredients: ['oats', 'peanut butter', 'brown sugar'],
+                    day: 3,
+                    meal: 1
+                },
+                lunch: {
+                    name: 'sandwiches and gorp',
+                    ingredients: ['bread', 'peanut butter', 'gorp'],
+                    day: 3,
+                    meal: 2
+                },
+                dinner: {
+                    name: 'ramen',
+                    ingredients: ['ramen packet', 'hot sauce'],
+                    day: 3,
+                    meal: 3
+                }
             }
         ]
     }
@@ -119,7 +139,7 @@ class MealPlan extends Component {
                 <Card.Group>
                     {this.state.meals.map((day)=>{
                         return(
-                            <Card>
+                            <Card raised style={{width:'255px'}}> 
                                 <Card.Content>
                                     <Card.Header>Day {day.breakfast.day} Meals</Card.Header>
                                     <Card.Description>
