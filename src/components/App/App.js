@@ -20,7 +20,8 @@ import NewTrip2 from '../NewTrip2/NewTrip2';
 import TripHome from '../TripHome/TripHome';
 import IndividualPackingList from '../IndividualPackingList/IndividualPackingList';
 import GroupPackingList from '../GroupPackingList/GroupPackingList';
-import Outfitters from '../Outfitters/Outfitters'
+import Outfitters from '../Outfitters/Outfitters';
+import MealPlan from '../MealPlan/MealPlan';
 
 
 import './App.css';
@@ -85,7 +86,10 @@ class App extends Component {
               exact path = "/outfitters"
               component={Outfitters}
             />
-
+            <ProtectedRoute
+              exact path="/mealPlan"
+              component={MealPlan}
+            />
             {/* I think I have to add triplistItem so it can have access to props.history. props.history was coming back as undefined */}
            
             <Route render={() => <h1>404</h1>} />
