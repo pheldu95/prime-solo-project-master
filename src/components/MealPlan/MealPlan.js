@@ -9,6 +9,11 @@ class MealPlan extends Component {
     state = {
         addMealToggle: false,
         addIngredientToggle: false,
+        newMeal:{
+            name:'',
+            meal: 1
+        },
+        newIngredient: '',
         meals: [
             {
                 breakfast: {
@@ -82,6 +87,30 @@ class MealPlan extends Component {
             addIngredientToggle: !this.state.addIngredientToggle
         });
     };
+    handleNewMealChange = (event, type) =>{
+        this.setState({
+            newMeal:{
+                ...this.state.newMeal,
+                [type]: event.target.value
+            }
+        })
+    }
+    //why does this only work if I pass event? even though I'm not using event
+    handleSelectChange = (event, {value}) =>{        
+        this.setState({
+            newMeal:{
+                ...this.state.newMeal,
+                meal: value
+            }
+        })
+    }
+    handleIngredientChange = (event) =>{
+        this.setState({
+            newIngredient: event.target.value
+        })
+        console.log(this.state.newIngredient);
+        
+    }
     render() {
         let addMeal;
         const mealOptions = [
@@ -101,12 +130,14 @@ class MealPlan extends Component {
                                     control={Input}
                                     label='Meal Name'
                                     placeholder='Meal Name'
+                                    onChange={event=>this.handleNewMealChange(event, 'name')}
                                 />
                                 <Form.Field
                                     control={Select}
                                     options={mealOptions}
                                     label={{ children: 'Meal', htmlFor: 'form-select-control-meal' }}
                                     placeholder='Meal'
+                                    onChange={this.handleSelectChange}
                                 />
                             </Form.Group>
                             <h3>Ingredients</h3>
@@ -119,6 +150,7 @@ class MealPlan extends Component {
                                                 control={Input}
                                                 label='Ingredient'
                                                 placeholder='Ingredient'
+                                                onChange={event=>this.handleIngredientChange(event)}
                                             />
                                             <Button color="light green" content="Add"/>
                                             <Button color="red" content="Cancel" onClick={this.addIngredientToggle} />
