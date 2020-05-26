@@ -11,7 +11,9 @@ class MealPlan extends Component {
         addIngredientToggle: false,
         newMeal:{
             name:'',
-            meal: 1
+            meal: 1,
+            ingredients: [],
+            day: 1
         },
         newIngredient: '',
         meals: [
@@ -77,6 +79,19 @@ class MealPlan extends Component {
             }
         ]
     }
+    addMeal = () =>{
+        this.props.dispatch({type: 'ADD_MEAL', payload: {newMeal: this.state.newMeal, trip_id: this.props.reduxState.trip.id}})
+        
+    }
+    addIngredient = () =>{
+       this.setState({
+           newMeal:{
+               ...this.state.newMeal,
+               ingredients: [...this.state.newMeal.ingredients, this.state.newIngredient]
+           }
+       })       
+        
+    }
     addMealToggle = () => {        
         this.setState({
             addMealToggle: !this.state.addMealToggle
@@ -96,11 +111,19 @@ class MealPlan extends Component {
         })
     }
     //why does this only work if I pass event? even though I'm not using event
-    handleSelectChange = (event, {value}) =>{        
+    handleMealSelectChange = (event, {value}) =>{        
         this.setState({
             newMeal:{
                 ...this.state.newMeal,
                 meal: value
+            }
+        })
+    }
+    handleDaySelectChange = (event, { value }) => {
+        this.setState({
+            newMeal: {
+                ...this.state.newMeal,
+                day: value
             }
         })
     }
@@ -119,6 +142,15 @@ class MealPlan extends Component {
             { key: 'dinner', text: 'Dinner', value: 3 }
 
         ]
+
+        //creating array of objects for our day select to use
+        let days = this.props.reduxState.days;
+        let daysArray = [];
+        for(let i = 0; i < days; i++){
+            let day = { key: `day ${i + 1}`, text: `Day ${i + 1}`, value: i + 1 }
+            daysArray.push(day)
+        }
+        const dayOptions = daysArray;
         if (!this.state.addMealToggle){
             addMeal = <Button color="light green" content="+" onClick={this.addMealToggle} />;
         }else{
@@ -137,7 +169,14 @@ class MealPlan extends Component {
                                     options={mealOptions}
                                     label={{ children: 'Meal', htmlFor: 'form-select-control-meal' }}
                                     placeholder='Meal'
-                                    onChange={this.handleSelectChange}
+                                    onChange={this.handleMealSelectChange}
+                                />
+                                <Form.Field
+                                    control={Select}
+                                    options={dayOptions}
+                                    label={{ children: 'Days', htmlFor: 'form-select-control-day' }}
+                                    placeholder='Day'
+                                    onChange={this.handleDaySelectChange}
                                 />
                             </Form.Group>
                             <h3>Ingredients</h3>
@@ -152,7 +191,7 @@ class MealPlan extends Component {
                                                 placeholder='Ingredient'
                                                 onChange={event=>this.handleIngredientChange(event)}
                                             />
-                                            <Button color="light green" content="Add"/>
+                                            <Button color="light green" content="Add" onClick={this.addIngredient}/>
                                             <Button color="red" content="Cancel" onClick={this.addIngredientToggle} />
                                         </div>
                                     : <Button color="light green" content="Add Ingredient" onClick={this.addIngredientToggle} />
@@ -160,6 +199,7 @@ class MealPlan extends Component {
                                 }
                             </Form.Group>
                         </Form>
+                        <Button color="light green" content="Add Meal to Trip" onClick={this.addMeal} />
                         <Button color="red" content="Cancel" onClick={this.addMealToggle} />
                     </div>
         }
