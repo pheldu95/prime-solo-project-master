@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TripNav from "../TripNav/TripNav";
 import { Button, Card, Form, Select, Input } from "semantic-ui-react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from 'axios';
+import MealCard from './MealCard';
 
 class MealPlan extends Component {
     state = {
@@ -17,67 +17,40 @@ class MealPlan extends Component {
         },
         newIngredient: '',
         meals: [
-            {
-                breakfast: {
-                    name: 'oatmeal',
-                    ingredients : ['oats', 'peanut butter', 'brown sugar'],
-                    day: 1,
-                    meal: 1
+            [
+                {
+                    name: 'pancakes',
+                    day: 3,
+                    meal: 1,
+                    ingredients: ['batter', 'syrup', 'chocolate chips']
                 },
-                lunch : {
-                    name: 'sandwiches and gorp',
-                    ingredients: ['bread', 'peanut butter', 'gorp'],
-                    day: 1,
-                    meal: 2
-                },
-                dinner : {
+                {
                     name: 'tacos',
-                    ingredients: ['torillas', 'cheese', 'hot sauce', 'rice', 'beans'],
-                    day: 1,
-                    meal: 3
-                }
-            },
-            {
-                breakfast: {
-                    name: 'oatmeal',
-                    ingredients: ['oats', 'peanut butter', 'brown sugar'],
-                    day: 2,
-                    meal: 1
-                },
-                lunch : {
-                    name: 'sandwiches and gorp',
-                    ingredients: ['bread', 'peanut butter', 'gorp'],
-                    day: 2,
-                    meal: 2
-                },
-                dinner : {
-                    name: 'ramen',
-                    ingredients: ['ramen packet', 'hot sauce'],
-                    day: 2,
-                    meal: 3
-                }
-            },
-            {
-                breakfast: {
-                    name: 'oatmeal',
-                    ingredients: ['oats', 'peanut butter', 'brown sugar'],
                     day: 3,
-                    meal: 1
-                },
-                lunch: {
-                    name: 'sandwiches and gorp',
-                    ingredients: ['bread', 'peanut butter', 'gorp'],
-                    day: 3,
-                    meal: 2
-                },
-                dinner: {
-                    name: 'ramen',
-                    ingredients: ['ramen packet', 'hot sauce'],
-                    day: 3,
-                    meal: 3
+                    meal: 3,
+                    ingredients: ['tortillas', 'beans', 'cheese']
                 }
-            }
+                
+            ]
+            [
+                {
+                    name: 'waffles',
+                    day: 3,
+                    meal: 1,
+                    ingredients: ['batter', 'syrup', 'chocolate chips']
+                },
+                {
+                    name: 'burritos',
+                    day: 3,
+                    meal: 3,
+                    ingredients: ['tortillas', 'beans', 'cheese']
+                }
+                
+            ]
         ]
+    }
+    componentDidMount = () =>{
+        this.getMeals();
     }
     addMeal = () =>{
         this.props.dispatch({type: 'ADD_MEAL', payload: {newMeal: this.state.newMeal, trip_id: this.props.reduxState.trip.id}})
@@ -102,6 +75,10 @@ class MealPlan extends Component {
             addIngredientToggle: !this.state.addIngredientToggle
         });
     };
+    getMeals = () =>{
+        let trip_id = this.props.reduxState.trip.id;
+        this.props.dispatch({type: 'GET_MEALS', payload: trip_id})
+    }
     handleNewMealChange = (event, type) =>{
         this.setState({
             newMeal:{
@@ -211,21 +188,7 @@ class MealPlan extends Component {
                 <Card.Group>
                     {this.state.meals.map((day)=>{
                         return(
-                            <Card raised style={{width:'255px'}}> 
-                                <Card.Content>
-                                    <Card.Header>Day {day.breakfast.day} Meals</Card.Header>
-                                    <Card.Description>
-                                        <li>Breakfast: {day.breakfast.name}</li>
-                                        <li>Lunch: {day.lunch.name}</li>
-                                        <li>Dinner: {day.dinner.name}</li>
-                                    </Card.Description>
-                                    {/* <Card.Description>{day.breakfast.ingredients.map((ingredient)=>{
-                                        return(
-                                            <li>{ingredient}</li>
-                                        )
-                                    })}</Card.Description> */}
-                                </Card.Content>
-                            </Card>
+                            <MealCard day = {day}/>
                         )
                     })}
                 </Card.Group>
