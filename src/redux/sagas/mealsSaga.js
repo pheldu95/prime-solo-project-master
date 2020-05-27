@@ -26,14 +26,7 @@ function* getMeals(action){
         url: `/api/meals/${trip_id}` 
     })
     let meals = [];
-    let day = [];
-    let meal = {
-        // id: 0,
-        // name: '',
-        // ingredients: [],
-        // day: 0,
-        // meal: 0
-    };
+    let meal = {};
     let ingredients = [];
     let rows = response.data;
     console.log(rows);
@@ -83,8 +76,43 @@ function* getMeals(action){
     //add to meals array
     meals.push(meal);
     console.log(meals);
+
+    let sortedMeals = mealSorter(meals);
+    console.log(sortedMeals);
     
     yield put ({type:'SET_MEALS', payload: meals})
+}
+
+//this function sorts all of the meals into there specific days
+function mealSorter(meals){
+    //now loop through meals and sort them into days?
+    let meal_day = meals[0].day
+    let day = [];
+    let sortedMeals = [];
+    for (let meal of meals) {
+        console.log('day of meal:', meal.day);
+        console.log('meal_day:', meal_day);
+        if (meal.day == meal_day) {
+
+            day.push(meal);
+            console.log('day array after adding:', meal.name, day);
+
+        } else {
+            console.log(meal.day);
+
+            sortedMeals.push(day);
+            day = [];
+            day.push(meal);
+            meal_day = meal.day;
+            console.log(meal_day);
+            
+            
+
+        }
+    }
+    //make sure to push the last day to the sorted array, because it won't be added in the loop.
+    sortedMeals.push(day);
+    return sortedMeals;
 }
 
 function* membersSaga() {
