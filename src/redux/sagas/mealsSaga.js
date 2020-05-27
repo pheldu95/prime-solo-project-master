@@ -28,28 +28,63 @@ function* getMeals(action){
     let meals = [];
     let day = [];
     let meal = {
-        name: '',
-        ingredients: [],
-        day: 0,
-        meal: 0
+        // id: 0,
+        // name: '',
+        // ingredients: [],
+        // day: 0,
+        // meal: 0
     };
     let ingredients = [];
     let rows = response.data;
     console.log(rows);
     let meal_id = rows[0].meal_id;
-    for(let row of rows){
-        if(row.meal_id == meal_id){
-            console.log(row.meal_id);
+    for(let i = 0; i < rows.length; i++){
+        if(rows[i].meal_id == meal_id){
+            // console.log(rows[i].meal_id);
+            // console.log(rows[i]);
+            ingredients.push({name: rows[i].ingredient, id: rows[i].ingredient_id})
+            // console.log(meal.ingredients);
             
+            // day: 3
+            // ingredient: "Cheese"
+            // ingredient_id: 5
+            // meal: 3
+            // meal_id: 17
+            // name: "tacos"
         }
         else{
-            meal_id = row.meal_id;
-            console.log(meal_id);
-            
+            //setting the name, id, day, and meal of the meal object
+            meal = { 
+                        id:rows[i - 1].meal_id,
+                        name: rows[i - 1].name,
+                        day: rows[i - 1].day,
+                        meal: rows[i - 1].meal,
+                        ingredients: ingredients
+                    }
+            console.log(meal);
+            //add to meals array
+            meals.push(meal);
+            //clearing out hte ingredients for the new meal
+            ingredients = [];
+
+            meal_id = rows[i].meal_id;
+            // console.log(meal_id);
         }
     }
+    //make sure to add the final meal to the array
+    meal = {
+        id: rows[rows.length - 1].meal_id,
+        name: rows[rows.length - 1].name,
+        day: rows[rows.length - 1].day,
+        meal: rows[rows.length - 1].meal,
+        ingredients: ingredients
+    }
+    console.log(meal);
+    //add to meals array
+    meals.push(meal);
+    console.log(meals);
     
-    // yield put ({type:'SET_MEALS', payload: })
+    yield put ({type:'SET_MEALS', payload: meals})
 }
 
 function* membersSaga() {

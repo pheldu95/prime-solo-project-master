@@ -11,6 +11,7 @@ import packingList from './packingListReducer';
 import groupPackingList from './groupPackingListReducer';
 import rentals from './rentalsReducer';
 import days from './tripLengthReducer';
+import meals from './mealsReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   packingList, //holds the member packing list
   groupPackingList, //holds the group packing list
   rentals, //holds all the rentals for the trip
-  days //holds how long the trip is in days
+  days, //holds how long the trip is in days
+  meals //holds all the meals for the trip
 });
 
 export default rootReducer;

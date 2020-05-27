@@ -20,18 +20,18 @@ class MealPlan extends Component {
             [
                 {
                     name: 'pancakes',
-                    day: 3,
+                    day: 2,
                     meal: 1,
                     ingredients: ['batter', 'syrup', 'chocolate chips']
                 },
                 {
                     name: 'tacos',
-                    day: 3,
+                    day: 2,
                     meal: 3,
                     ingredients: ['tortillas', 'beans', 'cheese']
                 }
                 
-            ]
+            ],
             [
                 {
                     name: 'waffles',
@@ -188,6 +188,7 @@ class MealPlan extends Component {
                 <Card.Group>
                     {this.state.meals.map((day)=>{
                         return(
+                            
                             <MealCard day = {day}/>
                         )
                     })}

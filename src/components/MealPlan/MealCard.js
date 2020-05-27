@@ -4,6 +4,15 @@ import { Button, Card, Form, Select, Input } from "semantic-ui-react";
 
 class MealCard extends Component {
 
+    mealType = (meal) =>{
+        if(meal == 1){
+            return 'Breakfast: ';
+        }else if(meal == 2) {
+            return 'Lunch: ';
+        } else if (meal == 3) {
+            return 'Dinner: ';
+        }
+    }
     
 
     render() {
@@ -13,11 +22,15 @@ class MealCard extends Component {
         return (
             <Card raised style={{ width: '255px' }}>
                 <Card.Content>
-                    <Card.Header>Day Meals</Card.Header>
+                    <Card.Header>Day {day[0].day} Meals</Card.Header>
                     <Card.Description>
-                        <li>Breakfast: </li>
-                        <li>Lunch: </li>
-                        <li>Dinner: </li>
+                        {day.map((meal)=>{
+                            return(
+                                <li>
+                                    {this.mealType(meal.meal)} {meal.name}
+                                </li>
+                            )
+                        })}
                     </Card.Description>
                 </Card.Content>
             </Card>

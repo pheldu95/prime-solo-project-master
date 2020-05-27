@@ -9,7 +9,7 @@ router.get('/:trip_id', (req, res) => {
     let trip_id = req.params.trip_id;
     let queryText = `SELECT meals.id as meal_id, meals.name, meals.day, meals.meal, meal_ingredients.name as ingredient, meal_ingredients.id as ingredient_id FROM meals
                     LEFT JOIN meal_ingredients ON meal_ingredients.meal_id = meals.id
-                    WHERE trip_id = $1;`
+                    WHERE trip_id = $1 ORDER BY day ASC;`
     pool.query(queryText,[trip_id]).then((result) => {
         res.send(result.rows);
         console.log(result.rows);
