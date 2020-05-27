@@ -80,7 +80,7 @@ function* getMeals(action){
     let sortedMeals = mealSorter(meals);
     console.log(sortedMeals);
     
-    yield put ({type:'SET_MEALS', payload: meals})
+    yield put ({type:'SET_MEALS', payload: sortedMeals})
 }
 
 //this function sorts all of the meals into there specific days

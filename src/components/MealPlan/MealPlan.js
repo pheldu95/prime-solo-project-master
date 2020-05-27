@@ -129,7 +129,7 @@ class MealPlan extends Component {
         }
         const dayOptions = daysArray;
         if (!this.state.addMealToggle){
-            addMeal = <Button color="light green" content="+" onClick={this.addMealToggle} />;
+            addMeal = <Button color="light green" content="Add a New Meal" onClick={this.addMealToggle} />;
         }else{
             addMeal = <div>
                         <Form>
@@ -186,12 +186,13 @@ class MealPlan extends Component {
                 
                 <h3>Meal Planning</h3>
                 <Card.Group>
-                    {this.state.meals.map((day)=>{
-                        return(
-                            
-                            <MealCard day = {day}/>
-                        )
-                    })}
+                    {this.props.reduxState.meals &&
+                        this.props.reduxState.meals.map((day)=>{
+                            return(
+                                
+                                <MealCard day = {day}/>
+                            )
+                        })}
                 </Card.Group>
                 {addMeal}
             </div>
