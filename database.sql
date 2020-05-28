@@ -70,7 +70,7 @@ Create TABLE meal_ingredients
 (
     id SERIAL PRIMARY KEY,
     name character varying,
-    meal_id integer REFERENCES trips
+    meal_id integer REFERENCES meals
 );
 
 ---add entry points
