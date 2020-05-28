@@ -185,6 +185,9 @@ class MealPlan extends Component {
                 <TripNav />
                 
                 <h3>Meal Planning</h3>
+                {this.props.reduxState.meals.length < 1 &&
+                    <h3 style={{marginBottom:'40px'}}>No meals planned yet.</h3>
+                }
                 <Card.Group>
                     {this.props.reduxState.meals &&
                         this.props.reduxState.meals.map((day)=>{

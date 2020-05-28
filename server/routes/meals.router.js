@@ -11,9 +11,8 @@ router.get('/:trip_id', (req, res) => {
                     LEFT JOIN meal_ingredients ON meal_ingredients.meal_id = meals.id
                     WHERE trip_id = $1 ORDER BY day, meal, name ASC;`
     pool.query(queryText,[trip_id]).then((result) => {
-        res.send(result.rows);
-        console.log(result.rows);
-        
+        console.log('meals coming back from the db:', result.rows);
+        res.send(result.rows);        
     }).catch((error) => {
         console.log(error);
         res.sendStatus(500);

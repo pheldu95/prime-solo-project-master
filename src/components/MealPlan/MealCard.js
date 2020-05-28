@@ -29,24 +29,16 @@ class MealCard extends Component {
 
     render() {
         let day = this.props.day;
-        let cardClass;
-
-        // conditional rendering for the size of the card
-        if(this.state.fullView){
-            cardClass = 'mealCard mealCardFullView';
-        }else{
-            cardClass = 'mealCard'
-        }
         
         return (
-            <Card raised className={cardClass} style={{ width: '255px', height: '100px'}} onClick={this.fullViewToggle}>
+            <Card raised style={{ width: '255px', height: '100px'}} onClick={this.fullViewToggle}>
                 <Card.Content>
                     <Card.Header>Day {day[0].day} Meals</Card.Header>
                         {this.state.fullView 
                             ? <Card.Description className="fullViewDiv">
                                 {day.map((meal)=>{
                                     return(
-                                       <div > 
+                                       <div className="mealUl"> 
                                             <p>{this.mealType(meal.meal)} {meal.name}</p>
                                             <ul>
                                                 {meal.ingredients.map((ingredient)=>{
@@ -57,6 +49,7 @@ class MealCard extends Component {
                                                     )
                                                 })}
                                             </ul>
+                                            <Button size='mini'>Edit</Button>
                                         </div>
                                     )
                                 })}

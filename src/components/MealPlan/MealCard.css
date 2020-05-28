@@ -8,8 +8,9 @@
 
 }
 
-.mealCardFullView{
-    
+.mealUl{
+    border: solid gray .3px;   
+    border-radius: 5px;
 
 }
 
