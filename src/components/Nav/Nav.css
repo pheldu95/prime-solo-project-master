@@ -39,6 +39,8 @@
   line-height: 1;
   background: #4F87A8;
   text-align: center;
+  box-shadow: 0 8px 40px -12px rgba(0,0,0,0.2);
+
 }
 
 #cssmenu ul {

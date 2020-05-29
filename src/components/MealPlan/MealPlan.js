@@ -54,7 +54,9 @@ class MealPlan extends Component {
     }
     addMeal = () =>{
         this.props.dispatch({type: 'ADD_MEAL', payload: {newMeal: this.state.newMeal, trip_id: this.props.reduxState.trip.id}})
-        
+        this.setState({
+            addMealToggle: !this.state.addMealToggle
+        });
     }
     addIngredient = () =>{
        this.setState({
