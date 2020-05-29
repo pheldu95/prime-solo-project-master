@@ -29,9 +29,15 @@ class MealCard extends Component {
 
     render() {
         let day = this.props.day;
-        
+        let moreButton;
+        if(!this.state.fullView){
+            moreButton = <Button style={{height:'30px'}} onClick={this.fullViewToggle}>More</Button>
+        }else{
+            moreButton = <Button style={{ height: '30px' }} onClick={this.fullViewToggle}>Less</Button>
+        }
         return (
-            <Card raised style={{ width: '255px', height: '100px'}} onClick={this.fullViewToggle}>
+            <Card raised style={{ width: '255px', height: '150px' }}>
+                {moreButton}
                 <Card.Content>
                     <Card.Header>Day {day[0].day} Meals</Card.Header>
                         {this.state.fullView 
@@ -65,6 +71,7 @@ class MealCard extends Component {
                             </Card.Description>
                         }
                 </Card.Content>
+                
             </Card>
         );
     }

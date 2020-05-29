@@ -19,9 +19,14 @@ class TripListItem extends Component {
       //props coming from UserPage
     let trip = this.props.trip;
 
-    //temporaty fix for daye formatting
-    let start_date = trip.start_date.substring(0, 10);
-    let end_date = trip.end_date.substring(0, 10);
+    let start_date = new Date(trip.start_date);
+    let end_date = new Date(trip.end_date);
+    start_date = start_date.toUTCString()
+    end_date = end_date.toUTCString()
+
+    start_date = start_date.substring(0, 16);
+    end_date = end_date.substring(0, 16);
+
     return (
         
             <List.Item>

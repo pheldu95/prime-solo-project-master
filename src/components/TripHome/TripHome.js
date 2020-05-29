@@ -149,6 +149,13 @@ class TripHome extends Component {
         }
         // let start_date = trip.start_date.substring(0, 10);
         // let end_date = trip.end_date.substring(0, 10);
+        let start_date = new Date(trip.start_date);
+        let end_date = new Date(trip.end_date);
+        start_date = start_date.toUTCString()
+        end_date = end_date.toUTCString()
+
+        start_date = start_date.substring(0, 16);
+        end_date = end_date.substring(0, 16);
         return (
             <div className="tripHome">
                 <TripNav/>
@@ -160,9 +167,9 @@ class TripHome extends Component {
                     {/* will wait until the dates are not null, then appear on DOM */}
                     {this.props.reduxState.trip.start_date != null&&
                         <p>
-                            Trip start: {trip.start_date.substring(0, 10)}
+                            Trip start: {start_date}
                             <br/>
-                            Trip end: {trip.end_date.substring(0, 10)}
+                            Trip end: {end_date}
                         </p>
                     }
                     <p>
