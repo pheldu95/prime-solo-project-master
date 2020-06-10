@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TripNav from '../TripNav/TripNav';
 import Member from '../Member/Member';
+import EntryPoint from '../EntryPoint/EntryPoint';
 import { Button, List, Input } from "semantic-ui-react";
 import './TripHome.css'
 
@@ -127,6 +128,11 @@ class TripHome extends Component {
         })
         
     }
+    editToggle = () =>{
+        this.setState({
+            editMode: !this.state.editMode
+        })
+    }
     render() {
         let ep = this.state.entry_point;
         let trip = this.props.reduxState.trip
@@ -159,25 +165,52 @@ class TripHome extends Component {
         return (
             <div className="tripHome">
                 <TripNav/>
+                
                 <div className="tripHomeContent">
-                    <div style={{display: "flex"}}>
-                        <h3>Trip Info</h3> <Button style={{marginLeft:'20px'}} content='edit' />
+                    <div style={{ display: "flex" }}>
+                        <h3>Trip Info</h3> <Button style={{ marginLeft: '20px' }} content='edit' onClick = {this.editToggle}/>
                     </div>
-                    <hr classNam="default_hr"></hr>
-                    {/* will wait until the dates are not null, then appear on DOM */}
-                    {this.props.reduxState.trip.start_date != null&&
-                        <p>
-                            Trip start: {start_date}
+                    <hr className="default_hr"></hr>
+                    {this.state.editMode 
+                        ? <>
+
+                            <label>Trip start:</label>
+                            <Input size='mini' className="genericInput" onChange={(event) => this.inputChange(event, 'startDate')} type='date' />
                             <br/>
-                            Trip end: {end_date}
-                        </p>
-                    }
-                    <p>
-                        Entry Point: {ep.number} -- {ep.name}   
-                    </p>
-                    {this.state.paddleInfo&&
-                        <p>Estimated distance per day: {this.state.paddleInfo.distance} miles</p>  
+                            <label>Trip End:</label>
+                            <Input size='mini' className="genericInput" onChange={(event) => this.inputChange(event, 'endDate')} type='date' />
+                            <br/>
+                            <label>Entry Point: </label>
+                            <select onChange={(event) => this.handleChange(event)}>
+                                {/* wait until this.props.reduxState.entryPoints exists, then do the mapping */}
+                                {this.props.reduxState.entryPoints &&
+                                    this.props.reduxState.entryPoints.map((ep) => {
+                                        return (
+                                            <EntryPoint ep={ep} />
+                                        )
+                                    })
+                                }
+                            </select>
+                        </>
                         
+                        : <>
+
+                            {/* will wait until the dates are not null, then appear on DOM */}
+                            {this.props.reduxState.trip.start_date != null &&
+                                <p>
+                                    Trip start: {start_date}
+                                    <br />
+                                    Trip end: {end_date}
+                                </p>
+                            }
+                            <p>
+                                Entry Point: {ep.number} -- {ep.name}
+                            </p>
+                            {this.state.paddleInfo &&
+                                <p>Estimated distance per day: {this.state.paddleInfo.distance} miles</p>
+
+                            }
+                        </>
                     }
                     <h3>Trip Members</h3>
                     <List relaxed>
