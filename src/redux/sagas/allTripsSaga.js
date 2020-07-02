@@ -27,9 +27,32 @@ function* deleteTrip(action){
         alert('Unable to delete item');
     };   
 }
+function* editTrip(action){
+    let trip_id = action.payload.trip_id; 
+    //send edit to the server
+    try{
+        yield axios({
+            method: 'PUT',
+            url: `/api/trip/${trip_id}`,
+            data: action.payload
+        })
+        yield put({type:'GET_TRIP', payload: trip_id});
+    }
+    catch(error){
+        console.log(error);
+        alert('unable to update trip');
+        
+    }
+}
+function * getTrip(action){
+    console.log(action.payload);
+}
 function* allTripsSaga() {
   yield takeLatest('GET_ALL_TRIPS', getAllTrips); 
   yield takeLatest('DELETE_TRIP', deleteTrip);
+  yield takeLatest('EDIT_TRIP_INFO', editTrip);
+  yield takeLatest('GET_TRIP', getTrip);
+
 }
 
 export default allTripsSaga;

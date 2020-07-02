@@ -25,10 +25,12 @@ router.post('/', (req, res) => {
 
 router.put('/:trip_id', (req, res) => {
     let pageOneData = req.body;
-
+    console.log(pageOneData, req.params.trip_id);
+    
     //we will RETURNING * here again so we can update the tripReducer
     let queryText = `UPDATE "trips" SET title = $1, start_date = $2, end_date = $3, difficulty = $4, experience = $5, area = $6 WHERE "id" = ${req.params.trip_id} RETURNING *;`
     pool.query(queryText, [pageOneData.title, pageOneData.startDate, pageOneData.endDate, pageOneData.difficulty, pageOneData.experience, pageOneData.area]).then((results) => {
+        console.log(results.rows);
         res.send(results);
     }).catch((err) => {
         res.sendStatus(500);

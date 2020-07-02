@@ -23,6 +23,14 @@ class TripHome extends Component {
         },
         paddleInfo: 0,
         entry_point: {},
+        startDate: this.props.reduxState.trip.start_date,
+        endDate: this.props.reduxState.trip.end_date,
+        // edits:{
+        //     start_date: this.props.reduxState.trip.start_date,
+        //     end_date: this.props.reduxState.trip.end_date,
+        //     entry_point: this.props.reduxState.entry_point
+        // }
+
     }
    componentDidMount(){
        this.getMembers();
@@ -132,6 +140,27 @@ class TripHome extends Component {
         this.setState({
             editMode: !this.state.editMode
         })
+        this.getEntryPointInfo();
+    }
+    inputChange = (event, type) => {
+        this.setState({
+            [type]: event.target.value
+        })
+        console.log(this.state);
+    }
+    //send changes to redux
+    saveChanges = () =>{
+        let changes = {trip_id: this.props.reduxState.trip.id, 
+                        entry_point: this.state.entry_point, 
+                        startDate: this.state.startDate, 
+                        endDate: this.state.endDate,
+                        title: this.props.reduxState.trip.title,
+                        difficulty: this.props.reduxState.trip.difficulty,
+                        experience: this.props.reduxState.trip.experience,
+                        area: this.props.reduxState.trip.area
+                    };
+        this.props.dispatch({type: 'EDIT_TRIP_INFO', payload: changes});
+        this.editToggle();
     }
     render() {
         let ep = this.state.entry_point;
@@ -178,10 +207,10 @@ class TripHome extends Component {
                             <Input size='mini' className="genericInput" onChange={(event) => this.inputChange(event, 'startDate')} type='date' />
                             <br/>
                             <label>Trip End:</label>
-                            <Input size='mini' className="genericInput" onChange={(event) => this.inputChange(event, 'endDate')} type='date' />
+                            <Input size='mini' className="genericInput" onChange={(event) => this.inputChange(event, 'endDate')} type='date'/>
                             <br/>
                             <label>Entry Point: </label>
-                            <select onChange={(event) => this.handleChange(event)}>
+                            <select onChange={(event) => this.inputChange(event, 'entry_point')}>
                                 {/* wait until this.props.reduxState.entryPoints exists, then do the mapping */}
                                 {this.props.reduxState.entryPoints &&
                                     this.props.reduxState.entryPoints.map((ep) => {
@@ -191,6 +220,11 @@ class TripHome extends Component {
                                     })
                                 }
                             </select>
+                            <br/>
+                            <br/>
+                            <Button color='light green' onClick={this.saveChanges}>Save Changes</Button>
+                            <Button color='red' onClick={this.editToggle}>Cancel</Button>
+
                         </>
                         
                         : <>

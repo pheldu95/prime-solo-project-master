@@ -30,6 +30,7 @@ class NewTrip1 extends Component {
         this.setState({
             [type]: event.target.value
         })        
+        console.log(this.state.endDate);
         
         
     }
