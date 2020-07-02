@@ -43,7 +43,9 @@ class TripHome extends Component {
    //wait until the trip reducer has been updated with the entry point.
    //once it has, we can run getEntryPointInfo because we will have the entry point number
    componentDidUpdate = (prevProps) =>{
-        if (this.props.reduxState.trip !== prevProps.reduxState.trip) {
+        if (this.props.reduxState.trip.entry_point !== prevProps.reduxState.trip.entry_point) {
+            console.log('getting entry pointsbhfahjksfkjhsdfhkjas', this.props.reduxState.trip);
+            
             this.getEntryPointInfo();
         }
         if(this.props.reduxState.members !== prevProps.reduxState.members){
@@ -86,6 +88,8 @@ class TripHome extends Component {
 
     }
     getEntryPointInfo = () =>{
+        console.log(this.props.reduxState.trip);
+        
         let ep_number = this.props.reduxState.trip.entry_point;
         console.log('getting ep', ep_number);
         

@@ -46,6 +46,14 @@ function* editTrip(action){
 }
 function * getTrip(action){
     console.log(action.payload);
+    let trip_id = action.payload;
+    let response = yield axios({
+        method: 'GET',
+        url: `/api/trip/${trip_id}`,
+    })
+    console.log('response after edit', response);
+    yield put({type:'SET_TRIP', payload: response.data[0]});
+    
 }
 function* allTripsSaga() {
   yield takeLatest('GET_ALL_TRIPS', getAllTrips); 
