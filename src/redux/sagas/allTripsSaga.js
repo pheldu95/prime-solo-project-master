@@ -33,6 +33,11 @@ function* editTrip(action){
     try{
         yield axios({
             method: 'PUT',
+            url: `/api/entryPoints/${trip_id}`,
+            data: action.payload.entry_point.number
+        })
+        yield axios({
+            method: 'PUT',
             url: `/api/trip/${trip_id}`,
             data: action.payload
         })

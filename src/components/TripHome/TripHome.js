@@ -22,7 +22,13 @@ class TripHome extends Component {
             email: ''
         },
         paddleInfo: 0,
-        entry_point: {},
+        entry_point: {
+            number: 0,
+            name: '',
+            link: '',
+            address: '',
+            difficutly: ''
+        },
         startDate: this.props.reduxState.trip.start_date,
         endDate: this.props.reduxState.trip.end_date,
         // edits:{
@@ -150,7 +156,7 @@ class TripHome extends Component {
         this.setState({
             [type]: event.target.value
         })
-        console.log(this.state);
+        console.log(this.state, this.state.entry_point.number);
     }
     //send changes to redux
     saveChanges = () =>{

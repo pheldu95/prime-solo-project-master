@@ -30,7 +30,7 @@ router.get('/:ep_number', (req, res) => {
 //update the entry point column with the chosen entry point
 router.put('/:trip_id', (req, res) => {
     
-    console.log(req.body, req.params);
+    console.log('updating the entry point:', req.body, req.params);
     
     let queryText = `UPDATE "trips" SET entry_point = $1 WHERE "id" = ${req.params.trip_id} RETURNING *;`
     pool.query(queryText, [req.body.ep]).then((results) => {

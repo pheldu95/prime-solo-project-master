@@ -12,7 +12,9 @@ function* getEntryPoints(){
     
 }
 function* putEntryPoint(action){
-  console.log(action.payload);
+  console.log('put entry point');
+  
+  console.log('new entry point. in entry point saga:', action.payload);
   
   try {
     yield axios({
