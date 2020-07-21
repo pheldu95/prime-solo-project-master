@@ -1,7 +1,10 @@
+/**
+* You'll need to use environment variables in order to deploy your
+* pg-pool configuration to Heroku.
+* It will look something like this:
+**/
 /* the only line you likely need to change is
-
  database: 'prime_app',
-
  change `prime_app` to the name of your database, and you should be all set!
 */
 
@@ -38,6 +41,11 @@ if (process.env.DATABASE_URL) {
 
 // this creates the pool that will be shared by all other modules
 const pool = new pg.Pool(config);
+
+// the pool will log when it connects to the database
+pool.on('connect', () => {
+  console.log('Postgesql connected');
+});
 
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
